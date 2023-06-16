@@ -1,0 +1,106 @@
+@page "/"
+@using SnnbFailover.Server.Models.SNNBStatus;
+
+<PageTitle>Monitor</PageTitle>
+
+<RadzenRow RowGap="100" Visible="true">
+    <RadzenText Text="Auckland" TextStyle="TextStyle.DisplayH5" Style="padding-top: 20px"></RadzenText>
+</RadzenRow>
+
+<RadzenRow>
+    <RadzenDataGrid Data="@site1" AllowSorting="true" TItem="Site1Status" Style="background-color:darkslategray"
+                    CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender">
+        <Columns>
+            <RadzenDataGridColumn TItem="Site1Status" Property="DateStamp" Title="DateStamp" FormatString="{0:ddMMM HH:mm:ss}" MinWidth="100px">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site1Status" Property="Source" Title="Source">
+            </RadzenDataGridColumn>
+
+            <RadzenDataGridColumn TItem="Site1Status" Property="CommOk" Title="Comm ok">
+                <Template Context="data">
+                    @if (data.CommOk == true)
+                    {
+                        <span style='color: var(--rz-text-contrast-color)'>@data.CommOk</span>
+                    }
+                    else
+                    {
+                        <span style='color: var(--rz-text-color)'>@data.CommOk</span>
+                    }
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site1Status" Property="RfOutEnable" Title="RfOut Enable">
+                <Template Context="data">
+                    @if (data.RfOutEnable == true)
+                    {
+                        <span style='color: var(--rz-text-contrast-color)'>@data.RfOutEnable</span>
+                    }
+                    else
+                    {
+                        <span style='color: var(--rz-text-color)'>@data.RfOutEnable</span>
+                    }
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site1Status" Property="Measureddelay" Title="Measured delay" FormatString="{0:n3} mSec">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site1Status" Property="RFoutNetIn" Title="RFout NetIn" FormatString="{0:n2} Mb/s">
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+
+
+</RadzenRow>
+
+<RadzenRow>
+    <RadzenText Text="Warkworth" TextStyle="TextStyle.DisplayH5" Style="padding-top: 20px"></RadzenText>
+
+</RadzenRow>
+<RadzenRow>
+    <RadzenDataGrid  Data="@site2" AllowSorting="true" TItem="Site2Status" Style="background-color:darkslategray"
+                    CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" EmptyText="No records to display">
+        <Columns>
+            <RadzenDataGridColumn TItem="Site2Status" Property="DateStamp" Title="DateStamp" FormatString="{0:ddMMM HH:mm:ss}" MinWidth="100px">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site2Status" Property="Source" Title="Source">
+                @*                    <Template Context="data">
+                <a href="@($"http://{data.ComAddress}")">yyyyyyyy</a>
+                </Template>  *@
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site2Status" Property="CommOk" Title="Comm ok">
+                <Template Context="data">
+                    @if (data.CommOk == true)
+                    {
+                        <span style='color: var(--rz-text-contrast-color)'>@data.CommOk</span>
+                    }
+                    else
+                    {
+                        <span style='color: var(--rz-text-color)'>@data.CommOk</span>
+                    }
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site2Status" Property="RfOutEnable" Title="RfOut Enable">
+                <Template Context="data">
+                    @if (data.RfOutEnable == true)
+                    {
+                        <span style='color: var(--rz-text-contrast-color)'>@data.RfOutEnable</span>
+                    }
+                    else
+                    {
+                        <span style='color: var(--rz-text-color)'>@data.RfOutEnable</span>
+                    }
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site2Status" Property="Measureddelay" Title="Measured delay" FormatString="{0:n3} mSec">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Site2Status" Property="RFoutNetIn" Title="RFout NetIn" FormatString="{0:n2} Mb/s">
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+</RadzenRow>
+<RadzenText Text="Active issues" TextStyle="TextStyle.DisplayH5" Style="padding-top: 20px; height: 54px"></RadzenText>
+<RadzenDataGrid TItem="Pages.ActiveIssue" Data="@active" EmptyText="Everything is awesome.">
+    <Columns>
+        <RadzenDataGridColumn TItem="Pages.ActiveIssue" Title="Site" Property="Site"></RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Pages.ActiveIssue" Title="Unit" Property="Unit"></RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Pages.ActiveIssue" Title="Message" Property="Message"></RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>

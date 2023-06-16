@@ -1,0 +1,38 @@
+@page "/failover"
+
+<PageTitle>Failover</PageTitle>
+
+
+
+<RadzenCard Style="width: 727px; height: 249px; padding: 16px; border: 2px solid #e0e0e0">
+    <RadzenRow Style="width: 678px; height: 58px" class="row">
+        <RadzenText Text="Failover" TextStyle="Radzen.Blazor.TextStyle.DisplayH4" Style="height: 50px" />
+    </RadzenRow>
+
+    <RadzenCard Style="width: 693px; height: 85px; padding: 16px; border-radius: 8px; border: 1px ridge #000000">
+        <RadzenRow Style="width: 678px; height: 58px" class="row">
+
+            <RadzenColumn class="column" Style="width: 155px; padding: 12px">
+                <RadzenText Text="Auto switch" TextAlign="Radzen.TextAlign.Right" Style="padding: 8px; width: 147px; height: 40px" />
+            </RadzenColumn>
+            <RadzenColumn class="column" Style="width: 102px; padding: 12px">
+                <RadzenSwitch Style="padding: 8px; width: 39px; height: 26px; margin: 8px"></RadzenSwitch>
+            </RadzenColumn>
+            <RadzenColumn class="column" Style="width: 155px; padding: 12px">
+                <RadzenText Text="Alt RFout  control" TextAlign="Radzen.TextAlign.Right" Style="padding: 8px; width: 147px; height: 40px" />
+            </RadzenColumn>
+            <RadzenColumn class="column" Style="width: 89px; padding: 12px">
+                <RadzenSwitch Style="padding: 8px; width: 39px; height: 26px; margin: 8px"></RadzenSwitch>
+            </RadzenColumn>
+        </RadzenRow>
+    </RadzenCard>
+
+    <RadzenRow Style="width: 455px; height: 58px; float: right; margin: 16px" class="row">
+        <RadzenColumn class="column" Style="width: 226px; padding: 12px">
+            <RadzenButton Style="width: 198px" ButtonStyle="Radzen.ButtonStyle.Dark" Text="Switch to A Side"></RadzenButton>
+        </RadzenColumn>
+        <RadzenColumn class="column" Style="width: 229px; padding: 12px">
+            <RadzenButton Style="width: 198px" ButtonStyle="Radzen.ButtonStyle.Dark" Text="Switch to B Side"></RadzenButton>
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenCard>

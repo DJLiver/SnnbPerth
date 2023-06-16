@@ -1,0 +1,21 @@
+@page "/events"
+
+<PageTitle>Events</PageTitle>
+
+<RadzenRow class="row">
+    <RadzenColumn class="column"  Style="width: 400px; height: 66px">
+        <RadzenText Text="Events" TextStyle="TextStyle.H3" TagName="TagName.H1" />
+    </RadzenColumn>
+    <RadzenColumn class="column"  Style="width: 400px; height: 66px">
+         <RadzenButton Style="width: 148px; position: sticky; float: right; vertical-align: bottom; margin-top: 20px" Text="Refresh" Click="@RefreshClick"></RadzenButton>
+    </RadzenColumn>
+
+</RadzenRow>
+<RadzenDataGrid @ref="grid0" TItem="Server.Models.Failover.EventLog" Data="@eventLogs" LoadData="@DataGrid0LoadData">
+    <Columns>
+        <RadzenDataGridColumn TItem="Server.Models.Failover.EventLog" Property="DateStamp" Title="Date stamp" Width="200px"></RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Server.Models.Failover.EventLog" Property="System" Title="System" Width="100px"></RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Server.Models.Failover.EventLog" Property="Unit" Title="Unit" Width="100px"></RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="Server.Models.Failover.EventLog" Property="Message" Title="Message" Width="500"></RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
