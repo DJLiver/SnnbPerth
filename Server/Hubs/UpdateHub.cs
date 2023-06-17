@@ -12,6 +12,7 @@ public class UpdateHub : Hub
     public override Task OnConnectedAsync()
     {
         return base.OnConnectedAsync();
+        //A comment for GIT
     }
 
     public void SendMessage(SNNBStatus sNNBStatus)
