@@ -56,11 +56,9 @@ public class TimerService : BackgroundService, IDisposable
     private async Task Collect(CancellationToken stoppingToken)
     {
         // SnnbContext c = new SnnbContext();
-        SNNBStatus sNNBStatus = new SNNBStatus();
+        SNNBStatus sNNBStatus = new SNNBStatus() { DateTime = DateTime.Now };
 
         SNNBStatusContext c = new SNNBStatusContext();
-
-        sNNBStatus.DateTime = DateTime.Now;
         try
         {
             //sNNBStatus.Site1Status = (await SNNBStatusService.GetSite1Statuses()).ToList();
