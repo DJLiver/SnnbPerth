@@ -1,4 +1,4 @@
-﻿namespace SnnbFailover.Server.Models.SNNBStatus;
+﻿ namespace SnnbFailover.Server.Models.SNNBStatus;
 
 public class SNNBStatus
 {

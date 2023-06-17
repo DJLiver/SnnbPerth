@@ -47,7 +47,7 @@ public class TimerService : BackgroundService, IDisposable
         }
         while (await _periodicTimer.WaitForNextTickAsync(stoppingToken) && !stoppingToken.IsCancellationRequested)
         {
-            await Collect(stoppingToken);
+            //await Collect(stoppingToken);
             _logger.LogInformation(new EventId(15), "Collection completed");
         }
 
