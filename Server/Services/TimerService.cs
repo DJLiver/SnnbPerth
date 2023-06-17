@@ -1,13 +1,21 @@
 ﻿
 
+using System.Text.Json;
+using System.Threading;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+
+using Newtonsoft.Json;
+
+using RestSharp;
 
 using SnnbFailover.Server.Data;
 using SnnbFailover.Server.Hubs;
 using SnnbFailover.Server.Models.SNNBStatus;
 using SnnbFailover.Shared.Models;
+using SnnbFailover.Shared.Rest;
 
 namespace SnnbFailover.Server.Services;
 
@@ -48,9 +56,73 @@ public class TimerService : BackgroundService, IDisposable
         while (await _periodicTimer.WaitForNextTickAsync(stoppingToken) && !stoppingToken.IsCancellationRequested)
         {
             //await Collect(stoppingToken);
+            GetRestData();
             _logger.LogInformation(new EventId(15), "Collection completed");
         }
 
+    }
+
+    private void GetRestData()
+    {
+        SnnbContext sc = new SnnbContext();
+        List<Target> t = sc.Targets.ToList();
+        var TaskList = new List<Task>();
+
+        foreach (Target target in t) 
+        { 
+            if(target.Enabled)
+            {
+                TaskList.Add(GetSNData(target));
+            }
+        }
+        Task.WaitAll(TaskList.ToArray());   
+    }
+
+    private async Task GetSNData(Target target)
+    {
+        RestClient client;
+        RestResponse response = null!;
+
+        try
+        {
+            client = new RestClient(target.IpAddress);
+            response = await client.ExecuteGetAsync(new RestRequest(target.Query) { Timeout = 500 });
+            //SnInterface sNWBRest = new SnInterface();
+            if (response is not null)
+            {
+                //sNWBRest.specNetGroup = target;
+
+                //sNWBRest.Error = !response.IsSuccessful;
+                //sNWBRest.ErrorText = response.ResponseStatus.ToString() ?? "No description";
+
+                if (response.IsSuccessful)
+                {
+                    if (response.Content is not null)
+                    {
+                        try
+                        {
+                            SNModule restRoot = JsonConvert.DeserializeObject<SNModule>(response.Content);
+                        }
+                        catch (Exception ex)
+                        {
+                            //sNWBRest.Error = true;
+                            //sNWBRest.ErrorText = ex.Message;
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+                //target.ProcessRestData(sNWBRest);
+
+            }
+
+        }
+        catch (Exception ex)
+        {
+           // ExLog.Log(ex);
+        }
     }
 
     private async Task Collect(CancellationToken stoppingToken)
