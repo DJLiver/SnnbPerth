@@ -61,9 +61,6 @@ public class TimerService : BackgroundService, IDisposable
         SNNBStatusContext c = new SNNBStatusContext();
         try
         {
-            //sNNBStatus.Site1Status = (await SNNBStatusService.GetSite1Statuses()).ToList();
-
-            
             sNNBStatus.Site1Status = c.Site1Statuses.ToList();
             sNNBStatus.Site2Status = c.Site2Statuses.ToList();
             sNNBStatus.SiteAttrLimit = c.SiteAttrLimits.ToList();
