@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Remove="Rest\raw.cs" />
+    <Compile Remove="Rest\SNModule.cs" />
     <Compile Remove="ServiceResponse.cs" />
   </ItemGroup>
 
