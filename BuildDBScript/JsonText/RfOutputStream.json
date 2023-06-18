@@ -1,0 +1,202 @@
+{
+  "name": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "netToRf0"
+  },
+  "currentBuffer": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 9216000.0
+  },
+  "dataSampleWidth": {
+    "factory": "Attribute",
+    "factoryType": "uint8",
+    "value": 10
+  },
+  "dataSource": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "Network"
+  },
+  "desiredBuffer": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 10000000
+  },
+  "desiredDelay": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 10000000
+  },
+  "destinationPort": {
+    "factory": "Attribute",
+    "factoryType": "uint16",
+    "value": 50000
+  },
+  "droppedPackets": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "frequencyOffset": {
+    "factory": "Attribute",
+    "factoryType": "int64",
+    "value": 0
+  },
+  "gapCount": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 1
+  },
+  "measuredDelay": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 10000000
+  },
+  "measuredNetworkRate": {
+    "factory": "Attribute",
+    "factoryType": "uint64",
+    "value": 118273680
+  },
+  "measuredPacketRate": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 9765
+  },
+  "netStreamGain": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 10.0
+  },
+  "networkDelay": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 722559.9999999993
+  },
+  "packetOverhead": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 4.887714663143994
+  },
+  "pfecDecoderStatus": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "bypass"
+  },
+  "pfecMissingSets": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "pfecRepairedPackets": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "pfecTotalPackets": {
+    "factory": "Attribute",
+    "factoryType": "uint64",
+    "value": 0
+  },
+  "pfecUnrepairablePackets": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "preserveLatency": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  "preserveLatencyLatePackets": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "preserveLatencyMaxBurstLoss": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 1000
+  },
+  "preserveLatencyMissingPackets": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "preserveLatencyOutOfOrderPackets": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "preserveLatencyReleaseMargin": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 1000
+  },
+  "releaseMode": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "Programmed Delay"
+  },
+  "sourceHost": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "192.168.60.2"
+  },
+  "sourcePort": {
+    "factory": "Attribute",
+    "factoryType": "uint16",
+    "value": 50000
+  },
+  "streamBandwidth": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 5000000.0
+  },
+  "streamEnable": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": true
+  },
+  "streamId": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "streamSampleRate": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 5625000.0
+  },
+  "underflowCount": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 139
+  },
+  "upstreamIrigLocked": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  "upstreamOnePpsLocked": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": true
+  },
+  "upstreamPathGain": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 10.0
+  },
+  "upstreamTenMhzLocked": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": true
+  },
+  "useLocalReference": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": true
+  }
+}

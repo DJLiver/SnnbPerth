@@ -1,0 +1,97 @@
+{
+  "name": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "rfToNet0"
+  },
+  "bitRate": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 946250474
+  },
+  "dataSampleWidth": {
+    "factory": "Attribute",
+    "factoryType": "uint8",
+    "value": 9
+  },
+  "destinationHost": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "192.168.60.2"
+  },
+  "destinationPort": {
+    "factory": "Attribute",
+    "factoryType": "uint16",
+    "value": 50000
+  },
+  "frequencyOffset": {
+    "factory": "Attribute",
+    "factoryType": "int64",
+    "value": 0
+  },
+  "maximumPacketSize": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 1500
+  },
+  "measuredNetworkRate": {
+    "factory": "Attribute",
+    "factoryType": "uint64",
+    "value": 946250000
+  },
+  "measuredPacketRate": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 78125
+  },
+  "minimumProcessingDelay": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 24799.993600003203
+  },
+  "packetOverhead": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 4.887714663143994
+  },
+  "pfecEnable": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  "routeSearch": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "Found"
+  },
+  "sourcePort": {
+    "factory": "Attribute",
+    "factoryType": "uint16",
+    "value": 50000
+  },
+  "streamBandwidth": {
+    "factory": "Attribute",
+    "factoryType": "uint64",
+    "value": 45000000
+  },
+  "streamEnable": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": true
+  },
+  "streamGain": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 0.0
+  },
+  "streamId": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 0
+  },
+  "streamSampleRate": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 50000025
+  }
+}
