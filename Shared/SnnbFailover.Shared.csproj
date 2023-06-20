@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Rest\raw.cs" />
-    <Compile Remove="Rest\SNModule.cs" />
-    <Compile Remove="ServiceResponse.cs" />
+    <Compile Remove="ModelsOld\**" />
+    <EmbeddedResource Remove="ModelsOld\**" />
+    <None Remove="ModelsOld\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <Compile Remove="Rest\raw.cs" />
+    <Compile Remove="Rest\SNModule.cs" />
+    <Compile Remove="ServiceResponse.cs" />
   </ItemGroup>
 
   <ItemGroup>

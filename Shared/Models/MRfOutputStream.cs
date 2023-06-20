@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SnnbFailover.Shared.newModels;
+namespace SnnbFailover.Shared.Models;
 
 public partial class MRfOutputStream
 {

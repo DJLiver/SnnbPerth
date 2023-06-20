@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SnnbFailover.Shared.newModels;
+namespace SnnbFailover.Shared.Models;
 
-public partial class MRoute
+public partial class MDataNic
 {
     public int Id { get; set; }
 
     public int UnitId { get; set; }
 
-    public string? Destination { get; set; }
+    public string? Addresses { get; set; }
 
-    public string? Gateway { get; set; }
+    public string? Address { get; set; }
 
     public int? Netmask { get; set; }
 }
