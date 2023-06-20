@@ -64,34 +64,33 @@ public class TimerService : BackgroundService, IDisposable
 
     private void GetRestData()
     {
-        SnnbContext sc = new SnnbContext();
-        List<Target> t = sc.Targets.ToList();
+        SnnbFoContext sc = new SnnbFoContext();
+        List<SpecNetGroup> t = sc.SpecNetGroups.ToList();
         var TaskList = new List<Task>();
 
-        foreach (Target target in t) 
+        foreach (SpecNetGroup specNetGroup in t) 
         { 
-            if(target.Enabled)
+            if(specNetGroup.Enabled)
             {
-                TaskList.Add(GetSNData(target));
+                TaskList.Add(GetSNData(specNetGroup));
             }
         }
         Task.WaitAll(TaskList.ToArray());   
     }
 
-    private async Task GetSNData(Target target)
+    private async Task GetSNData(SpecNetGroup specNetGroup)
     {
         RestClient client;
         RestResponse response = null!;
 
         try
         {
-            client = new RestClient(target.IpAddress);
-            response = await client.ExecuteGetAsync(new RestRequest(target.Query) { Timeout = 500 });
+            client = new RestClient(specNetGroup.PreIpAddress + specNetGroup.IpAddress);
+            response = await client.ExecuteGetAsync(new RestRequest(specNetGroup.RestQuery) { Timeout = 500 });
             //SnInterface sNWBRest = new SnInterface();
             if (response is not null)
             {
                 //sNWBRest.specNetGroup = target;
-
                 //sNWBRest.Error = !response.IsSuccessful;
                 //sNWBRest.ErrorText = response.ResponseStatus.ToString() ?? "No description";
 
@@ -127,7 +126,7 @@ public class TimerService : BackgroundService, IDisposable
 
     private async Task Collect(CancellationToken stoppingToken)
     {
-        // SnnbContext c = new SnnbContext();
+        // SnnbFoContext c = new SnnbFoContext();
         SNNBStatus sNNBStatus = new SNNBStatus() { DateTime = DateTime.Now };
 
         SNNBStatusContext c = new SNNBStatusContext();
@@ -162,20 +161,20 @@ public class TimerService : BackgroundService, IDisposable
 
     }
 
-    private int sort_1(MetricSite1Summary x, MetricSite1Summary y)
-    {
-        if (x.ExtDisplayOrder > y.ExtDisplayOrder)
-        {
-            return 1;
-        }
-        return -1;
-    }
-    private int sort_2(MetricSite2Summary x, MetricSite2Summary y)
-    {
-        if (x.ExtDisplayOrder > y.ExtDisplayOrder)
-        {
-            return 1;
-        }
-        return -1;
-    }
+    //private int sort_1(MetricSite1Summary x, MetricSite1Summary y)
+    //{
+    //    if (x.ExtDisplayOrder > y.ExtDisplayOrder)
+    //    {
+    //        return 1;
+    //    }
+    //    return -1;
+    //}
+    //private int sort_2(MetricSite2Summary x, MetricSite2Summary y)
+    //{
+    //    if (x.ExtDisplayOrder > y.ExtDisplayOrder)
+    //    {
+    //        return 1;
+    //    }
+    //    return -1;
+    //}
 }

@@ -37,7 +37,7 @@ public partial class SnnbFoContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SNNB-PC02;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
+        => optionsBuilder.UseSqlServer("Server=HOME-DAVID;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -134,10 +134,12 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.InputRfPort1AdcSaturationPercent).HasColumnName("inputRfPort1AdcSaturationPercent");
             entity.Property(e => e.InputRfPort1MinimumGain).HasColumnName("inputRfPort1MinimumGain");
             entity.Property(e => e.InputRfPort1Power).HasColumnName("inputRfPort1Power");
+            entity.Property(e => e.InputRfPort1Spectrum).HasColumnName("inputRfPort1Spectrum");
             entity.Property(e => e.InputRfPort2AdcSaturation).HasColumnName("inputRfPort2AdcSaturation");
             entity.Property(e => e.InputRfPort2AdcSaturationPercent).HasColumnName("inputRfPort2AdcSaturationPercent");
             entity.Property(e => e.InputRfPort2MinimumGain).HasColumnName("inputRfPort2MinimumGain");
             entity.Property(e => e.InputRfPort2Power).HasColumnName("inputRfPort2Power");
+            entity.Property(e => e.InputRfPort2Spectrum).HasColumnName("inputRfPort2Spectrum");
             entity.Property(e => e.InputRfPortSelect)
                 .HasMaxLength(128)
                 .HasColumnName("inputRfPortSelect");
@@ -145,6 +147,7 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.InputRfSampleRate)
                 .HasColumnType("numeric(10, 0)")
                 .HasColumnName("inputRfSampleRate");
+            entity.Property(e => e.InputRfSpectrum).HasColumnName("inputRfSpectrum");
             entity.Property(e => e.InvertRfOutputSpectrum).HasColumnName("invertRfOutputSpectrum");
             entity.Property(e => e.IrigDcLocked).HasColumnName("irigDcLocked");
             entity.Property(e => e.IrigLocked).HasColumnName("irigLocked");
@@ -173,13 +176,16 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.OutputRfPort1DacSaturation).HasColumnName("outputRfPort1DacSaturation");
             entity.Property(e => e.OutputRfPort1DacSaturationPercent).HasColumnName("outputRfPort1DacSaturationPercent");
             entity.Property(e => e.OutputRfPort1Power).HasColumnName("outputRfPort1Power");
+            entity.Property(e => e.OutputRfPort1Spectrum).HasColumnName("outputRfPort1Spectrum");
             entity.Property(e => e.OutputRfPort2DacSaturation).HasColumnName("outputRfPort2DacSaturation");
             entity.Property(e => e.OutputRfPort2DacSaturationPercent).HasColumnName("outputRfPort2DacSaturationPercent");
             entity.Property(e => e.OutputRfPort2Power).HasColumnName("outputRfPort2Power");
+            entity.Property(e => e.OutputRfPort2Spectrum).HasColumnName("outputRfPort2Spectrum");
             entity.Property(e => e.OutputRfPortSelect)
                 .HasMaxLength(128)
                 .HasColumnName("outputRfPortSelect");
             entity.Property(e => e.OutputRfPower).HasColumnName("outputRfPower");
+            entity.Property(e => e.OutputRfSpectrum).HasColumnName("outputRfSpectrum");
             entity.Property(e => e.OverrideOutputFrequency).HasColumnName("overrideOutputFrequency");
             entity.Property(e => e.OverrideOutputFrequencyEnable).HasColumnName("overrideOutputFrequencyEnable");
             entity.Property(e => e.PollInterval)
@@ -425,6 +431,8 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.GroupName).HasMaxLength(128);
             entity.Property(e => e.IpAddress).HasMaxLength(128);
             entity.Property(e => e.Location).HasMaxLength(128);
+            entity.Property(e => e.PreIpAddress).HasMaxLength(128);
+            entity.Property(e => e.RestQuery).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);
             entity.Property(e => e.UnitName).HasMaxLength(128);
         });

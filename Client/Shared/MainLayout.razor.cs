@@ -56,7 +56,7 @@ namespace SnnbFailover.Client.Shared
 
         #region Hub
 
-        static public List<MetricSite1Summary> data { get; set; } = null;
+        //static public List<MetricSite1Summary> data { get; set; } = null;
         private ButtonStyle buttonStyle = ButtonStyle.Success;
         private string buttonText = "Good";
 

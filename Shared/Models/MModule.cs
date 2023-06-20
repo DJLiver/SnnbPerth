@@ -49,6 +49,8 @@ public partial class MModule
 
     public float? InputRfPort1Power { get; set; }
 
+    public string? InputRfPort1Spectrum { get; set; }
+
     public float? InputRfPort2AdcSaturation { get; set; }
 
     public float? InputRfPort2AdcSaturationPercent { get; set; }
@@ -57,11 +59,15 @@ public partial class MModule
 
     public float? InputRfPort2Power { get; set; }
 
+    public string? InputRfPort2Spectrum { get; set; }
+
     public string? InputRfPortSelect { get; set; }
 
     public float? InputRfPower { get; set; }
 
     public decimal? InputRfSampleRate { get; set; }
+
+    public string? InputRfSpectrum { get; set; }
 
     public bool? InvertRfOutputSpectrum { get; set; }
 
@@ -99,15 +105,21 @@ public partial class MModule
 
     public float? OutputRfPort1Power { get; set; }
 
+    public string? OutputRfPort1Spectrum { get; set; }
+
     public float? OutputRfPort2DacSaturation { get; set; }
 
     public float? OutputRfPort2DacSaturationPercent { get; set; }
 
     public float? OutputRfPort2Power { get; set; }
 
+    public string? OutputRfPort2Spectrum { get; set; }
+
     public string? OutputRfPortSelect { get; set; }
 
     public float? OutputRfPower { get; set; }
+
+    public string? OutputRfSpectrum { get; set; }
 
     public float? OverrideOutputFrequency { get; set; }
 
