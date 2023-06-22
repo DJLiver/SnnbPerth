@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnnbFailover.Shared.Rest;
+namespace SnnbDB.Rest;
+
 #region RfInputStreams
 public class StructureRfInputStream
 {

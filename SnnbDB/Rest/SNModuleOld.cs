@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace SnnbFailover.Shared.Rest;
+namespace SnnbDB.Rest;
 
     #region REST base classes
     public class RestBool

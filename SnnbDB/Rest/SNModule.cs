@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnnbFailover.Shared.Rest;
+namespace SnnbDB.Rest;
 public class SNModule
 {
     public RestBool Active { get; set; }
