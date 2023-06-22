@@ -1,5 +1,4 @@
 ﻿using ExceptionLog.Models;
-using static Azure.Core.HttpHeader;
 
 using Common.Extensions;
 namespace ExceptionLog;

@@ -13,6 +13,10 @@ public class FactoryBase
     public string factory { get; set; }
     public string factoryType { get; set; }
 }
+//public class RestTime : FactoryBase
+//{
+//    public DateTime value { get; set; }
+//}
 
 public class RestBool : FactoryBase
 {

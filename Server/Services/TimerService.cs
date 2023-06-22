@@ -1,8 +1,5 @@
 ﻿
 
-using System.Text.Json;
-using System.Threading;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +9,12 @@ using Newtonsoft.Json;
 using RestSharp;
 
 using SnnbDB.Models;
+using SnnbDB.Rest;
 
 using SnnbFailover.Server.Data;
 using SnnbFailover.Server.Hubs;
 using SnnbFailover.Server.Models.SNNBStatus;
+
 
 namespace SnnbFailover.Server.Services;
 
@@ -100,7 +99,12 @@ public class TimerService : BackgroundService, IDisposable
                     {
                         try
                         {
-                            MModule restRoot = JsonConvert.DeserializeObject<MModule>(response.Content);
+                            //MModule restRoot = JsonConvert.DeserializeObject<MModule>(response.Content);
+                            //SNModule mydeserializedclass = JsonSerializer.Deserialize<SNModule>(response.Content);
+                             //SNModule restRoot = JsonSerializer.Deserialize<SNModule>(response.Content);
+                           // SNModule sNModule = JsonConvert.DeserializeObject<SNModule>(content);
+
+                            SNModule sNModule = JsonConvert.DeserializeObject<SNModule>(response.Content);
                         }
                         catch (Exception ex)
                         {
