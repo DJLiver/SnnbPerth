@@ -63,18 +63,18 @@ public class TimerService : BackgroundService, IDisposable
 
     private async Task GetRestData(CancellationToken stoppingToken)
     {
-        SnnbFoContext sc = new SnnbFoContext();
-        List<HSpecNetGroup> t = sc.HSpecNetGroups.ToList();
-        var TaskList = new List<Task>();
+        //SnnbFoContext sc = new SnnbFoContext();
+        //List<HSpecNetGroup> t = sc.HSpecNetGroups.ToList();
+        //var TaskList = new List<Task>();
 
-        foreach (HSpecNetGroup specNetGroup in t) 
-        { 
-            if(specNetGroup.Enabled)
-            {
-                TaskList.Add(GetSNData(specNetGroup));
-            }
-        }
-        Task.WaitAll(TaskList.ToArray());   
+        //foreach (HSpecNetGroup specNetGroup in t) 
+        //{ 
+        //    if(specNetGroup.Enabled)
+        //    {
+        //        TaskList.Add(GetSNData(specNetGroup));
+        //    }
+        //}
+        //Task.WaitAll(TaskList.ToArray());   
     }
 
     private async Task GetSNData(HSpecNetGroup specNetGroup)
@@ -104,7 +104,7 @@ public class TimerService : BackgroundService, IDisposable
                              //SNModule restRoot = JsonSerializer.Deserialize<SNModule>(response.Content);
                            // SNModule sNModule = JsonConvert.DeserializeObject<SNModule>(content);
 
-                            SNModule sNModule = JsonConvert.DeserializeObject<SNModule>(response.Content);
+                            RestMain sNModule = JsonConvert.DeserializeObject<RestMain>(response.Content);
                         }
                         catch (Exception ex)
                         {

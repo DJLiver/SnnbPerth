@@ -4,8 +4,6 @@ using Common.Extensions;
 namespace ExceptionLog;
 public static class ExLog
 {
-
-
     public static void Log(Exception ex, 
         [System.Runtime.CompilerServices.CallerFilePathAttribute] string filePath = "",
         [System.Runtime.CompilerServices.CallerMemberName] string memberName = "",

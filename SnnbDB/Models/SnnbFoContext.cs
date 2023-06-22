@@ -15,8 +15,6 @@ public partial class SnnbFoContext : DbContext
     {
     }
 
-    public virtual DbSet<HSpecNetGroup> HSpecNetGroups { get; set; }
-
     public virtual DbSet<MControlNic> MControlNics { get; set; }
 
     public virtual DbSet<MDataNic> MDataNics { get; set; }
@@ -35,31 +33,12 @@ public partial class SnnbFoContext : DbContext
 
     public virtual DbSet<MSpectrum> MSpectrums { get; set; }
 
-    public virtual DbSet<View1> View1s { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SNNB-PC02;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
+        => optionsBuilder.UseSqlServer("Server=HOME-DAVID;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<HSpecNetGroup>(entity =>
-        {
-            entity.ToTable("H_SpecNetGroups");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ChassisName).HasMaxLength(128);
-            entity.Property(e => e.Direction).HasMaxLength(128);
-            entity.Property(e => e.GroupId).HasColumnName("GroupID");
-            entity.Property(e => e.GroupName).HasMaxLength(128);
-            entity.Property(e => e.IpAddress).HasMaxLength(128);
-            entity.Property(e => e.Location).HasMaxLength(128);
-            entity.Property(e => e.PreIpAddress).HasMaxLength(128);
-            entity.Property(e => e.RestQuery).HasMaxLength(128);
-            entity.Property(e => e.Site).HasMaxLength(128);
-            entity.Property(e => e.UnitName).HasMaxLength(128);
-        });
-
         modelBuilder.Entity<MControlNic>(entity =>
         {
             entity
@@ -119,11 +98,14 @@ public partial class SnnbFoContext : DbContext
                 .HasMaxLength(128)
                 .HasColumnName("compositeStatus");
             entity.Property(e => e.CompositeStatusMsg)
-                .HasMaxLength(128)
+                .HasMaxLength(512)
                 .HasColumnName("compositeStatusMsg");
             entity.Property(e => e.ContextPacketState)
                 .HasMaxLength(128)
                 .HasColumnName("contextPacketState");
+            entity.Property(e => e.CurrentGain)
+                .HasColumnType("numeric(10, 0)")
+                .HasColumnName("currentGain");
             entity.Property(e => e.DiscardedPackets)
                 .HasColumnType("numeric(10, 0)")
                 .HasColumnName("discardedPackets");
@@ -141,7 +123,7 @@ public partial class SnnbFoContext : DbContext
                 .HasMaxLength(128)
                 .HasColumnName("healthStatus");
             entity.Property(e => e.HealthStatusMsg)
-                .HasMaxLength(128)
+                .HasMaxLength(512)
                 .HasColumnName("healthStatusMsg");
             entity.Property(e => e.InputRfAdcSaturation).HasColumnName("inputRfAdcSaturation");
             entity.Property(e => e.InputRfAdcSaturationPercent).HasColumnName("inputRfAdcSaturationPercent");
@@ -211,7 +193,9 @@ public partial class SnnbFoContext : DbContext
                 .HasColumnType("numeric(10, 0)")
                 .HasColumnName("posixSeconds");
             entity.Property(e => e.RebootRequired).HasColumnName("rebootRequired");
-            entity.Property(e => e.ReplyWaitTime).HasColumnName("replyWaitTime");
+            entity.Property(e => e.ReplyWaitTime)
+                .HasMaxLength(32)
+                .HasColumnName("replyWaitTime");
             entity.Property(e => e.RequiredReadPrivilege)
                 .HasMaxLength(128)
                 .HasColumnName("requiredReadPrivilege");
@@ -433,15 +417,6 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.InputRfPort1Spectrum).HasColumnName("inputRfPort1Spectrum");
             entity.Property(e => e.SpectrumType).HasMaxLength(128);
-        });
-
-        modelBuilder.Entity<View1>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("View_1");
-
-            entity.Property(e => e.InputRfPort1Spectrum).HasColumnName("inputRfPort1Spectrum");
         });
 
         OnModelCreatingPartial(modelBuilder);

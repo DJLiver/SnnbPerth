@@ -12,9 +12,10 @@ CREATE TABLE [dbo].[M_DataNic]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[UnitId] [int] NOT NULL,
-    [addresses] [nvarchar](128) NULL,
-    [address] [nvarchar](128) NULL,
-    [netmask] [int] NULL,
+
+	[addresses] [nvarchar](128) NOT NULL,
+	[address] [nvarchar](128) NOT NULL,
+	[netmask] [int] NOT NULL,
 
  CONSTRAINT [PK_M_DataNic]  PRIMARY KEY NONCLUSTERED HASH 
 (

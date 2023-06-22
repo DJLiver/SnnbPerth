@@ -16,7 +16,7 @@ using (var sr = new StreamReader("sn.json"))
 
    // Rootobject sNModule = JsonConvert.DeserializeObject<Rootobject>(s);
 
-    SNModule sNModule = JsonConvert.DeserializeObject<SNModule>(s);
+    RestMain sNModule = JsonConvert.DeserializeObject<RestMain>(s);
 
 
 }

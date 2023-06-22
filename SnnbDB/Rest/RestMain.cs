@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SnnbDB.Rest;
-public class SNModule
+public class RestMain
 {
-    public RestBool Active { get; set; }
-    public RestString Address { get; set; }
+    public RestBool active { get; set; }
+    public RestString address { get; set; }
     //Array
-    public AvailableStreams AvailableStreams { get; set; }
-    public RestString CompositeStatus { get; set; }
-    public RestString CompositeStatusMsg { get; set; }
-    public RestString ContextPacketState { get; set; }
+    public AvailableStreams availableStreams { get; set; }
+    public RestString compositeStatus { get; set; }
+    public RestString compositeStatusMsg { get; set; }
+    public RestString contextPacketState { get; set; }
     public Nic controlNic { get; set; }
     public RestUInt32 currentGain { get; set; }
     public Nic dataNic { get; set; }
@@ -77,24 +77,24 @@ public class SNModule
     public RestUInt32 posixNanoseconds { get; set; }
     public RestUInt32 posixSeconds { get; set; }
     public RestBool rebootRequired { get; set; }
-    public RestString ReplyWaitTime { get; set; }//check
-    public RestString RequiredReadPrivilege { get; set; }
-    public RestString RequiredWritePrivilege { get; set; }
-    public RfInputStream RfInputStream { get; set; }
-    public RestBool RfOutputEnable { get; set; }
-    public RestString RfOutputSource { get; set; }
-    public RfOutputStream RfOutputStream { get; set; }
-    public Routes Routes { get; set; }
-    public RestString SecuritySource { get; set; }
-    public RestString SerialNumber { get; set; }
-    public RestString ShortDescription { get; set; }
-    public RestBool Simulate { get; set; }
-    public RestBool SquelchEnabled { get; set; }
+    public RestString replyWaitTime { get; set; }//check
+    public RestString requiredReadPrivilege { get; set; }
+    public RestString requiredWritePrivilege { get; set; }
+    public RfInputStream rfInputStream { get; set; }
+    public RestBool rfOutputEnable { get; set; }
+    public RestString rfOutputSource { get; set; }
+    public RfOutputStream rfOutputStream { get; set; }
+    public Routes routes { get; set; }
+    public RestString securitySource { get; set; }
+    public RestString serialNumber { get; set; }
+    public RestString shortDescription { get; set; }
+    public RestBool simulate { get; set; }
+    public RestBool squelchEnabled { get; set; }
 
-    public RestInt32 SystemTemperature { get; set; }
-    public RestString SystemTimeSource { get; set; }
-    public RestBool TenMhzLocked { get; set; }
-    public RestString Version { get; set; }
+    public RestInt32 systemTemperature { get; set; }
+    public RestString systemTimeSource { get; set; }
+    public RestBool tenMhzLocked { get; set; }
+    public RestString version { get; set; }
 }
 
 

@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[M_Dependencies]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[UnitId] [int] NOT NULL,
-    [dependant] [nvarchar](128) NULL,
+    [dependant] [nvarchar](128) NOT NULL,
 
  CONSTRAINT [PK_M_Dependencies]  PRIMARY KEY NONCLUSTERED HASH 
 (
