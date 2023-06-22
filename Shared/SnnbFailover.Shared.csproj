@@ -13,6 +13,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\MControlNic.cs" />
+    <Compile Remove="Models\MDataNic.cs" />
+    <Compile Remove="Models\MDependency.cs" />
+    <Compile Remove="Models\MModule.cs" />
+    <Compile Remove="Models\MMulticastGroupSubscription.cs" />
+    <Compile Remove="Models\MRfInputStream.cs" />
+    <Compile Remove="Models\MRfOutputStream.cs" />
+    <Compile Remove="Models\MRoute.cs" />
+    <Compile Remove="Models\MSpectrum.cs" />
+    <Compile Remove="Models\SnnbFoContext.cs" />
+    <Compile Remove="Models\SpecNetGroup.cs" />
     <Compile Remove="Rest\raw.cs" />
     <Compile Remove="Rest\SNModule.cs" />
     <Compile Remove="ServiceResponse.cs" />
@@ -33,5 +44,9 @@
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

@@ -11,11 +11,11 @@ using Newtonsoft.Json;
 
 using RestSharp;
 
+using SnnbDB.Models;
+
 using SnnbFailover.Server.Data;
 using SnnbFailover.Server.Hubs;
 using SnnbFailover.Server.Models.SNNBStatus;
-using SnnbFailover.Shared.Models;
-using SnnbFailover.Shared.Rest;
 
 namespace SnnbFailover.Server.Services;
 
@@ -41,7 +41,7 @@ public class TimerService : BackgroundService, IDisposable
 
     public override Task StartAsync(CancellationToken cancellationToken)
     {
-        _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(10000));
+        _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(5000));
 
         return base.StartAsync(cancellationToken);
     }
@@ -56,19 +56,19 @@ public class TimerService : BackgroundService, IDisposable
         while (await _periodicTimer.WaitForNextTickAsync(stoppingToken) && !stoppingToken.IsCancellationRequested)
         {
             //await Collect(stoppingToken);
-            GetRestData();
+            await GetRestData(stoppingToken);
             _logger.LogInformation(new EventId(15), "Collection completed");
         }
 
     }
 
-    private void GetRestData()
+    private async Task GetRestData(CancellationToken stoppingToken)
     {
         SnnbFoContext sc = new SnnbFoContext();
-        List<SpecNetGroup> t = sc.SpecNetGroups.ToList();
+        List<HSpecNetGroup> t = sc.HSpecNetGroups.ToList();
         var TaskList = new List<Task>();
 
-        foreach (SpecNetGroup specNetGroup in t) 
+        foreach (HSpecNetGroup specNetGroup in t) 
         { 
             if(specNetGroup.Enabled)
             {
@@ -78,7 +78,7 @@ public class TimerService : BackgroundService, IDisposable
         Task.WaitAll(TaskList.ToArray());   
     }
 
-    private async Task GetSNData(SpecNetGroup specNetGroup)
+    private async Task GetSNData(HSpecNetGroup specNetGroup)
     {
         RestClient client;
         RestResponse response = null!;
@@ -100,7 +100,7 @@ public class TimerService : BackgroundService, IDisposable
                     {
                         try
                         {
-                            SNModule restRoot = JsonConvert.DeserializeObject<SNModule>(response.Content);
+                            MModule restRoot = JsonConvert.DeserializeObject<MModule>(response.Content);
                         }
                         catch (Exception ex)
                         {
@@ -120,7 +120,7 @@ public class TimerService : BackgroundService, IDisposable
         }
         catch (Exception ex)
         {
-           // ExLog.Log(ex);
+            // ExLog.Log(ex);
         }
     }
 

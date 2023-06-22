@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SnnbFailover.Shared.newModels;
+namespace SnnbDB.Models;
 
-public partial class MDependency
+public partial class MMulticastGroupSubscription
 {
     public int Id { get; set; }
 

@@ -2,8 +2,8 @@
 
 
 :r C:\Projects\NarrowBand\SnnbFailover\BuildDBScript\SQLScripts\H_SpectralNetGroups.sql
-:r C:\Projects\NarrowBand\SnnbFailover\BuildDBScript\SQLScripts\M_ControlNIc.sql
-:r C:\Projects\NarrowBand\SnnbFailover\BuildDBScript\SQLScripts\M_DataNIc.sql
+:r C:\Projects\NarrowBand\SnnbFailover\BuildDBScript\SQLScripts\M_ControlNic.sql
+:r C:\Projects\NarrowBand\SnnbFailover\BuildDBScript\SQLScripts\M_DataNic.sql
 :r C:\Projects\NarrowBand\SnnbFailover\BuildDBScript\SQLScripts\M_Dependencies.sql
 :r C:\Projects\NarrowBand\SnnbFailover\BuildDBScript\SQLScripts\M_Modules.sql
 :r C:\Projects\NarrowBand\SnnbFailover\BuildDBScript\SQLScripts\M_MulticastGroupSubscriptions.sql

@@ -1,14 +1,14 @@
 ﻿USE [snnb_FO]
 GO
 
-/****** Object:  Table [dbo].[Modules]    Script Date: 06Nov2022 12:15:43 PM ******/
+/****** Object:  Table [dbo].[M_Modules]    Script Date: 06Nov2022 12:15:43 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[mModules]
+CREATE TABLE [dbo].[M_Modules]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[UnitId] [int] NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE [dbo].[mModules]
     [systemTimeSource] [nvarchar](128) NULL,
     [tenMhzLocked] [bit] NULL,
     [version] [nvarchar](128) NULL,
- CONSTRAINT [PK_mModules]  PRIMARY KEY NONCLUSTERED HASH 
+ CONSTRAINT [PK_M_Modules]  PRIMARY KEY NONCLUSTERED HASH 
 (
 	[id]
 )WITH ( BUCKET_COUNT = 256)

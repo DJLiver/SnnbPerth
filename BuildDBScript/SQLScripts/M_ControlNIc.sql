@@ -1,14 +1,14 @@
 ﻿USE [snnb_FO]
 GO
 
-/****** Object:  Table [dbo].[ControlNic]    Script Date: 06Nov2022 12:15:43 PM ******/
+/****** Object:  Table [dbo].[M_ControlNic]    Script Date: 06Nov2022 12:15:43 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[mControlNic]
+CREATE TABLE [dbo].[M_ControlNic]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[UnitId] [int] NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[mControlNic]
     [address] [nvarchar](128) NULL,
     [netmask] [int] NULL,
 
- CONSTRAINT [PK_mControlNic]  PRIMARY KEY NONCLUSTERED HASH 
+ CONSTRAINT [PK_M_ControlNic]  PRIMARY KEY NONCLUSTERED HASH 
 (
 	[id]
 )WITH ( BUCKET_COUNT = 256)

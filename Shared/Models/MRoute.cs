@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SnnbFailover.Shared.Models;
+namespace SnnbFailover.Shared.newModels;
 
 public partial class MRoute
 {

@@ -15,7 +15,7 @@ using Radzen.Blazor;
 
 using SnnbFailover.Client.Pages;
 using SnnbFailover.Server.Models.SNNBStatus;
-using SnnbFailover.Shared.Models;
+using SnnbDB.Models;
 
 namespace SnnbFailover.Client.Shared
 {

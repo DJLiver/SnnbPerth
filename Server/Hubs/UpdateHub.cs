@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR;
 using SnnbFailover.Server.Models.SNNBStatus;
-using SnnbFailover.Shared.Models;
 
 namespace SnnbFailover.Server.Hubs;
 

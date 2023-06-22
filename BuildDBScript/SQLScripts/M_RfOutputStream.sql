@@ -1,14 +1,14 @@
 ﻿USE [snnb_FO]
 GO
 
-/****** Object:  Table [dbo].[Modules]    Script Date: 06Nov2022 12:15:43 PM ******/
+/****** Object:  Table [dbo].[M_RfOutputStream]    Script Date: 06Nov2022 12:15:43 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[mRfOutputStream]
+CREATE TABLE [dbo].[M_RfOutputStream]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[UnitId] [int] NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE [dbo].[mRfOutputStream]
     [upstreamPathGain] [float] NULL,
     [upstreamTenMhzLocked] [bit] NULL,
     [useLocalReference] [bit] NULL,
- CONSTRAINT [PK_mRfOutputStream]  PRIMARY KEY NONCLUSTERED HASH 
+ CONSTRAINT [PK_M_RfOutputStream]  PRIMARY KEY NONCLUSTERED HASH 
 (
 	[id]
 )WITH ( BUCKET_COUNT = 256)
