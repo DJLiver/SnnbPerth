@@ -47,5 +47,6 @@ public class SnnbCommPack
     public void PopulateDB()
     {
         new MSpectralNetGroup().SaveRestToDB(this);
+        new MRfOutputStream().SaveRestToDB(this);
     }
 }
