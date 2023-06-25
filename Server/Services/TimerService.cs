@@ -91,9 +91,7 @@ public class TimerService : BackgroundService, IDisposable
             client = new RestClient(specNetGroup.PreIpAddress + specNetGroup.IpAddress);
             response = await client.ExecuteGetAsync(new RestRequest(specNetGroup.RestQuery) { Timeout = specNetGroup.Timeout });
 
-
             if (response is null) throw new Exception($"Response is NULL: {specNetGroup.UnitId} ");
-
 
             if (!response.IsSuccessful) throw new Exception($"Response is not successful: {specNetGroup.UnitId}");
 
@@ -102,14 +100,16 @@ public class TimerService : BackgroundService, IDisposable
             RestMain restMain = JsonConvert.DeserializeObject<RestMain>(response.Content);
             scp.RestMain = restMain;
 
-            scp.PopulateDB();
 
         }
         catch (Exception ex)
         {
             scp.Error = true;
             scp.ErrorText = ex.Message;
-            // ExLog.Log(ex);
+        }
+        finally
+        {
+            scp.PopulateDB();
         }
     }
 
