@@ -15,6 +15,10 @@ public partial class SnnbFoContext : DbContext
     {
     }
 
+    public virtual DbSet<HSpectralNetGroup> HSpectralNetGroups { get; set; }
+
+    public virtual DbSet<MAvailableStream> MAvailableStreams { get; set; }
+
     public virtual DbSet<MControlNic> MControlNics { get; set; }
 
     public virtual DbSet<MDataNic> MDataNics { get; set; }
@@ -31,6 +35,8 @@ public partial class SnnbFoContext : DbContext
 
     public virtual DbSet<MRoute> MRoutes { get; set; }
 
+    public virtual DbSet<MSpectralNetGroup> MSpectralNetGroups { get; set; }
+
     public virtual DbSet<MSpectrum> MSpectrums { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,6 +45,52 @@ public partial class SnnbFoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<HSpectralNetGroup>(entity =>
+        {
+            entity.ToTable("H_SpectralNetGroups");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ChassisName).HasMaxLength(128);
+            entity.Property(e => e.Direction).HasMaxLength(128);
+            entity.Property(e => e.GroupId).HasColumnName("GroupID");
+            entity.Property(e => e.GroupName).HasMaxLength(128);
+            entity.Property(e => e.IpAddress).HasMaxLength(128);
+            entity.Property(e => e.Location).HasMaxLength(128);
+            entity.Property(e => e.PreIpAddress).HasMaxLength(128);
+            entity.Property(e => e.RestQuery).HasMaxLength(128);
+            entity.Property(e => e.Site).HasMaxLength(128);
+            entity.Property(e => e.UnitName).HasMaxLength(128);
+        });
+
+        modelBuilder.Entity<MAvailableStream>(entity =>
+        {
+            entity
+                .ToTable("M_AvailableStreams")
+                .IsMemoryOptimized();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Bandwidth).HasColumnName("bandwidth");
+            entity.Property(e => e.CenterFrequency).HasColumnName("centerFrequency");
+            entity.Property(e => e.Gain).HasColumnName("gain");
+            entity.Property(e => e.IrigLocked).HasColumnName("irigLocked");
+            entity.Property(e => e.OnePpsPresent).HasColumnName("onePpsPresent");
+            entity.Property(e => e.PfecEnabled).HasColumnName("pfecEnabled");
+            entity.Property(e => e.SampleRate).HasColumnName("sampleRate");
+            entity.Property(e => e.SampleWidth)
+                .HasColumnType("numeric(5, 0)")
+                .HasColumnName("sampleWidth");
+            entity.Property(e => e.SourceIpAddress)
+                .HasMaxLength(128)
+                .HasColumnName("sourceIpAddress");
+            entity.Property(e => e.SourcePort)
+                .HasMaxLength(128)
+                .HasColumnName("sourcePort");
+            entity.Property(e => e.StreamId)
+                .HasColumnType("numeric(10, 0)")
+                .HasColumnName("streamId");
+            entity.Property(e => e.TenMhzLocked).HasColumnName("tenMhzLocked");
+        });
+
         modelBuilder.Entity<MControlNic>(entity =>
         {
             entity
@@ -406,6 +458,24 @@ public partial class SnnbFoContext : DbContext
                 .HasMaxLength(128)
                 .HasColumnName("gateway");
             entity.Property(e => e.Netmask).HasColumnName("netmask");
+        });
+
+        modelBuilder.Entity<MSpectralNetGroup>(entity =>
+        {
+            entity
+                .ToTable("M_SpectralNetGroups")
+                .IsMemoryOptimized();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ChassisName).HasMaxLength(128);
+            entity.Property(e => e.Direction).HasMaxLength(128);
+            entity.Property(e => e.ErrorText).HasMaxLength(512);
+            entity.Property(e => e.GroupId).HasColumnName("GroupID");
+            entity.Property(e => e.GroupName).HasMaxLength(128);
+            entity.Property(e => e.IpAddress).HasMaxLength(128);
+            entity.Property(e => e.Location).HasMaxLength(128);
+            entity.Property(e => e.Site).HasMaxLength(128);
+            entity.Property(e => e.UnitName).HasMaxLength(128);
         });
 
         modelBuilder.Entity<MSpectrum>(entity =>

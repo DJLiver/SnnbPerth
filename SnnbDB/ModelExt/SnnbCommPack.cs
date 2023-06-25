@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
 using SnnbDB.Models;
 using SnnbDB.Rest;
 
@@ -12,13 +14,13 @@ public class SnnbCommPack
 {
     public bool Error { get; set; } = false;
     public string ErrorText { get; set; } = string.Empty;
-    public HSpecNetGroup specNetGroup { get; set; }
-    public RestMain restRoot { get; set; } = null!;
+    public HSpectralNetGroup SpectralNetGroup { get; set; }
+    public RestMain RestMain { get; set; } = null!;
     public int UnitId
     {
         get
         {
-            return specNetGroup.UnitId;
+            return SpectralNetGroup.UnitId;
         }
     }
 
@@ -26,7 +28,7 @@ public class SnnbCommPack
     {
         using (SnnbFoContext context = new SnnbFoContext())
         {
-            //context.SnAvailableStreams.ExecuteDelete();
+            context.MRfInputStreams.ExecuteDelete();
             //context.SnContextFreeStreams.ExecuteDelete();
             //context.SnDataNics.ExecuteDelete();
             //context.SnDependancies.ExecuteDelete();
@@ -40,5 +42,10 @@ public class SnnbCommPack
 
         }
 
+    }
+
+    public void PopulateDB()
+    {
+        new MSpectralNetGroup().SaveRestToDB(this);
     }
 }

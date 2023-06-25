@@ -19,16 +19,16 @@ public partial class MModule
 
     }
 
-    public MModule(SnnbCommPack snnbCommPack)
-    {
-        UpdateSelf(snnbCommPack);
+    //public MModule(SnnbCommPack snnbCommPack)
+    //{
+    //    UpdateSelf(snnbCommPack);
 
-    }
+    //}
     #endregion
     private void UpdateSelf(SnnbCommPack snnbCommPack)
     {
-        this.UnitId = snnbCommPack.specNetGroup.UnitId;
-        RestMain restMain = snnbCommPack.restRoot;
+        this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
+        RestMain restMain = snnbCommPack.RestMain;
         /* Excel lines below */
         this.Active = restMain.active.value;
         this.Address = restMain.address.value.Truncate(128);
@@ -118,16 +118,14 @@ public partial class MModule
 
     }
 
-
-
-    public void ProcessRestData(SnnbCommPack snnbCommPack)
+    public void SaveRestToDB(SnnbCommPack snnbCommPack)
     {
         using SnnbFoContext c = new SnnbFoContext();
 
         try
         {
             List<MModule>? v = (from f in c.MModules
-                     where f.UnitId == snnbCommPack.specNetGroup.UnitId
+                     where f.UnitId == snnbCommPack.SpectralNetGroup.UnitId
                      select f).ToList();
             MModule rm;
             switch (v.Count)

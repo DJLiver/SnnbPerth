@@ -63,21 +63,21 @@ public class TimerService : BackgroundService, IDisposable
 
     private async Task GetRestData(CancellationToken stoppingToken)
     {
-        //SnnbFoContext sc = new SnnbFoContext();
-        //List<HSpecNetGroup> t = sc.HSpecNetGroups.ToList();
-        //var TaskList = new List<Task>();
+        SnnbFoContext sc = new SnnbFoContext();
+        List<HSpectralNetGroup> t = sc.HSpectralNetGroups.ToList();
+        var TaskList = new List<Task>();
 
-        //foreach (HSpecNetGroup specNetGroup in t) 
-        //{ 
-        //    if(specNetGroup.Enabled)
-        //    {
-        //        TaskList.Add(GetSNData(specNetGroup));
-        //    }
-        //}
-        //Task.WaitAll(TaskList.ToArray());   
+        foreach (HSpectralNetGroup specNetGroup in t)
+        {
+            if (specNetGroup.Enabled)
+            {
+                TaskList.Add(GetSNDataAndStoreInDB(specNetGroup));
+            }
+        }
+        Task.WaitAll(TaskList.ToArray());
     }
 
-    private async Task GetSNData(HSpecNetGroup specNetGroup)
+    private async Task GetSNDataAndStoreInDB(HSpectralNetGroup specNetGroup)
     {
         RestClient client;
         RestResponse response = null!;
@@ -85,13 +85,15 @@ public class TimerService : BackgroundService, IDisposable
         try
         {
             client = new RestClient(specNetGroup.PreIpAddress + specNetGroup.IpAddress);
-            response = await client.ExecuteGetAsync(new RestRequest(specNetGroup.RestQuery) { Timeout = 500 });
-            //SnInterface sNWBRest = new SnInterface();
+            response = await client.ExecuteGetAsync(new RestRequest(specNetGroup.RestQuery) { Timeout = specNetGroup.Timeout });
+
+
+            SnnbCommPack scp = new SnnbCommPack();
             if (response is not null)
             {
-                //sNWBRest.specNetGroup = target;
-                //sNWBRest.Error = !response.IsSuccessful;
-                //sNWBRest.ErrorText = response.ResponseStatus.ToString() ?? "No description";
+                scp.SpectralNetGroup = specNetGroup;
+                scp.Error = !response.IsSuccessful;
+                scp.ErrorText = response.ResponseStatus.ToString() ?? "No description";
 
                 if (response.IsSuccessful)
                 {
@@ -99,17 +101,13 @@ public class TimerService : BackgroundService, IDisposable
                     {
                         try
                         {
-                            //MModule restRoot = JsonConvert.DeserializeObject<MModule>(response.Content);
-                            //SNModule mydeserializedclass = JsonSerializer.Deserialize<SNModule>(response.Content);
-                             //SNModule restRoot = JsonSerializer.Deserialize<SNModule>(response.Content);
-                           // SNModule sNModule = JsonConvert.DeserializeObject<SNModule>(content);
-
-                            RestMain sNModule = JsonConvert.DeserializeObject<RestMain>(response.Content);
+                            RestMain restMain = JsonConvert.DeserializeObject<RestMain>(response.Content);
+                            scp.RestMain = restMain;
                         }
                         catch (Exception ex)
                         {
-                            //sNWBRest.Error = true;
-                            //sNWBRest.ErrorText = ex.Message;
+                            scp.Error = true;
+                            scp.ErrorText = ex.Message;
                         }
                     }
                 }
@@ -117,7 +115,7 @@ public class TimerService : BackgroundService, IDisposable
                 {
 
                 }
-                //target.ProcessRestData(sNWBRest);
+               scp.PopulateDB();
 
             }
 
@@ -128,42 +126,42 @@ public class TimerService : BackgroundService, IDisposable
         }
     }
 
-    private async Task Collect(CancellationToken stoppingToken)
-    {
-        // SnnbFoContext c = new SnnbFoContext();
-        SNNBStatus sNNBStatus = new SNNBStatus() { DateTime = DateTime.Now };
+    //private async Task Collect(CancellationToken stoppingToken)
+    //{
+    //    // SnnbFoContext c = new SnnbFoContext();
+    //    SNNBStatus sNNBStatus = new SNNBStatus() { DateTime = DateTime.Now };
 
-        SNNBStatusContext c = new SNNBStatusContext();
-        try
-        {
-            sNNBStatus.Site1Status = c.Site1Statuses.ToList();
-            sNNBStatus.Site2Status = c.Site2Statuses.ToList();
-            sNNBStatus.SiteAttrLimit = c.SiteAttrLimits.ToList();
-        }
-        catch (Exception ex)
-        {
+    //    SNNBStatusContext c = new SNNBStatusContext();
+    //    try
+    //    {
+    //        sNNBStatus.Site1Status = c.Site1Statuses.ToList();
+    //        sNNBStatus.Site2Status = c.Site2Statuses.ToList();
+    //        sNNBStatus.SiteAttrLimit = c.SiteAttrLimits.ToList();
+    //    }
+    //    catch (Exception ex)
+    //    {
 
-          //  throw;
-         }
+    //      //  throw;
+    //     }
 
-        //List<MetricSite1Summary> s1 = c.MetricSite1Summaries.ToList();
-        //s1.Sort(sort_1);
-        //List<MetricSite2Summary> s2 = c.MetricSite2Summaries.ToList();
-        //s2.Sort(sort_2);
-        //foreach (var item in s1)
-        //{
-        //    item.RfoutmeasuredDelay = item.RfoutmeasuredDelay / 1000000;
-        //    item.RfoutmeasuredNetworkRate = item.RfoutmeasuredNetworkRate / 1000000;
-        //}
-        //foreach (var item in s2)
-        //{
-        //    item.RfoutmeasuredDelay = item.RfoutmeasuredDelay / 1000000;
-        //    item.RfoutmeasuredNetworkRate = item.RfoutmeasuredNetworkRate / 1000000;
-        //}
+    //    //List<MetricSite1Summary> s1 = c.MetricSite1Summaries.ToList();
+    //    //s1.Sort(sort_1);
+    //    //List<MetricSite2Summary> s2 = c.MetricSite2Summaries.ToList();
+    //    //s2.Sort(sort_2);
+    //    //foreach (var item in s1)
+    //    //{
+    //    //    item.RfoutmeasuredDelay = item.RfoutmeasuredDelay / 1000000;
+    //    //    item.RfoutmeasuredNetworkRate = item.RfoutmeasuredNetworkRate / 1000000;
+    //    //}
+    //    //foreach (var item in s2)
+    //    //{
+    //    //    item.RfoutmeasuredDelay = item.RfoutmeasuredDelay / 1000000;
+    //    //    item.RfoutmeasuredNetworkRate = item.RfoutmeasuredNetworkRate / 1000000;
+    //    //}
 
-        await _updateHub.Clients.All.SendAsync("UpdateSummary", sNNBStatus);
+    //    await _updateHub.Clients.All.SendAsync("UpdateSummary", sNNBStatus);
 
-    }
+    //}
 
     //private int sort_1(MetricSite1Summary x, MetricSite1Summary y)
     //{

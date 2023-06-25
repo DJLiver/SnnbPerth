@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SnnbDB.Models;
 
-public partial class SpecNetGroup
+public partial class MSpectralNetGroup
 {
     public int Id { get; set; }
 
@@ -21,15 +21,15 @@ public partial class SpecNetGroup
 
     public string Location { get; set; } = null!;
 
-    public string PreIpAddress { get; set; } = null!;
-
     public string IpAddress { get; set; } = null!;
-
-    public string RestQuery { get; set; } = null!;
 
     public string Direction { get; set; } = null!;
 
     public int DisplayOrder { get; set; }
 
-    public bool Enabled { get; set; }
+    public bool Error { get; set; }
+
+    public string ErrorText { get; set; } = null!;
+
+    public int ReponseTime { get; set; }
 }

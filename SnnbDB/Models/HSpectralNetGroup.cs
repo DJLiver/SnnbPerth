@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SnnbDB.Models;
 
-public partial class HSpecNetGroup
+public partial class HSpectralNetGroup
 {
     public int Id { get; set; }
 
@@ -30,6 +30,8 @@ public partial class HSpecNetGroup
     public string Direction { get; set; } = null!;
 
     public int DisplayOrder { get; set; }
+
+    public int Timeout { get; set; }
 
     public bool Enabled { get; set; }
 }
