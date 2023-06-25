@@ -96,8 +96,10 @@ public partial class MRfOutputStream
 
         try
         {
+            // Unique by Name
             List<MRfOutputStream>? v = (from f in c.MRfOutputStreams
-                                where f.UnitId == snnbCommPack.SpectralNetGroup.UnitId
+                                where f.UnitId == snnbCommPack.SpectralNetGroup.UnitId & 
+                                    f.Name == structure.name.value
                                 select f).ToList();
             MRfOutputStream rm;
             switch (v.Count)
