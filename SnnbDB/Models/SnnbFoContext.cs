@@ -17,8 +17,6 @@ public partial class SnnbFoContext : DbContext
 
     public virtual DbSet<HSpectralNetGroup> HSpectralNetGroups { get; set; }
 
-    public virtual DbSet<MAvailableStream> MAvailableStreams { get; set; }
-
     public virtual DbSet<MControlNic> MControlNics { get; set; }
 
     public virtual DbSet<MDataNic> MDataNics { get; set; }
@@ -39,9 +37,11 @@ public partial class SnnbFoContext : DbContext
 
     public virtual DbSet<MSpectrum> MSpectrums { get; set; }
 
+    public virtual DbSet<View1> View1s { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=HOME-DAVID;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
+        => optionsBuilder.UseSqlServer("Server=SNNB-PC02;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -60,35 +60,6 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.RestQuery).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);
             entity.Property(e => e.UnitName).HasMaxLength(128);
-        });
-
-        modelBuilder.Entity<MAvailableStream>(entity =>
-        {
-            entity
-                .ToTable("M_AvailableStreams")
-                .IsMemoryOptimized();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Bandwidth).HasColumnName("bandwidth");
-            entity.Property(e => e.CenterFrequency).HasColumnName("centerFrequency");
-            entity.Property(e => e.Gain).HasColumnName("gain");
-            entity.Property(e => e.IrigLocked).HasColumnName("irigLocked");
-            entity.Property(e => e.OnePpsPresent).HasColumnName("onePpsPresent");
-            entity.Property(e => e.PfecEnabled).HasColumnName("pfecEnabled");
-            entity.Property(e => e.SampleRate).HasColumnName("sampleRate");
-            entity.Property(e => e.SampleWidth)
-                .HasColumnType("numeric(5, 0)")
-                .HasColumnName("sampleWidth");
-            entity.Property(e => e.SourceIpAddress)
-                .HasMaxLength(128)
-                .HasColumnName("sourceIpAddress");
-            entity.Property(e => e.SourcePort)
-                .HasMaxLength(128)
-                .HasColumnName("sourcePort");
-            entity.Property(e => e.StreamId)
-                .HasColumnType("numeric(10, 0)")
-                .HasColumnName("streamId");
-            entity.Property(e => e.TenMhzLocked).HasColumnName("tenMhzLocked");
         });
 
         modelBuilder.Entity<MControlNic>(entity =>
@@ -487,6 +458,15 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.InputRfPort1Spectrum).HasColumnName("inputRfPort1Spectrum");
             entity.Property(e => e.SpectrumType).HasMaxLength(128);
+        });
+
+        modelBuilder.Entity<View1>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("View_1");
+
+            entity.Property(e => e.InputRfPort1Spectrum).HasColumnName("inputRfPort1Spectrum");
         });
 
         OnModelCreatingPartial(modelBuilder);

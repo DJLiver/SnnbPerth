@@ -11,6 +11,7 @@ GO
 CREATE TABLE [dbo].[M_SpectralNetGroups]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
+	[DateStamp] datetime2(7) NOT NULL,	
 	[GroupID] [int] NOT NULL,
 	[GroupName] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[Site] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,

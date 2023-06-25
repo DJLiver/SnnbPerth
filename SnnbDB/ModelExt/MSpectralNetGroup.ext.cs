@@ -9,6 +9,7 @@ public partial class MSpectralNetGroup
 {
     private void UpdateSelf(SnnbCommPack snnbCommPack)
     {
+        DateStamp = DateTime.Now; 
         GroupId = snnbCommPack.SpectralNetGroup.GroupId;
         GroupName = snnbCommPack.SpectralNetGroup.GroupName;
         Site = snnbCommPack.SpectralNetGroup.Site;

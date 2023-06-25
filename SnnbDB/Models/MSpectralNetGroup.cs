@@ -7,6 +7,8 @@ public partial class MSpectralNetGroup
 {
     public int Id { get; set; }
 
+    public DateTime DateStamp { get; set; }
+
     public int GroupId { get; set; }
 
     public string GroupName { get; set; } = null!;

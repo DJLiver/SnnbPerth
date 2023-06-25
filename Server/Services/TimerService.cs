@@ -81,6 +81,10 @@ public class TimerService : BackgroundService, IDisposable
     {
         RestClient client;
         RestResponse response = null!;
+        SnnbCommPack scp = new SnnbCommPack();
+        scp.SpectralNetGroup = specNetGroup;
+        scp.Error = false;
+        scp.ErrorText = "";
 
         try
         {
@@ -88,40 +92,23 @@ public class TimerService : BackgroundService, IDisposable
             response = await client.ExecuteGetAsync(new RestRequest(specNetGroup.RestQuery) { Timeout = specNetGroup.Timeout });
 
 
-            SnnbCommPack scp = new SnnbCommPack();
-            if (response is not null)
-            {
-                scp.SpectralNetGroup = specNetGroup;
-                scp.Error = !response.IsSuccessful;
-                scp.ErrorText = response.ResponseStatus.ToString() ?? "No description";
+            if (response is null) throw new Exception($"Response is NULL: {specNetGroup.UnitId} ");
 
-                if (response.IsSuccessful)
-                {
-                    if (response.Content is not null)
-                    {
-                        try
-                        {
-                            RestMain restMain = JsonConvert.DeserializeObject<RestMain>(response.Content);
-                            scp.RestMain = restMain;
-                        }
-                        catch (Exception ex)
-                        {
-                            scp.Error = true;
-                            scp.ErrorText = ex.Message;
-                        }
-                    }
-                }
-                else
-                {
 
-                }
-               scp.PopulateDB();
+            if (!response.IsSuccessful) throw new Exception($"Response is not successful: {specNetGroup.UnitId}");
 
-            }
+            if (response.Content is null) throw new Exception($"Content is NULL: {specNetGroup.UnitId}");
+
+            RestMain restMain = JsonConvert.DeserializeObject<RestMain>(response.Content);
+            scp.RestMain = restMain;
+
+            scp.PopulateDB();
 
         }
         catch (Exception ex)
         {
+            scp.Error = true;
+            scp.ErrorText = ex.Message;
             // ExLog.Log(ex);
         }
     }
