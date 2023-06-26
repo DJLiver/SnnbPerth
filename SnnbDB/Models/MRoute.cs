@@ -9,9 +9,9 @@ public partial class MRoute
 
     public int UnitId { get; set; }
 
-    public string? Destination { get; set; }
+    public string Destination { get; set; } = null!;
 
-    public string? Gateway { get; set; }
+    public string Gateway { get; set; } = null!;
 
-    public int? Netmask { get; set; }
+    public int Netmask { get; set; }
 }

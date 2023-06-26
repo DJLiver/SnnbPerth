@@ -9,14 +9,14 @@ namespace SnnbDB.Rest;
 #region IP4Config
 public class IP4Config 
 {
-    public RestString Manual_DHCP { get; set; }
+    public RestString addresses { get; set; }
     public RestString address { get; set; }
     public RestInt32 netmask { get; set; }
 }
 
 public class Nic : FactoryBase
 {
-    public IP4Config IP4Config { get; set; }
+    public IP4Config structure { get; set; }
 }
 
 #endregion

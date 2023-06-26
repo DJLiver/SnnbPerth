@@ -10,16 +10,16 @@ namespace SnnbDB.Rest;
 #region Routes
 public class Routes : FactoryBase
 {
-    public List<NetworkRoutes> array { get; set; }
+    public ArrayNR[] array { get; set; }
 }
-public class NetworkRoutes : FactoryBase
+public class ArrayNR : FactoryBase
 {
-    public NetworkRoute networkRoute { get; set; }
+    public NetworkRoute structure { get; set; }
 }
 public class NetworkRoute
 {
-    public string destination { get; set; }
-    public string gateway { get; set; }
+    public RestString destination { get; set; }
+    public RestString gateway { get; set; }
     public RestInt32 netmask { get; set; }
 
 }

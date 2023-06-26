@@ -9,5 +9,5 @@ public partial class MMulticastGroupSubscription
 
     public int UnitId { get; set; }
 
-    public string? Dependant { get; set; }
+    public string McastAddr { get; set; } = null!;
 }

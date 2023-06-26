@@ -18,38 +18,52 @@ public partial class MAvailableStream
     {
 
     }
+    #endregion
+    public void SaveRestToDB(SnnbCommPack snnbCommPack)
+    {
+        try
+        {
+            this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
+
+            List<ArrayAvailableStreams> AAS = snnbCommPack.RestMain.availableStreams.array.ToList();
+
+
+            foreach (var item in AAS)
+            {
+                SaveRestToDB(item.structure, snnbCommPack);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            ExLog.Log(ex);
+        }            
+    }
 
     private void UpdateSelf(StructureAvailableStreams structure)
     {
         //List<ArrayRfOutputStream> restMain = snnbCommPack.RestMain.rfOutputStream.array.ToList();
         ///* Excel lines below */
-        this.SourceIpAddress = structure.sourceIpAddress.value.Truncate(128);
-        this.SourcePort = structure.sourcePort.value.Truncate(128);
-        this.StreamId = structure.streamId.value;
-        this.CenterFrequency = structure.centerFrequency.value;
-        this.Bandwidth = structure.bandwidth.value;
-        this.SampleRate = structure.sampleRate.value;
-        this.Gain = structure.gain.value;
-        this.SampleWidth = structure.sampleWidth.value;
-        this.PfecEnabled = structure.pfecEnabled.value;
-        this.IrigLocked = structure.irigLocked.value;
-        this.OnePpsPresent = structure.onePpsPresent.value;
-        this.TenMhzLocked = structure.tenMhzLocked.value;
-    }
-
-    #endregion
-
-    public void SaveRestToDB(SnnbCommPack snnbCommPack)
-    {
-        this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
-
-        List<ArrayAvailableStreams> AAS = snnbCommPack.RestMain.availableStreams.array.ToList();
-
-
-        foreach (var item in AAS)
+        try
         {
-            SaveRestToDB(item.structure, snnbCommPack);
+            this.SourceIpAddress = structure.sourceIpAddress.value.Truncate(128);
+            this.SourcePort = structure.sourcePort.value.Truncate(128);
+            this.StreamId = structure.streamId.value;
+            this.CenterFrequency = structure.centerFrequency.value;
+            this.Bandwidth = structure.bandwidth.value;
+            this.SampleRate = structure.sampleRate.value;
+            this.Gain = structure.gain.value;
+            this.SampleWidth = structure.sampleWidth.value;
+            this.PfecEnabled = structure.pfecEnabled.value;
+            this.IrigLocked = structure.irigLocked.value;
+            this.OnePpsPresent = structure.onePpsPresent.value;
+            this.TenMhzLocked = structure.tenMhzLocked.value;
+
         }
+        catch (Exception)
+        {
+            throw;
+        }    
     }
 
     private void SaveRestToDB(StructureAvailableStreams structure, SnnbCommPack snnbCommPack)
@@ -92,8 +106,7 @@ public partial class MAvailableStream
         }
         catch (Exception ex)
         {
-            ExLog.Log(ex);
-            return;
+            throw;
         }
     }
 }

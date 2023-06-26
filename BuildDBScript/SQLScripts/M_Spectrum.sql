@@ -12,8 +12,8 @@ CREATE TABLE [dbo].[M_Spectrum]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[UnitId] [int] NOT NULL,
-    [SpectrumType] [nvarchar](128) NULL,
-	[inputRfPort1Spectrum] [nvarchar](MAX) NULL,
+    [SpectrumType] [nvarchar](128) NOT NULL,
+	[Spectrum] [nvarchar](MAX) NOT NULL,
  CONSTRAINT [PK_M_Spectrum]  PRIMARY KEY NONCLUSTERED HASH 
 (
 	[id]

@@ -9,7 +9,7 @@ namespace SnnbDB.Rest;
 #region Spectrum
 public class SpectrumData : FactoryBase
 {
-    public string data { get; set; }
+    public string data { get; set; } 
     public int bitLength { get; set; }
 }
 

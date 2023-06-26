@@ -9,9 +9,9 @@ public partial class MControlNic
 
     public int UnitId { get; set; }
 
-    public string? Addresses { get; set; }
+    public string Addresses { get; set; } = null!;
 
-    public string? Address { get; set; }
+    public string Address { get; set; } = null!;
 
-    public int? Netmask { get; set; }
+    public int Netmask { get; set; }
 }

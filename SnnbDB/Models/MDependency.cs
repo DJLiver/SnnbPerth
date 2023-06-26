@@ -9,5 +9,5 @@ public partial class MDependency
 
     public int UnitId { get; set; }
 
-    public string? Dependant { get; set; }
+    public string Dependant { get; set; } = null!;
 }

@@ -29,16 +29,6 @@ public class SnnbCommPack
         using (SnnbFoContext context = new SnnbFoContext())
         {
             context.MRfInputStreams.ExecuteDelete();
-            //context.SnContextFreeStreams.ExecuteDelete();
-            //context.SnDataNics.ExecuteDelete();
-            //context.SnDependancies.ExecuteDelete();
-            //context.SnEthernetStats.ExecuteDelete();
-            //context.SnModules.ExecuteDelete();
-            //context.SnRfCards.ExecuteDelete();
-            //context.SnRfInputStreams.ExecuteDelete();
-            //context.SnRfOutputStreams.ExecuteDelete();
-            //context.SnRoutes.ExecuteDelete();
-            //context.SnStreamAssignments.ExecuteDelete();
 
         }
 
@@ -49,7 +39,16 @@ public class SnnbCommPack
         new MSpectralNetGroup().SaveRestToDB(this);
         if (!Error)
         {
+            new MAvailableStream().SaveRestToDB(this);
+            new MControlNic().SaveRestToDB(this);
+            new MDataNic().SaveRestToDB(this);
+            new MDependency().SaveRestToDB(this);
+            new MModule().SaveRestToDB(this);
+            new MMulticastGroupSubscription().SaveRestToDB(this);
             new MRfOutputStream().SaveRestToDB(this);
+            new MRfInputStream().SaveRestToDB(this);
+            new MRoute().SaveRestToDB(this);
+            new MSpectrum().SaveRestToDB(this);
 
         }
     }

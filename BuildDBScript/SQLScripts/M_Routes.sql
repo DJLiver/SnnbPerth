@@ -12,9 +12,9 @@ CREATE TABLE [dbo].[M_Routes]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[UnitId] [int] NOT NULL,
-    [destination] [nvarchar](128) NULL,
-    [gateway] [nvarchar](128) NULL,
-    [netmask] [int] NULL,
+    [destination] [nvarchar](128) NOT NULL,
+    [gateway] [nvarchar](128) NOT NULL,
+    [netmask] [int] NOT NULL,
 
  CONSTRAINT [PK_M_Routes]  PRIMARY KEY NONCLUSTERED HASH 
 (

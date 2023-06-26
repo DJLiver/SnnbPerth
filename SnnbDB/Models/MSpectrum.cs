@@ -9,7 +9,7 @@ public partial class MSpectrum
 
     public int UnitId { get; set; }
 
-    public string? SpectrumType { get; set; }
+    public string SpectrumType { get; set; } = null!;
 
-    public string? InputRfPort1Spectrum { get; set; }
+    public string Spectrum { get; set; } = null!;
 }
