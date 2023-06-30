@@ -34,38 +34,53 @@ public partial class MRfInputStream
     {
         //List<ArrayRfInputStream> restMain = snnbCommPack.RestMain.rfInputStream.array.ToList();
         ///* Excel lines below */
-        this.Name = structure.name.value.Truncate(128);
-        this.BitRate = structure.bitRate.value;
-        this.DataSampleWidth = structure.dataSampleWidth.value;
-        this.DestinationHost = structure.destinationHost.value.Truncate(128);
-        this.DestinationPort = structure.destinationPort.value;
-        this.FrequencyOffset = structure.frequencyOffset.value;
-        this.MaximumPacketSize = structure.maximumPacketSize.value;
-        this.MeasuredNetworkRate = structure.measuredNetworkRate.value;
-        this.MeasuredPacketRate = structure.measuredPacketRate.value;
-        this.MinimumProcessingDelay = structure.minimumProcessingDelay.value;
-        this.PacketOverhead = structure.packetOverhead.value;
-        this.PfecEnable = structure.pfecEnable.value;
-        this.RouteSearch = structure.routeSearch.value.Truncate(128);
-        this.SourcePort = structure.sourcePort.value;
-        this.StreamBandwidth = structure.streamBandwidth.value;
-        this.StreamEnable = structure.streamEnable.value;
-        this.StreamGain = structure.streamGain.value;
-        this.StreamId = structure.streamId.value;
-        this.StreamSampleRate = structure.streamSampleRate.value;
+        try
+        {
+            this.Name = structure.name.value.Truncate(128);
+            this.BitRate = structure.bitRate.value;
+            this.DataSampleWidth = structure.dataSampleWidth.value;
+            this.DestinationHost = structure.destinationHost.value.Truncate(128);
+            this.DestinationPort = structure.destinationPort.value;
+            this.FrequencyOffset = structure.frequencyOffset.value;
+            this.MaximumPacketSize = structure.maximumPacketSize.value;
+            this.MeasuredNetworkRate = structure.measuredNetworkRate.value;
+            this.MeasuredPacketRate = structure.measuredPacketRate.value;
+            this.MinimumProcessingDelay = structure.minimumProcessingDelay.value;
+            this.PacketOverhead = structure.packetOverhead.value;
+            this.PfecEnable = structure.pfecEnable.value;
+            this.RouteSearch = structure.routeSearch.value.Truncate(128);
+            this.SourcePort = structure.sourcePort.value;
+            this.StreamBandwidth = structure.streamBandwidth.value;
+            this.StreamEnable = structure.streamEnable.value;
+            this.StreamGain = structure.streamGain.value;
+            this.StreamId = structure.streamId.value;
+            this.StreamSampleRate = structure.streamSampleRate.value;
 
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
     public void SaveRestToDB(SnnbCommPack snnbCommPack)
     {
-        this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
-
-        List<ArrayRfInputStream> restMain = snnbCommPack.RestMain.rfInputStream.array.ToList();
-
-
-        foreach (var item in restMain)
+        try
         {
-            SaveRestToDB(item.structure, snnbCommPack);
+            this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
+
+            List<ArrayRfInputStream> restMain = snnbCommPack.RestMain.rfInputStream.array.ToList();
+
+            foreach (var item in restMain)
+            {
+                SaveRestToDB(item.structure, snnbCommPack);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            ExLog.Log(ex);
+            return;
         }
     }
 
@@ -104,10 +119,9 @@ public partial class MRfInputStream
 
             c.SaveChanges();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ExLog.Log(ex);
-            return;
+            throw;
         }
     }
 

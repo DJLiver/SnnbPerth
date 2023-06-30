@@ -19,9 +19,16 @@ public static class ExLog
             DateStamp = DateTime.Now,
             Message = ex.Message.Truncate(1024),
             LineNumber = lineNumber,
-            Additional = additional
         };
 
+        log.Additional = additional.Truncate(1024);
+        if (additional == "Nil")
+        {
+            if(ex.InnerException is not null)
+            { 
+                log.Additional = ex.InnerException.Message.Truncate(1024);
+            }
+        }
 
         elc.Logs.Add(log);
         elc.SaveChanges();

@@ -48,7 +48,12 @@ public class SnnbCommPack
             new MRfOutputStream().SaveRestToDB(this);
             new MRfInputStream().SaveRestToDB(this);
             new MRoute().SaveRestToDB(this);
-            new MSpectrum().SaveRestToDB(this);
+            new MInputRfSpectrum().SaveRestToDB(this);
+            new MInputRfPort1Spectrum().SaveRestToDB(this);
+            new MInputRfPort2Spectrum().SaveRestToDB(this);
+            new MOutputRfSpectrum().SaveRestToDB(this);
+            new MOutputRfPort1Spectrum().SaveRestToDB(this);
+            new MOutputRfPort2Spectrum().SaveRestToDB(this);
 
         }
     }

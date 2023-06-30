@@ -1,6 +1,6 @@
 
 
-Scaffold-DbContext "Server=SNNB-PC02;database=ExceptionLog;Persist Security Info=True;User ID=Collector;Password=btp1997; Trusted_Connection=true; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -Outputdir Models -t Log
+Scaffold-DbContext "Server=SNNB-PC02;database=ExceptionLog;Persist Security Info=True;User ID=Collector;Password=btp1997; Trusted_Connection=true; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -Outputdir Models -Project ExceptionLog -t Log
 
 
 -Force

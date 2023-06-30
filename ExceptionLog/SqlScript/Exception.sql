@@ -15,7 +15,7 @@ CREATE TABLE [dbo].[Log](
 	[MemberName] [varchar](128) NOT NULL,
 	[LineNumber] int NOT NULL,
 	[Message] [varchar](1024) NOT NULL,
-	[Additional] [varchar](128) NOT NULL,
+	[Additional] [varchar](1024) NOT NULL,
  CONSTRAINT [PK_Log] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

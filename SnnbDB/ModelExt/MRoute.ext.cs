@@ -24,22 +24,38 @@ public partial class MRoute
     {
         //List<ArrayRfOutputStream> restMain = snnbCommPack.RestMain.rfOutputStream.array.ToList();
         ///* Excel lines below */
-        this.Destination = structure.destination.value.Truncate(128);
-        this.Gateway = structure.gateway.value.Truncate(128);
-        this.Netmask = structure.netmask.value;
+        try
+        {
+            this.Destination = structure.destination.value.Truncate(128);
+            this.Gateway = structure.gateway.value.Truncate(128);
+            this.Netmask = structure.netmask.value;
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }    
     }
 
 
     public void SaveRestToDB(SnnbCommPack snnbCommPack)
     {
-        this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
-
-        List<ArrayNR>? nr = snnbCommPack.RestMain.routes.array.ToList();
-
-
-        foreach (var item in nr)
+        try
         {
-            SaveRestToDB(item.structure, snnbCommPack);
+            this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
+
+            List<ArrayNR>? nr = snnbCommPack.RestMain.routes.array.ToList();
+
+            foreach (var item in nr)
+            {
+                SaveRestToDB(item.structure, snnbCommPack);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            ExLog.Log(ex);
+            return;
         }
     }
 
@@ -80,10 +96,9 @@ public partial class MRoute
 
             c.SaveChanges();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ExLog.Log(ex);
-            return;
+            throw;
         }
     }
 }

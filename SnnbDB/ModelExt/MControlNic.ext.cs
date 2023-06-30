@@ -18,26 +18,43 @@ public partial class MControlNic
     {
 
     }
+    #endregion
 
     private void UpdateSelf(IP4Config ipc)
     {
         //List<ArrayRfOutputStream> restMain = snnbCommPack.RestMain.rfOutputStream.array.ToList();
         ///* Excel lines below */
-        this.Addresses = ipc.addresses.value.Truncate( 128);
-        this.Address = ipc.address.value.Truncate(128);
-        this.Netmask = ipc.netmask.value;
+        try
+        {
+            this.Addresses = ipc.addresses.value.Truncate(128);
+            this.Address = ipc.address.value.Truncate(128);
+            this.Netmask = ipc.netmask.value;
 
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
-    #endregion
 
     public void SaveRestToDB(SnnbCommPack snnbCommPack)
     {
-        this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
+        try
+        {
+            this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
 
-        IP4Config ipc = snnbCommPack.RestMain.controlNic.structure;
+            IP4Config ipc = snnbCommPack.RestMain.controlNic.structure;
 
-        SaveRestToDB(ipc, snnbCommPack);
+            SaveRestToDB(ipc, snnbCommPack);
+
+        }
+        catch (Exception ex)
+        {
+            ExLog.Log(ex);
+            return;
+
+        }    
     }
 
     private void SaveRestToDB(IP4Config ipc, SnnbCommPack snnbCommPack)
@@ -75,10 +92,9 @@ public partial class MControlNic
 
             c.SaveChanges();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ExLog.Log(ex);
-            return;
+            throw;
         }
     }
 }

@@ -35,58 +35,73 @@ public partial class MRfOutputStream
         //List<ArrayRfOutputStream> restMain = snnbCommPack.RestMain.rfOutputStream.array.ToList();
         ///* Excel lines below */
 
-        this.Name = structure.name.value.Truncate(128);
-        this.CurrentBuffer = structure.currentBuffer.value;
-        this.DataSampleWidth = structure.dataSampleWidth.value;
-        this.DataSource = structure.dataSource.value.Truncate(128);
-        this.DesiredBuffer = structure.desiredBuffer.value;
-        this.DesiredDelay = structure.desiredDelay.value;
-        this.DestinationPort = structure.destinationPort.value;
-        this.DroppedPackets = structure.droppedPackets.value;
-        this.FrequencyOffset = structure.frequencyOffset.value;
-        this.GapCount = structure.gapCount.value;
-        this.MeasuredDelay = structure.measuredDelay.value;
-        this.MeasuredNetworkRate = structure.measuredNetworkRate.value;
-        this.MeasuredPacketRate = structure.measuredPacketRate.value;
-        this.NetStreamGain = structure.netStreamGain.value;
-        this.NetworkDelay = structure.networkDelay.value;
-        this.PacketOverhead = structure.packetOverhead.value;
-        this.PfecDecoderStatus = structure.pfecDecoderStatus.value.Truncate(128);
-        this.PfecMissingSets = structure.pfecMissingSets.value;
-        this.PfecRepairedPackets = structure.pfecRepairedPackets.value;
-        this.PfecTotalPackets = structure.pfecTotalPackets.value;
-        this.PfecUnrepairablePackets = structure.pfecUnrepairablePackets.value;
-        this.PreserveLatency = structure.preserveLatency.value;
-        this.PreserveLatencyLatePackets = structure.preserveLatencyLatePackets.value;
-        this.PreserveLatencyMaxBurstLoss = structure.preserveLatencyMaxBurstLoss.value;
-        this.PreserveLatencyMissingPackets = structure.preserveLatencyMissingPackets.value;
-        this.PreserveLatencyOutOfOrderPackets = structure.preserveLatencyOutOfOrderPackets.value;
-        this.PreserveLatencyReleaseMargin = structure.preserveLatencyReleaseMargin.value;
-        this.ReleaseMode = structure.releaseMode.value.Truncate(128);
-        this.SourceHost = structure.sourceHost.value.Truncate(128);
-        this.SourcePort = structure.sourcePort.value;
-        this.StreamBandwidth = structure.streamBandwidth.value;
-        this.StreamEnable = structure.streamEnable.value;
-        this.StreamId = structure.streamId.value;
-        this.StreamSampleRate = structure.streamSampleRate.value;
-        this.UnderflowCount = structure.underflowCount.value;
-        this.UpstreamIrigLocked = structure.upstreamIrigLocked.value;
-        this.UpstreamOnePpsLocked = structure.upstreamOnePpsLocked.value;
-        this.UpstreamPathGain = structure.upstreamPathGain.value;
-        this.UpstreamTenMhzLocked = structure.upstreamTenMhzLocked.value;
-        this.UseLocalReference = structure.useLocalReference.value;
+        try
+        {
+            this.Name = structure.name.value.Truncate(128);
+            this.CurrentBuffer = structure.currentBuffer.value;
+            this.DataSampleWidth = structure.dataSampleWidth.value;
+            this.DataSource = structure.dataSource.value.Truncate(128);
+            this.DesiredBuffer = structure.desiredBuffer.value;
+            this.DesiredDelay = structure.desiredDelay.value;
+            this.DestinationPort = structure.destinationPort.value;
+            this.DroppedPackets = structure.droppedPackets.value;
+            this.FrequencyOffset = structure.frequencyOffset.value;
+            this.GapCount = structure.gapCount.value;
+            this.MeasuredDelay = structure.measuredDelay.value;
+            this.MeasuredNetworkRate = structure.measuredNetworkRate.value;
+            this.MeasuredPacketRate = structure.measuredPacketRate.value;
+            this.NetStreamGain = structure.netStreamGain.value;
+            this.NetworkDelay = structure.networkDelay.value;
+            this.PacketOverhead = structure.packetOverhead.value;
+            this.PfecDecoderStatus = structure.pfecDecoderStatus.value.Truncate(128);
+            this.PfecMissingSets = structure.pfecMissingSets.value;
+            this.PfecRepairedPackets = structure.pfecRepairedPackets.value;
+            this.PfecTotalPackets = structure.pfecTotalPackets.value;
+            this.PfecUnrepairablePackets = structure.pfecUnrepairablePackets.value;
+            this.PreserveLatency = structure.preserveLatency.value;
+            this.PreserveLatencyLatePackets = structure.preserveLatencyLatePackets.value;
+            this.PreserveLatencyMaxBurstLoss = structure.preserveLatencyMaxBurstLoss.value;
+            this.PreserveLatencyMissingPackets = structure.preserveLatencyMissingPackets.value;
+            this.PreserveLatencyOutOfOrderPackets = structure.preserveLatencyOutOfOrderPackets.value;
+            this.PreserveLatencyReleaseMargin = structure.preserveLatencyReleaseMargin.value;
+            this.ReleaseMode = structure.releaseMode.value.Truncate(128);
+            this.SourceHost = structure.sourceHost.value.Truncate(128);
+            this.SourcePort = structure.sourcePort.value;
+            this.StreamBandwidth = structure.streamBandwidth.value;
+            this.StreamEnable = structure.streamEnable.value;
+            this.StreamId = structure.streamId.value;
+            this.StreamSampleRate = structure.streamSampleRate.value;
+            this.UnderflowCount = structure.underflowCount.value;
+            this.UpstreamIrigLocked = structure.upstreamIrigLocked.value;
+            this.UpstreamOnePpsLocked = structure.upstreamOnePpsLocked.value;
+            this.UpstreamPathGain = structure.upstreamPathGain.value;
+            this.UpstreamTenMhzLocked = structure.upstreamTenMhzLocked.value;
+            this.UseLocalReference = structure.useLocalReference.value;
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }    
     }
 
     public void SaveRestToDB(SnnbCommPack snnbCommPack)
     {
-        this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
-
-        List<ArrayRfOutputStream> restMain = snnbCommPack.RestMain.rfOutputStream.array.ToList();
-
-
-        foreach (var item in restMain)
+        try
         {
-            SaveRestToDB(item.structure, snnbCommPack);
+            this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
+
+            List<ArrayRfOutputStream> restMain = snnbCommPack.RestMain.rfOutputStream.array.ToList();
+
+            foreach (var item in restMain)
+            {
+                SaveRestToDB(item.structure, snnbCommPack);
+            }
+        }
+        catch (Exception ex)
+        {
+            ExLog.Log(ex);
+            return;
         }
     }
 
@@ -125,10 +140,9 @@ public partial class MRfOutputStream
 
             c.SaveChanges();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ExLog.Log(ex);
-            return;
+            throw;
         }
     }
 

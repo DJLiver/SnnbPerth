@@ -28,11 +28,20 @@ public partial class MDependency
 
     public void SaveRestToDB(SnnbCommPack snnbCommPack)
     {
-        this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
+        try
+        {
+            this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
 
-        List<RestString> deps = snnbCommPack.RestMain.dependencies.array;
+            List<RestString> deps = snnbCommPack.RestMain.dependencies.array;
 
-        SaveRestToDB(deps, snnbCommPack);
+            SaveRestToDB(deps, snnbCommPack);
+
+        }
+        catch (Exception ex)
+        {
+            ExLog.Log(ex);
+            return;
+        }
     }
 
     private void SaveRestToDB(List<RestString> deps, SnnbCommPack snnbCommPack)
@@ -55,10 +64,9 @@ public partial class MDependency
             }
             c.SaveChanges();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ExLog.Log(ex);
-            return;
+            throw;
         }
     }
 }

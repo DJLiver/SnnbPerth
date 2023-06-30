@@ -23,21 +23,38 @@ public partial class MDataNic
     {
         //List<ArrayRfOutputStream> restMain = snnbCommPack.RestMain.rfOutputStream.array.ToList();
         ///* Excel lines below */
-        this.Addresses = nic.structure.addresses.value.Truncate( 128);
-        this.Address = nic.structure.address.value.Truncate(128);
-        this.Netmask = nic.structure.netmask.value;
+        try
+        {
+            this.Addresses = nic.structure.addresses.value.Truncate(128);
+            this.Address = nic.structure.address.value.Truncate(128);
+            this.Netmask = nic.structure.netmask.value;
 
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
 
     #endregion
 
     public void SaveRestToDB(SnnbCommPack snnbCommPack)
     {
-        this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
+        try
+        {
+            this.UnitId = snnbCommPack.SpectralNetGroup.UnitId;
 
-        Nic nic = snnbCommPack.RestMain.dataNic;
+            Nic nic = snnbCommPack.RestMain.dataNic;
 
-        SaveRestToDB(nic, snnbCommPack);
+            SaveRestToDB(nic, snnbCommPack);
+
+        }
+        catch (Exception ex)
+        {
+            ExLog.Log(ex);
+            return;
+        }    
     }
 
     private void SaveRestToDB(Nic nic, SnnbCommPack snnbCommPack)
@@ -75,10 +92,9 @@ public partial class MDataNic
 
             c.SaveChanges();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ExLog.Log(ex);
-            return;
+            throw;
         }
     }
 }

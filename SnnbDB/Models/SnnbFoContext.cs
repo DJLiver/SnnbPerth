@@ -25,9 +25,21 @@ public partial class SnnbFoContext : DbContext
 
     public virtual DbSet<MDependency> MDependencies { get; set; }
 
+    public virtual DbSet<MInputRfPort1Spectrum> MInputRfPort1Spectrums { get; set; }
+
+    public virtual DbSet<MInputRfPort2Spectrum> MInputRfPort2Spectrums { get; set; }
+
+    public virtual DbSet<MInputRfSpectrum> MInputRfSpectrums { get; set; }
+
     public virtual DbSet<MModule> MModules { get; set; }
 
     public virtual DbSet<MMulticastGroupSubscription> MMulticastGroupSubscriptions { get; set; }
+
+    public virtual DbSet<MOutputRfPort1Spectrum> MOutputRfPort1Spectrums { get; set; }
+
+    public virtual DbSet<MOutputRfPort2Spectrum> MOutputRfPort2Spectrums { get; set; }
+
+    public virtual DbSet<MOutputRfSpectrum> MOutputRfSpectrums { get; set; }
 
     public virtual DbSet<MRfInputStream> MRfInputStreams { get; set; }
 
@@ -36,8 +48,6 @@ public partial class SnnbFoContext : DbContext
     public virtual DbSet<MRoute> MRoutes { get; set; }
 
     public virtual DbSet<MSpectralNetGroup> MSpectralNetGroups { get; set; }
-
-    public virtual DbSet<MSpectrum> MSpectrums { get; set; }
 
     public virtual DbSet<View1> View1s { get; set; }
 
@@ -135,6 +145,33 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.Dependant)
                 .HasMaxLength(128)
                 .HasColumnName("dependant");
+        });
+
+        modelBuilder.Entity<MInputRfPort1Spectrum>(entity =>
+        {
+            entity
+                .ToTable("M_InputRfPort1Spectrum")
+                .IsMemoryOptimized();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+        });
+
+        modelBuilder.Entity<MInputRfPort2Spectrum>(entity =>
+        {
+            entity
+                .ToTable("M_InputRfPort2Spectrum")
+                .IsMemoryOptimized();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+        });
+
+        modelBuilder.Entity<MInputRfSpectrum>(entity =>
+        {
+            entity
+                .ToTable("M_InputRfSpectrum")
+                .IsMemoryOptimized();
+
+            entity.Property(e => e.Id).HasColumnName("id");
         });
 
         modelBuilder.Entity<MModule>(entity =>
@@ -291,6 +328,33 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.McastAddr)
                 .HasMaxLength(128)
                 .HasColumnName("MCastAddr");
+        });
+
+        modelBuilder.Entity<MOutputRfPort1Spectrum>(entity =>
+        {
+            entity
+                .ToTable("M_OutputRfPort1Spectrum")
+                .IsMemoryOptimized();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+        });
+
+        modelBuilder.Entity<MOutputRfPort2Spectrum>(entity =>
+        {
+            entity
+                .ToTable("M_OutputRfPort2Spectrum")
+                .IsMemoryOptimized();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+        });
+
+        modelBuilder.Entity<MOutputRfSpectrum>(entity =>
+        {
+            entity
+                .ToTable("M_OutputRfSpectrum")
+                .IsMemoryOptimized();
+
+            entity.Property(e => e.Id).HasColumnName("id");
         });
 
         modelBuilder.Entity<MRfInputStream>(entity =>
@@ -480,23 +544,27 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.UnitName).HasMaxLength(128);
         });
 
-        modelBuilder.Entity<MSpectrum>(entity =>
-        {
-            entity
-                .ToTable("M_Spectrum")
-                .IsMemoryOptimized();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.SpectrumType).HasMaxLength(128);
-        });
-
         modelBuilder.Entity<View1>(entity =>
         {
             entity
                 .HasNoKey()
                 .ToView("View_1");
 
-            entity.Property(e => e.InputRfPort1Spectrum).HasColumnName("inputRfPort1Spectrum");
+            entity.Property(e => e.CenterFrequency).HasColumnName("centerFrequency");
+            entity.Property(e => e.ChassisName).HasMaxLength(128);
+            entity.Property(e => e.GroupId).HasColumnName("GroupID");
+            entity.Property(e => e.GroupName).HasMaxLength(128);
+            entity.Property(e => e.Site).HasMaxLength(128);
+            entity.Property(e => e.SourceIpAddress)
+                .HasMaxLength(128)
+                .HasColumnName("sourceIpAddress");
+            entity.Property(e => e.SourcePort)
+                .HasMaxLength(128)
+                .HasColumnName("sourcePort");
+            entity.Property(e => e.StreamId)
+                .HasColumnType("numeric(10, 0)")
+                .HasColumnName("streamId");
+            entity.Property(e => e.UnitName).HasMaxLength(128);
         });
 
         OnModelCreatingPartial(modelBuilder);

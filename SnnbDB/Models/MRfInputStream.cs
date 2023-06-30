@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SnnbDB.Rest;
+
+using System;
 using System.Collections.Generic;
 
 namespace SnnbDB.Models;
@@ -46,4 +48,5 @@ public partial class MRfInputStream
     public decimal? StreamId { get; set; }
 
     public double? StreamSampleRate { get; set; }
+
 }
