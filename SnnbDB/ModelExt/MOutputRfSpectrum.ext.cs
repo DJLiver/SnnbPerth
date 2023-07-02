@@ -43,40 +43,40 @@ public partial class MOutputRfSpectrum
     {
         using SnnbFoContext c = new SnnbFoContext();
 
-        try
-        {
-            // Unique by Name
-            List<MOutputRfSpectrum>? v = (from f in c.MOutputRfSpectrums
-                                       where f.UnitId == snnbCommPack.SpectralNetGroup.UnitId 
-                                       select f).ToList();
-            MOutputRfSpectrum rm;
-            switch (v.Count)
-            {
-                case 0:
-                    this.Spectrum = data;
-                    c.MOutputRfSpectrums.Add(this);
-                    break;
-                case 1:
-                    rm = v[0];
-                    this.Spectrum = data;
-                    break;
-                default:
-                    for (int i = 1; i < v.Count; i++)
-                    {
-                        rm = v[i];
-                        c.MOutputRfSpectrums.Remove(rm);
-                    }
-                    rm = v[0];
-                    this.Spectrum = data;
-                    break;
-            }
+        //try
+        //{
+        //    // Unique by Name
+        //    List<MOutputRfSpectrum>? v = (from f in c.MOutputRfSpectrums
+        //                               where f.UnitId == snnbCommPack.SpectralNetGroup.UnitId 
+        //                               select f).ToList();
+        //    MOutputRfSpectrum rm;
+        //    switch (v.Count)
+        //    {
+        //        case 0:
+        //            this.Spectrum = data;
+        //            c.MOutputRfSpectrums.Add(this);
+        //            break;
+        //        case 1:
+        //            rm = v[0];
+        //            this.Spectrum = data;
+        //            break;
+        //        default:
+        //            for (int i = 1; i < v.Count; i++)
+        //            {
+        //                rm = v[i];
+        //                c.MOutputRfSpectrums.Remove(rm);
+        //            }
+        //            rm = v[0];
+        //            this.Spectrum = data;
+        //            break;
+        //    }
 
-            c.SaveChanges();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        //    c.SaveChanges();
+        //}
+        //catch (Exception)
+        //{
+        //    throw;
+        //}
     }
 
 

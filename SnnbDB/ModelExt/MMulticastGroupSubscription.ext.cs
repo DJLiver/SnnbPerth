@@ -44,7 +44,7 @@ public partial class MMulticastGroupSubscription
         }
     }
 
-    private void SaveRestToDB(List<RestString> deps, SnnbCommPack snnbCommPack)
+    private void SaveRestToDB(List<RestString> mcGs, SnnbCommPack snnbCommPack)
     {
         using SnnbFoContext c = new SnnbFoContext();
 
@@ -55,7 +55,7 @@ public partial class MMulticastGroupSubscription
                                  select f).ToList();
 
             v.Clear();
-            foreach (var item in deps)
+            foreach (var item in mcGs)
             {
                 v.Add(new MMulticastGroupSubscription() { UnitId = snnbCommPack.SpectralNetGroup.UnitId, McastAddr = item.value });
             }

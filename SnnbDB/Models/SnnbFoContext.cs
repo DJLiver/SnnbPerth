@@ -49,11 +49,9 @@ public partial class SnnbFoContext : DbContext
 
     public virtual DbSet<MSpectralNetGroup> MSpectralNetGroups { get; set; }
 
-    public virtual DbSet<View1> View1s { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SNNB-PC02;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
+        => optionsBuilder.UseSqlServer("Server=HOME-DAVID;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -325,9 +323,7 @@ public partial class SnnbFoContext : DbContext
                 .IsMemoryOptimized();
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.McastAddr)
-                .HasMaxLength(128)
-                .HasColumnName("MCastAddr");
+            entity.Property(e => e.McastAddr).HasMaxLength(128);
         });
 
         modelBuilder.Entity<MOutputRfPort1Spectrum>(entity =>
@@ -541,29 +537,6 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.IpAddress).HasMaxLength(128);
             entity.Property(e => e.Location).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);
-            entity.Property(e => e.UnitName).HasMaxLength(128);
-        });
-
-        modelBuilder.Entity<View1>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("View_1");
-
-            entity.Property(e => e.CenterFrequency).HasColumnName("centerFrequency");
-            entity.Property(e => e.ChassisName).HasMaxLength(128);
-            entity.Property(e => e.GroupId).HasColumnName("GroupID");
-            entity.Property(e => e.GroupName).HasMaxLength(128);
-            entity.Property(e => e.Site).HasMaxLength(128);
-            entity.Property(e => e.SourceIpAddress)
-                .HasMaxLength(128)
-                .HasColumnName("sourceIpAddress");
-            entity.Property(e => e.SourcePort)
-                .HasMaxLength(128)
-                .HasColumnName("sourcePort");
-            entity.Property(e => e.StreamId)
-                .HasColumnType("numeric(10, 0)")
-                .HasColumnName("streamId");
             entity.Property(e => e.UnitName).HasMaxLength(128);
         });
 

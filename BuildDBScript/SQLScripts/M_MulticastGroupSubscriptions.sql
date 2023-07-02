@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[M_MulticastGroupSubscriptions]
 (
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[UnitId] [int] NOT NULL,
-    [MCastAddr] [nvarchar](128) NOT NULL,
+    [McastAddr] [nvarchar](128) NOT NULL,
 
  CONSTRAINT [PK_M_MulticastGroupSubscriptions]  PRIMARY KEY NONCLUSTERED HASH 
 (
