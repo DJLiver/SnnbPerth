@@ -39,8 +39,8 @@ public partial class Monitor
         try
         {
             hubConnection = new HubConnectionBuilder()
-        .WithUrl(NavigationManager.ToAbsoluteUri("/UpdateHub"))
-        .Build();
+                .WithUrl(NavigationManager.ToAbsoluteUri("/UpdateHub"))
+                .Build();
             hubConnection.On<rtStatus>("RT Status", recd);
             await hubConnection.StartAsync();
 

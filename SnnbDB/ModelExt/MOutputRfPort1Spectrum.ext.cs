@@ -20,8 +20,6 @@ public partial class MOutputRfPort1Spectrum
     }
     #endregion
 
-
-
     public void SaveRestToDB(SnnbCommPack snnbCommPack)
     {
         try
@@ -43,40 +41,40 @@ public partial class MOutputRfPort1Spectrum
     {
         using SnnbFoContext c = new SnnbFoContext();
 
-        //try
-        //{
-        //    // Unique by Name
-        //    List<MOutputRfPort1Spectrum>? v = (from f in c.MOutputRfPort1Spectrums
-        //                               where f.UnitId == snnbCommPack.SpectralNetGroup.UnitId 
-        //                               select f).ToList();
-        //    MOutputRfPort1Spectrum rm;
-        //    switch (v.Count)
-        //    {
-        //        case 0:
-        //            this.Spectrum = data;
-        //            c.MOutputRfPort1Spectrums.Add(this);
-        //            break;
-        //        case 1:
-        //            rm = v[0];
-        //            this.Spectrum = data;
-        //            break;
-        //        default:
-        //            for (int i = 1; i < v.Count; i++)
-        //            {
-        //                rm = v[i];
-        //                c.MOutputRfPort1Spectrums.Remove(rm);
-        //            }
-        //            rm = v[0];
-        //            this.Spectrum = data;
-        //            break;
-        //    }
+        try
+        {
+            // Unique by Name
+            List<MOutputRfPort1Spectrum>? v = (from f in c.MOutputRfPort1Spectrums
+                                               where f.UnitId == snnbCommPack.SpectralNetGroup.UnitId
+                                               select f).ToList();
+            MOutputRfPort1Spectrum rm;
+            switch (v.Count)
+            {
+                case 0:
+                    this.Spectrum = data;
+                    c.MOutputRfPort1Spectrums.Add(this);
+                    break;
+                case 1:
+                    rm = v[0];
+                    this.Spectrum = data;
+                    break;
+                default:
+                    for (int i = 1; i < v.Count; i++)
+                    {
+                        rm = v[i];
+                        c.MOutputRfPort1Spectrums.Remove(rm);
+                    }
+                    rm = v[0];
+                    this.Spectrum = data;
+                    break;
+            }
 
-        //    c.SaveChanges();
-        //}
-        //catch (Exception)
-        //{
-        //    throw;
-        //}
+            c.SaveChanges();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
 

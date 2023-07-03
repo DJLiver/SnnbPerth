@@ -18,7 +18,7 @@ public class UpdateHub : Hub
 
     public void SendMessage(rtStatus rtStatus)
     {
-        this.Clients.All.SendAsync("UpdateSummary", rtStatus);
+        this.Clients.All.SendAsync("RT Status", rtStatus);
     }
 
 }

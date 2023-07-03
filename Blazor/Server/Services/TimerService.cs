@@ -57,6 +57,7 @@ public class TimerService : BackgroundService, IDisposable
             _logger.LogInformation(new EventId(15), "Collection completed");
             rtStatus rt = new rtStatus();
             rt.Fill();
+
             await _updateHub.Clients.All.SendAsync("RT Status", rt);
 
         }
