@@ -17,7 +17,7 @@ public static class RestData
         var request = new RestRequest(command, Method.Post);
 
 
-        request.AddJsonBody(json);
+        //request.AddJsonBody(json);
 
 
         RestResponse? response = client.Post(request);
