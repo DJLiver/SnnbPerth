@@ -17,6 +17,10 @@ public partial class HSpectralNetGroup
 
     public string UnitName { get; set; } = null!;
 
+    public string RemoteUnit { get; set; } = null!;
+
+    public string PeerUnit { get; set; } = null!;
+
     public string ChassisName { get; set; } = null!;
 
     public string Location { get; set; } = null!;

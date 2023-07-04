@@ -49,10 +49,16 @@ public partial class Monitor
         {
         }    
     }
+    //private IEnumerable<RtMonitor> GetRtMonitor()
+    //{
+
+    //}
+    private IEnumerable<RtMonitor> MonitorTable { get; set;}
     private async void recd(rtStatus rtStatus)
     {
+        MonitorTable = rtStatus.GetRtMonitor();
 //rtStatus.SpecNetGroups.
-        await InvokeAsync(() => StateHasChanged());
+       // await InvokeAsync(() => StateHasChanged());
     }
 
 

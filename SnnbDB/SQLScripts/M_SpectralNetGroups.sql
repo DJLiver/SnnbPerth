@@ -17,6 +17,8 @@ CREATE TABLE [dbo].[M_SpectralNetGroups]
 	[Site] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[UnitId] [int] NOT NULL,
 	[UnitName] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
+	[RemoteUnit] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
+	[PeerUnit] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[ChassisName] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[Location] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[IpAddress] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,

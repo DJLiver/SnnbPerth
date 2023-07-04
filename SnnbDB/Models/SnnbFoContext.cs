@@ -61,7 +61,7 @@ public partial class SnnbFoContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SNNB-PC02;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
+        => optionsBuilder.UseSqlServer("Server=HOME-DAVID;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -102,7 +102,7 @@ public partial class SnnbFoContext : DbContext
 
         modelBuilder.Entity<HRangeConfig>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__H_RangeC__3214EC07C6DF05E1");
+            entity.HasKey(e => e.Id).HasName("PK__H_RangeC__3214EC075B30B1F5");
 
             entity.ToTable("H_RangeConfig");
 
@@ -122,7 +122,9 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.GroupName).HasMaxLength(128);
             entity.Property(e => e.IpAddress).HasMaxLength(128);
             entity.Property(e => e.Location).HasMaxLength(128);
+            entity.Property(e => e.PeerUnit).HasMaxLength(128);
             entity.Property(e => e.PreIpAddress).HasMaxLength(128);
+            entity.Property(e => e.RemoteUnit).HasMaxLength(128);
             entity.Property(e => e.RestQuery).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);
             entity.Property(e => e.UnitName).HasMaxLength(128);
@@ -605,6 +607,8 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.GroupName).HasMaxLength(128);
             entity.Property(e => e.IpAddress).HasMaxLength(128);
             entity.Property(e => e.Location).HasMaxLength(128);
+            entity.Property(e => e.PeerUnit).HasMaxLength(128);
+            entity.Property(e => e.RemoteUnit).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);
             entity.Property(e => e.UnitName).HasMaxLength(128);
         });
