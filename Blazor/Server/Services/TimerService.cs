@@ -1,23 +1,12 @@
-﻿
-
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
-
+﻿using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
-
 using RestSharp;
-
 using SnnbDB.ModelExt;
 using SnnbDB.Models;
 using SnnbDB.Rest;
-
 using SnnbFailover.Server.Hubs;
 
-
 namespace SnnbFailover.Server.Services;
-
-//public class JobExecutedEventArgs : EventArgs { }
 
 
 public class TimerService : BackgroundService, IDisposable

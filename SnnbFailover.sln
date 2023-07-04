@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Failover.Client", "Blazor\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Failover.Server", "Blazor\Server\Failover.Server.csproj", "{02BA601E-6519-4446-A405-15899B53B6A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandTest", "CommandTest\CommandTest.csproj", "{720335A8-8922-4B12-B995-80C918C07EA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandTest", "CommandTest\CommandTest.csproj", "{720335A8-8922-4B12-B995-80C918C07EA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
