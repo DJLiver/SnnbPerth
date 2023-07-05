@@ -19,9 +19,7 @@ CREATE TABLE [dbo].[H_SpectralNetGroups](
 	[PeerUnit] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[ChassisName] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[Location] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
-	[PreIpAddress] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[IpAddress] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
-	[RestQuery] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[Direction] [nvarchar](128) COLLATE Latin1_General_CI_AS NOT NULL,
 	[DisplayOrder] [int] NOT NULL,
 	[Timeout] [int] NOT NULL,
@@ -34,6 +32,6 @@ CREATE TABLE [dbo].[H_SpectralNetGroups](
 ) ON [PRIMARY]
 GO
 
-INSERT "H_SpectralNetGroups" VALUES(200,'Group Id 200','SiteA', 2000,'AUC-RH1A','WRW-RH1A','AUC-RH1B','AUC Chassis name','Auckland SAS','http://','10.228.41.179','rest/spectralNet/_attribute?_dive=true','Forward', 1,500,'True')
-INSERT "H_SpectralNetGroups" VALUES(200,'Group Id 200','SiteB', 2100,'WRW-RH1A','AUC-RH1A','WRW-RH1B','AUC Chassis name','Warkworth SAS','http://','10.229.41.179','rest/spectralNet/_attribute?_dive=true','Return', 1,500,'False')
+INSERT "H_SpectralNetGroups" VALUES(200,'Group Id 200','SiteA', 2000,'AUC-RH1A','WRW-RH1A','AUC-RH1B','AUC Chassis name','Auckland SAS','10.228.41.179','Forward', 1,500,'True')
+INSERT "H_SpectralNetGroups" VALUES(200,'Group Id 200','SiteB', 2100,'WRW-RH1A','AUC-RH1A','WRW-RH1B','AUC Chassis name','Warkworth SAS','10.229.41.179','Return', 1,500,'False')
 go

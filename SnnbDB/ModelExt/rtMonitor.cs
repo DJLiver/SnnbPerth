@@ -15,6 +15,8 @@ public class RtMonitor
     public string CommMessage { get; set; }
     public UInt32 MeasuredDelay { get; set; } // In RfOutputStream
     public UInt64 MeasuredNetworkRate { get; set; } // In RfOutputStream
+    public bool TenMhzLocked { get; set; } // In Module
+    public bool OnePpsPresent { get; set; } // In Module
     public bool StreamEnable { get; set; } //In RfInputStream
     public bool RfOutputEnable { get; set; } // In Module RfOutputEnable
 }

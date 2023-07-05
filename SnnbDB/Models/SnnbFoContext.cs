@@ -57,28 +57,25 @@ public partial class SnnbFoContext : DbContext
 
     public virtual DbSet<MSpectralNetGroup> MSpectralNetGroups { get; set; }
 
-    public virtual DbSet<RtStatus> RtStatuses { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=HOME-DAVID;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
+        => optionsBuilder.UseSqlServer("Server=SNNB-PC02;database=snnb_FO;Trusted_Connection=true; Persist Security Info=True; TrustServerCertificate=True; User ID=Collector; Password=btp1997");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<HFormatConfig>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("H_FormatConfig");
+            entity.HasKey(e => e.Id).HasName("PK__H_Format__3214EC07B2971FAB");
 
-            entity.Property(e => e.Access).HasMaxLength(255);
-            entity.Property(e => e.Attribute).HasMaxLength(255);
-            entity.Property(e => e.Format).HasMaxLength(255);
-            entity.Property(e => e.Help).HasMaxLength(255);
-            entity.Property(e => e.Normal).HasMaxLength(255);
-            entity.Property(e => e.Scale).HasMaxLength(255);
-            entity.Property(e => e.Table).HasMaxLength(255);
-            entity.Property(e => e.Units).HasMaxLength(255);
+            entity.ToTable("H_FormatConfig");
+
+            entity.Property(e => e.Access).HasMaxLength(50);
+            entity.Property(e => e.Attribute).HasMaxLength(50);
+            entity.Property(e => e.Format).HasMaxLength(50);
+            entity.Property(e => e.Help).HasMaxLength(512);
+            entity.Property(e => e.Normal).HasMaxLength(50);
+            entity.Property(e => e.Table).HasMaxLength(50);
+            entity.Property(e => e.Units).HasMaxLength(50);
         });
 
         modelBuilder.Entity<HLog>(entity =>
@@ -102,7 +99,7 @@ public partial class SnnbFoContext : DbContext
 
         modelBuilder.Entity<HRangeConfig>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__H_RangeC__3214EC075B30B1F5");
+            entity.HasKey(e => e.Id).HasName("PK__H_RangeC__3214EC073CD88B54");
 
             entity.ToTable("H_RangeConfig");
 
@@ -123,20 +120,17 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.IpAddress).HasMaxLength(128);
             entity.Property(e => e.Location).HasMaxLength(128);
             entity.Property(e => e.PeerUnit).HasMaxLength(128);
-            entity.Property(e => e.PreIpAddress).HasMaxLength(128);
             entity.Property(e => e.RemoteUnit).HasMaxLength(128);
-            entity.Property(e => e.RestQuery).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);
             entity.Property(e => e.UnitName).HasMaxLength(128);
         });
 
         modelBuilder.Entity<HSystemParam>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_H_RestParam");
-
             entity.ToTable("H_SystemParam");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.OnAPath).HasColumnName("On_A_Path");
             entity.Property(e => e.PreIpAddress).HasMaxLength(128);
             entity.Property(e => e.RestQuery).HasMaxLength(128);
         });
@@ -392,9 +386,7 @@ public partial class SnnbFoContext : DbContext
                 .IsMemoryOptimized();
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.McastAddr)
-                .HasMaxLength(128)
-                .HasColumnName("MCastAddr");
+            entity.Property(e => e.McastAddr).HasMaxLength(128);
         });
 
         modelBuilder.Entity<MOutputRfPort1Spectrum>(entity =>
@@ -609,26 +601,6 @@ public partial class SnnbFoContext : DbContext
             entity.Property(e => e.Location).HasMaxLength(128);
             entity.Property(e => e.PeerUnit).HasMaxLength(128);
             entity.Property(e => e.RemoteUnit).HasMaxLength(128);
-            entity.Property(e => e.Site).HasMaxLength(128);
-            entity.Property(e => e.UnitName).HasMaxLength(128);
-        });
-
-        modelBuilder.Entity<RtStatus>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("RtStatus");
-
-            entity.Property(e => e.ChassisName).HasMaxLength(128);
-            entity.Property(e => e.Direction).HasMaxLength(128);
-            entity.Property(e => e.ErrorText).HasMaxLength(512);
-            entity.Property(e => e.GroupId).HasColumnName("GroupID");
-            entity.Property(e => e.GroupName).HasMaxLength(128);
-            entity.Property(e => e.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id");
-            entity.Property(e => e.IpAddress).HasMaxLength(128);
-            entity.Property(e => e.Location).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);
             entity.Property(e => e.UnitName).HasMaxLength(128);
         });

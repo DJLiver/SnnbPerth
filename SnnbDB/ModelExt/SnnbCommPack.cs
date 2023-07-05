@@ -28,7 +28,23 @@ public class SnnbCommPack
     {
         using (SnnbFoContext context = new SnnbFoContext())
         {
+            context.MSpectralNetGroups.ExecuteDelete();
+
+            context.MAvailableStreams.ExecuteDelete();
+            context.MControlNics.ExecuteDelete();
+            context.MDataNics.ExecuteDelete();
+            context.MDependencies.ExecuteDelete();
+            context.MModules.ExecuteDelete();
+            context.MMulticastGroupSubscriptions.ExecuteDelete();
             context.MRfInputStreams.ExecuteDelete();
+            context.MRfInputStreams.ExecuteDelete();
+            context.MRoutes.ExecuteDelete();
+            context.MInputRfSpectrums.ExecuteDelete();
+            context.MInputRfPort1Spectrums.ExecuteDelete();
+            context.MInputRfPort2Spectrums.ExecuteDelete();
+            context.MOutputRfSpectrums.ExecuteDelete();
+            context.MOutputRfPort1Spectrums.ExecuteDelete();
+            context.MOutputRfPort2Spectrums.ExecuteDelete();
 
         }
 

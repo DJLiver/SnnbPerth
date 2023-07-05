@@ -58,6 +58,12 @@ public class rtStatus
             rm.RfOutputEnable = (from s in Modules
                                where s.UnitId == rm.UnitId
                                select s.RfOutputEnable).Single();
+            rm.TenMhzLocked = (from s in Modules
+                               where s.UnitId == rm.UnitId
+                               select s.TenMhzLocked).Single();
+            rm.OnePpsPresent = (from s in Modules
+                               where s.UnitId == rm.UnitId
+                               select s.OnePpsPresent).Single();
         }
 
 

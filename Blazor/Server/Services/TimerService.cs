@@ -6,6 +6,8 @@ using SnnbDB.Models;
 using SnnbDB.Rest;
 using SnnbFailover.Server.Hubs;
 
+using System.Linq.Dynamic.Core;
+
 namespace SnnbFailover.Server.Services;
 
 
@@ -27,6 +29,8 @@ public class TimerService : BackgroundService, IDisposable
 
     public override Task StartAsync(CancellationToken cancellationToken)
     {
+        SnnbCommPack.CleanDB();
+
         _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(5000));
 
         return base.StartAsync(cancellationToken);
@@ -62,19 +66,21 @@ public class TimerService : BackgroundService, IDisposable
     {
         SnnbFoContext sc = new SnnbFoContext();
         List<HSpectralNetGroup> t = sc.HSpectralNetGroups.ToList();
+        HSystemParam hSystemParam = sc.HSystemParams.First();
+
         var TaskList = new List<Task>();
 
         foreach (HSpectralNetGroup specNetGroup in t)
         {
             if (specNetGroup.Enabled)
             {
-                TaskList.Add(GetSNDataAndStoreInDB(specNetGroup));
+                TaskList.Add(GetSNDataAndStoreInDB(specNetGroup,hSystemParam));
             }
         }
         Task.WaitAll(TaskList.ToArray());
     }
 
-    private async Task GetSNDataAndStoreInDB(HSpectralNetGroup specNetGroup)
+    private async Task GetSNDataAndStoreInDB(HSpectralNetGroup specNetGroup, HSystemParam hSystemParam)
     {
         RestClient client;
         RestResponse response = null!;
@@ -85,8 +91,8 @@ public class TimerService : BackgroundService, IDisposable
 
         try
         {
-            client = new RestClient(specNetGroup.PreIpAddress + specNetGroup.IpAddress);
-            response = await client.ExecuteGetAsync(new RestRequest(specNetGroup.RestQuery) { Timeout = specNetGroup.Timeout });
+            client = new RestClient(hSystemParam.PreIpAddress + specNetGroup.IpAddress);
+            response = await client.ExecuteGetAsync(new RestRequest(hSystemParam.RestQuery) { Timeout = specNetGroup.Timeout });
 
             if (response is null) throw new Exception($"Response is NULL: {specNetGroup.UnitId} ");
 

@@ -17,6 +17,8 @@ public partial class MSpectralNetGroup
             Site = snnbCommPack.SpectralNetGroup.Site;
             UnitId = snnbCommPack.SpectralNetGroup.UnitId;
             UnitName = snnbCommPack.SpectralNetGroup.UnitName;
+            RemoteUnit = snnbCommPack.SpectralNetGroup.RemoteUnit;
+            PeerUnit = snnbCommPack.SpectralNetGroup.PeerUnit;
             ChassisName = snnbCommPack.SpectralNetGroup.ChassisName;
             Location = snnbCommPack.SpectralNetGroup.Location;
             IpAddress = snnbCommPack.SpectralNetGroup.IpAddress;
