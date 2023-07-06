@@ -5,8 +5,6 @@ namespace SnnbDB.Models;
 
 public partial class HFormatConfig
 {
-    public int Id { get; set; }
-
     public string? Table { get; set; }
 
     public string? Attribute { get; set; }
@@ -15,7 +13,7 @@ public partial class HFormatConfig
 
     public string? Normal { get; set; }
 
-    public int? Scale { get; set; }
+    public string? Scale { get; set; }
 
     public string? Format { get; set; }
 

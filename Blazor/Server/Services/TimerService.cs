@@ -29,9 +29,9 @@ public class TimerService : BackgroundService, IDisposable
 
     public override Task StartAsync(CancellationToken cancellationToken)
     {
-        SnnbCommPack.CleanDB();
+        //SnnbCommPack.CleanDB();
 
-        _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(5000));
+        _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(1000));
 
         return base.StartAsync(cancellationToken);
     }
@@ -45,9 +45,9 @@ public class TimerService : BackgroundService, IDisposable
         }
         while (await _periodicTimer.WaitForNextTickAsync(stoppingToken) && !stoppingToken.IsCancellationRequested)
         {
-            //await Collect(stoppingToken);
-            await GetRestData(stoppingToken);
-            _logger.LogInformation(new EventId(15), "Collection completed");
+           // await GetRestData(stoppingToken);
+           
+
             rtStatus rt = new rtStatus();
             rt.Fill();
 

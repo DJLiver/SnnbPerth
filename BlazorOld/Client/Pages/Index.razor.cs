@@ -102,55 +102,57 @@ public partial class Index : ComponentBase
     //    }
     //}
 
-#endregion
+    #endregion
 
     #region DataGrid
 
-    //void CellRender(DataGridCellRenderEventArgs<Site1Status> args)
-    //{
-    //    if (args.Column.Property == "RfOutEnable")
-    //    {
-    //        args.Attributes.Add("style", $"background-color: {(args.Data.RfOutEnable == true ? "var(--rz-success-light)" : "var(--rz-warning-light)")};");
-    //    }
+    void CellRender(DataGridCellRenderEventArgs<Site1Status> args)
+    {
+        if (args.Column.Property == "RfOutputEnable")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.RfOutEnable == true ? "var(--rz-success-light)" : "var(--rz-warning-light)")};");
+        }
 
-    //    if (args.Column.Property == "CommOk")
-    //    {
-    //        //if (args.Data.ExtCommError != false)
-    //        //{   
-    //        //    args.Attributes.Add("style", "background-color: var(--rz-warning-light)");
-    //        //}
-    //        args.Attributes.Add("style", $"background-color: {(args.Data.CommOk == true ? "var(--rz-success-light)" : "var(--rz-warning-light)")};");
-    //    }
-    //}
-    //void HeaderFooterCellRender(DataGridCellRenderEventArgs<Site1Status> args)
-    //{
-    //    args.Attributes.Add("style", "background-color: darkslategray ");
-    //}
+        if (args.Column.Property == "CommsOk")
+        {
+            //if (args.Data.ExtCommError != false)
+            //{   
+            //    args.Attributes.Add("style", "background-color: var(--rz-warning-light)");
+            //}
+            args.Attributes.Add("style", $"background-color: {(args.Data.CommOk == true ? "var(--rz-success-light)" : "var(--rz-warning-light)")};");
+        }
+    }
 
-    //void CellRender(DataGridCellRenderEventArgs<Site2Status> args)
-    //{
-    //    if (args.Column.Property == "RfOutEnable")
-    //    {
-    //        args.Attributes.Add("style", $"background-color: {(args.Data.RfOutEnable == true ? "var(--rz-success-light)" : "var(--rz-warning-light)")};");
-    //    }
+    void HeaderFooterCellRender(DataGridCellRenderEventArgs<Site1Status> args)
+    {
+        args.Attributes.Add("style", "background-color: darkslategray ");
+    }
 
-    //    if (args.Column.Property == "CommOk")
-    //    {
-    //        //if (args.Data.ExtCommError != false)
-    //        //{   
-    //        //    args.Attributes.Add("style", "background-color: var(--rz-warning-light)");
-    //        //}
-    //        args.Attributes.Add("style", $"background-color: {(args.Data.CommOk == true ? "var(--rz-success-light)" : "var(--rz-warning-light)")};");
-    //    }
-    //}
-    //void HeaderFooterCellRender(DataGridCellRenderEventArgs<Site2Status > args)
-    //{
-    //    args.Attributes.Add("style", "background-color: darkslategray ");
-    //}
-    //void SortCallback(DataGridCellRenderEventArgs<Site2Status> args)
-    //{
+    void CellRender(DataGridCellRenderEventArgs<Site2Status> args)
+    {
+        if (args.Column.Property == "RfOutputEnable")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.RfOutEnable == true ? "var(--rz-success-light)" : "var(--rz-warning-light)")};");
+        }
 
-    //}
+        if (args.Column.Property == "CommsOk")
+        {
+            //if (args.Data.ExtCommError != false)
+            //{   
+            //    args.Attributes.Add("style", "background-color: var(--rz-warning-light)");
+            //}
+            args.Attributes.Add("style", $"background-color: {(args.Data.CommOk == true ? "var(--rz-success-light)" : "var(--rz-warning-light)")};");
+        }
+    }
+
+    void HeaderFooterCellRender(DataGridCellRenderEventArgs<Site2Status> args)
+    {
+        args.Attributes.Add("style", "background-color: darkslategray ");
+    }
+    void SortCallback(DataGridCellRenderEventArgs<Site2Status> args)
+    {
+
+    }
 
     #endregion
 

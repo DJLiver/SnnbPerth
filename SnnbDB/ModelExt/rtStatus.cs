@@ -41,15 +41,15 @@ public class rtStatus
         }
         foreach (RtMonitor rm in rtMonitors)
         {
-            var v = (from s in RfOutputStreams
+            decimal v = (from s in RfOutputStreams
                                 where s.UnitId == rm.UnitId
                                 select s.MeasuredDelay).Single();
-            rm.MeasuredDelay = Decimal.ToUInt32(v);
+            rm.MeasuredDelay = (v/1000000).ToString("N2") + "ms";
 
             var v2 = (from s in RfOutputStreams
                                 where s.UnitId == rm.UnitId
                                 select s.MeasuredNetworkRate).Single();
-            rm.MeasuredNetworkRate = Decimal.ToUInt32(v);
+            rm.MeasuredNetworkRate = (v2/1000000).ToString("N0") + "Mbps";
 
             rm.StreamEnable = (from s in RfInputStreams
                                where s.UnitId == rm.UnitId

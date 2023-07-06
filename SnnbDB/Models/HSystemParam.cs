@@ -16,12 +16,4 @@ public partial class HSystemParam
     public int Timeout { get; set; }
 
     public bool Verbose { get; set; }
-
-    public bool AutoOn { get; set; }
-
-    public bool SwitchAll { get; set; }
-
-    public int SwitchDelay { get; set; }
-
-    public bool OnAPath { get; set; }
 }

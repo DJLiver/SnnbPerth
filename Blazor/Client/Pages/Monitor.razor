@@ -1,9 +1,66 @@
 @page "/monitor"
+@using SnnbDB.ModelExt
 
 <PageTitle>Monitor</PageTitle>
 <RadzenRow>
     <RadzenColumn Size="12">
-        <RadzenText Text="Monitor" TextStyle="TextStyle.H3" TagName="TagName.H1" />
+        <RadzenText Text="Monitor" TextStyle="TextStyle.H3" TagName="TagName.H1" Style="width: 1010px; height: 62px" />
     </RadzenColumn>
 </RadzenRow>
-<RadzenDataGrid TItem="SnnbDB.ModelExt.RtMonitor" Style="width: 993px; height: 476px" Data="@MonitorTable"></RadzenDataGrid>
+<RadzenRow>
+    <RadzenColumn Size="3" Style="width: 182px; text-align: right">
+        <RadzenText Text="Data Timestamp:" TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="text-align: right; width: 239px; height: 38px" />
+    </RadzenColumn>
+    <RadzenColumn Size="7"Style="width: 182px; text-align: left">
+        <RadzenText Text="@DataTimeStamp"  TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" />
+    </RadzenColumn>
+    </RadzenRow>
+
+<RadzenDataGrid TItem="RtMonitor" Style="font-weight: 400; top: 20px; right: 20px; bottom: 20px; margin: 10px; padding: 10px" Data="@MonitorTable" CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ColumnWidth="300">
+
+        <Columns>
+            
+            <RadzenDataGridColumn TItem="RtMonitor" Title="Associations" Frozen="false" Width="800" TextAlign="Radzen.TextAlign.Center" MinWidth="100" Pickable="false" Reorderable="false" Sortable="false">
+                <Columns>
+                    <RadzenDataGridColumn TItem="RtMonitor" Property="UnitName" Title="Unit" Width="120"></RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="RtMonitor" Title="Remote" Property="RemoteUnit" Width="150"></RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="RtMonitor" Title="Peer" Property="PeerUnit" Width="200"></RadzenDataGridColumn>
+                </Columns>
+             </RadzenDataGridColumn>
+
+            <RadzenDataGridColumn TItem="RtMonitor" Title="Communication" TextAlign="Radzen.TextAlign.Center">
+                <Template Context="data">
+                    @if (data.CommsOk == true)
+                    {
+                        <span style='color: var(--rz-text-contrast-color)'>@data.CommsOk</span>
+                    }
+                    else
+                    {
+                        <span style='color: var(--rz-text-color)'>@data.CommsOk</span>
+                    }
+                </Template>
+                <Columns>
+                    <RadzenDataGridColumn TItem="RtMonitor" Property="CommsOk" Title="State"></RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="RtMonitor" Title="Message" Property="CommMessage"></RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGridColumn>   
+
+            <RadzenDataGridColumn TItem="RtMonitor" Title="Criteria" TextAlign="Radzen.TextAlign.Center">
+                <Columns>
+                    <RadzenDataGridColumn TItem="RtMonitor" Property="MeasuredDelay" Title="Delay"></RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="RtMonitor" Title="Net rate" Property="MeasuredNetworkRate"></RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="RtMonitor" Title="10MHz" Property="TenMhzLocked"></RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="RtMonitor" Property="OnePpsPresent" Title="1PPS"></RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGridColumn>
+
+
+            <RadzenDataGridColumn TItem="RtMonitor" Property="StreamEnable" Title="Control" TextAlign="Radzen.TextAlign.Center">
+                <Columns>
+                    <RadzenDataGridColumn TItem="RtMonitor" Property="StreamEnable" Title="IP stream" Width="50"></RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="RtMonitor" Property="RfOutputEnable" Title="RFout"></RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGridColumn>
+    
+        </Columns>
+</RadzenDataGrid>

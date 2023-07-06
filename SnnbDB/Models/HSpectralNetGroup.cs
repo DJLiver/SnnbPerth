@@ -25,7 +25,11 @@ public partial class HSpectralNetGroup
 
     public string Location { get; set; } = null!;
 
+    public string PreIpAddress { get; set; } = null!;
+
     public string IpAddress { get; set; } = null!;
+
+    public string RestQuery { get; set; } = null!;
 
     public string Direction { get; set; } = null!;
 
