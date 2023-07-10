@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Remove="Services\FailoverService.cs" />
+    <Compile Remove="Services\RestGetData.cs" />
     <Compile Remove="Services\SNNBStatusService.cs" />
   </ItemGroup>
 
