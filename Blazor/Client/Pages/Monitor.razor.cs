@@ -44,7 +44,7 @@ public partial class Monitor
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(NavigationManager.ToAbsoluteUri("/UpdateHub"))
                 .Build();
-            hubConnection.On<rtStatus>("RT Status", recd);
+            hubConnection.On<RtStatus>("RT Status", recd);
             await hubConnection.StartAsync();
 
         }
@@ -57,7 +57,7 @@ public partial class Monitor
 
     //}
     private IEnumerable<RtMonitor> MonitorTable { get; set;}
-    private async void recd(rtStatus rtStatus)
+    private async void recd(RtStatus rtStatus)
     {
         DataTimeStamp= rtStatus.DateTime.ToString("ddMMMyyyy HH:MM:ss");
         MonitorTable = rtStatus.GetRtMonitor();
@@ -65,13 +65,14 @@ public partial class Monitor
     }
 
     #endregion
+
     #region DataGrid
 
     void CellRender(DataGridCellRenderEventArgs<RtMonitor> args)
     {
         if (args.Column.Property == "RfOutputEnable")
         {
-            args.Attributes.Add("style", $"background-color: {(args.Data.RfOutputEnable == true ? "var(--rz-success)" : "var(--rz-danger)")};");
+            args.Attributes.Add("style", $"background-color: {(args.Data.RfOutputEnable == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
         }
 
         if (args.Column.Property == "CommsOk")
@@ -80,7 +81,7 @@ public partial class Monitor
             //{   
             //    args.Attributes.Add("style", "background-color: var(--rz-warning-light)");
             //}
-            args.Attributes.Add("style", $"background-color: {(args.Data.CommsOk == true ? "var(--rz-success)" : "var(--rz-danger)")};");
+            args.Attributes.Add("style", $"background-color: {(args.Data.CommsOk == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
         }
     }
 

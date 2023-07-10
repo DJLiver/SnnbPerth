@@ -10,7 +10,7 @@ using SnnbDB.Models;
 using SnnbDB.Rest;
 
 namespace SnnbDB.ModelExt;
-public class rtStatus
+public class RtStatus
 {
     public DateTime DateTime { get; set; } = DateTime.Now;
     public List<MSpectralNetGroup> SpecNetGroups { get; set; }
@@ -35,40 +35,68 @@ public class rtStatus
                 RemoteUnit = sng.RemoteUnit,
                 PeerUnit = sng.PeerUnit,
                 CommMessage = sng.ErrorText,
-                CommsOk = sng.Error
+                CommsOk = (!sng.Error).ToString(),
+                DisplayOrder = sng.DisplayOrder
             });
 
         }
+
         foreach (RtMonitor rm in rtMonitors)
         {
-            decimal v = (from s in RfOutputStreams
-                                where s.UnitId == rm.UnitId
-                                select s.MeasuredDelay).Single();
-            rm.MeasuredDelay = (v/1000000).ToString("N2") + "ms";
+            if(rm.CommsOk == "True")
+            {
+                decimal v = (from s in RfOutputStreams
+                                    where s.UnitId == rm.UnitId
+                                    select s.MeasuredDelay).Single();
+                rm.MeasuredDelay = (v/1000000).ToString("N2") + "ms";
 
-            var v2 = (from s in RfOutputStreams
-                                where s.UnitId == rm.UnitId
-                                select s.MeasuredNetworkRate).Single();
-            rm.MeasuredNetworkRate = (v2/1000000).ToString("N0") + "Mbps";
+                var v2 = (from s in RfOutputStreams
+                                    where s.UnitId == rm.UnitId
+                                    select s.MeasuredNetworkRate).Single();
+                rm.MeasuredNetworkRate = (v2/1000000).ToString("N0") + "Mbps";
 
-            rm.StreamEnable = (from s in RfInputStreams
-                               where s.UnitId == rm.UnitId
-                               select s.StreamEnable).Single();
+                rm.StreamEnable = (from s in RfInputStreams
+                                   where s.UnitId == rm.UnitId
+                                   select s.StreamEnable).Single().ToString();
 
-            rm.RfOutputEnable = (from s in Modules
-                               where s.UnitId == rm.UnitId
-                               select s.RfOutputEnable).Single();
-            rm.TenMhzLocked = (from s in Modules
-                               where s.UnitId == rm.UnitId
-                               select s.TenMhzLocked).Single();
-            rm.OnePpsPresent = (from s in Modules
-                               where s.UnitId == rm.UnitId
-                               select s.OnePpsPresent).Single();
+                rm.RfOutputEnable = (from s in Modules
+                                   where s.UnitId == rm.UnitId
+                                   select s.RfOutputEnable).Single().ToString();
+                rm.TenMhzLocked = (from s in Modules
+                                   where s.UnitId == rm.UnitId
+                                   select s.TenMhzLocked).Single().ToString();
+                rm.OnePpsPresent = (from s in Modules
+                                   where s.UnitId == rm.UnitId
+                                   select s.OnePpsPresent).Single().ToString();
+            }
+            else
+            {
+                rm.MeasuredDelay = "NA";
+                rm.MeasuredNetworkRate = "NA";
+                rm.StreamEnable = "NA";
+                rm.RfOutputEnable = "NA";
+                rm.TenMhzLocked = "NA";
+                rm.OnePpsPresent = "NA";
+            }
         }
-
+        rtMonitors.Sort(delegate (RtMonitor x, RtMonitor y)
+        {
+            if (x.DisplayOrder > y.DisplayOrder)
+                return 1;
+            else if (x.DisplayOrder < y.DisplayOrder) 
+                return -1;
+            else 
+                return 0;
+        });
 
         return rtMonitors;
     }
+    //public int SortBy(int name1, int name2)
+    //{
+
+    //    return name1.CompareTo(name2);
+    //}
+
     public void Fill()
     {
         using SnnbFoContext c = new SnnbFoContext();

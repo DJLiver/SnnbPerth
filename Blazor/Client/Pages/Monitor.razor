@@ -16,20 +16,20 @@
     </RadzenColumn>
     </RadzenRow>
 
-<RadzenDataGrid TItem="RtMonitor" Style="font-weight: 400; top: 20px; right: 20px; bottom: 20px; margin: 10px; padding: 10px" Data="@MonitorTable" CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ColumnWidth="300">
+<RadzenDataGrid TItem="RtMonitor" Style="font-weight: 400; top: 20px; right: 20px; bottom: 20px; margin: 10px; padding: 10px" Data="@MonitorTable" CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ColumnWidth="300" AllowColumnResize="true" AllowGrouping="false">
 
         <Columns>
             
             <RadzenDataGridColumn TItem="RtMonitor" Title="Associations" Frozen="false" Width="800" TextAlign="Radzen.TextAlign.Center" MinWidth="100" Pickable="false" Reorderable="false" Sortable="false">
                 <Columns>
-                    <RadzenDataGridColumn TItem="RtMonitor" Property="UnitName" Title="Unit" Width="120"></RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="RtMonitor" Property="UnitName" Title="Unit" MinWidth="120" Width="120"></RadzenDataGridColumn>
                     <RadzenDataGridColumn TItem="RtMonitor" Title="Remote" Property="RemoteUnit" Width="150"></RadzenDataGridColumn>
                     <RadzenDataGridColumn TItem="RtMonitor" Title="Peer" Property="PeerUnit" Width="200"></RadzenDataGridColumn>
                 </Columns>
              </RadzenDataGridColumn>
 
             <RadzenDataGridColumn TItem="RtMonitor" Title="Communication" TextAlign="Radzen.TextAlign.Center">
-                <Template Context="data">
+@*                <Template Context="data">
                     @if (data.CommsOk == true)
                     {
                         <span style='color: var(--rz-text-contrast-color)'>@data.CommsOk</span>
@@ -39,8 +39,8 @@
                         <span style='color: var(--rz-text-color)'>@data.CommsOk</span>
                     }
                 </Template>
-                <Columns>
-                    <RadzenDataGridColumn TItem="RtMonitor" Property="CommsOk" Title="State"></RadzenDataGridColumn>
+*@                <Columns>
+                <RadzenDataGridColumn TItem="RtMonitor" Property="CommsOk" Title="CommsOk"></RadzenDataGridColumn>
                     <RadzenDataGridColumn TItem="RtMonitor" Title="Message" Property="CommMessage"></RadzenDataGridColumn>
                 </Columns>
             </RadzenDataGridColumn>   

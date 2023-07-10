@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\RtStatus.cs" />
     <Compile Remove="Rest\raw.cs" />
     <Compile Remove="Rest\SNModuleOld.cs" />
   </ItemGroup>

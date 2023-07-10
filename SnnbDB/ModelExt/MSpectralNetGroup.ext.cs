@@ -26,7 +26,7 @@ public partial class MSpectralNetGroup
             DisplayOrder = snnbCommPack.SpectralNetGroup.DisplayOrder;
             Error = snnbCommPack.Error;
             ErrorText = snnbCommPack.ErrorText;
-            ReponseTime = 100;
+            ReponseTime = snnbCommPack.ResponseTime;
 
         }
         catch (Exception)

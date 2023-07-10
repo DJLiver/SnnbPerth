@@ -6,6 +6,7 @@ using SnnbDB.Models;
 using SnnbDB.Rest;
 using SnnbFailover.Server.Hubs;
 
+using System.Diagnostics;
 using System.Linq.Dynamic.Core;
 
 namespace SnnbFailover.Server.Services;
@@ -29,14 +30,14 @@ public class TimerService : BackgroundService, IDisposable
 
     public override Task StartAsync(CancellationToken cancellationToken)
     {
-        //SnnbCommPack.CleanDB();
+        SnnbCommPack.CleanDB();
 
-        _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(1000));
+        _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(5000));
 
         return base.StartAsync(cancellationToken);
     }
 
-
+    bool _reEntry = false;
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         if (_periodicTimer == null)
@@ -45,13 +46,19 @@ public class TimerService : BackgroundService, IDisposable
         }
         while (await _periodicTimer.WaitForNextTickAsync(stoppingToken) && !stoppingToken.IsCancellationRequested)
         {
-           // await GetRestData(stoppingToken);
-           
 
-            rtStatus rt = new rtStatus();
-            rt.Fill();
+            if (!_reEntry)
+            {
+                _reEntry = true;
+                await GetRestData(stoppingToken);
 
-            await _updateHub.Clients.All.SendAsync("RT Status", rt);
+                RtStatus rt = new();
+                rt.Fill();
+
+                await _updateHub.Clients.All.SendAsync("RT Status", rt);
+
+                _reEntry = false;
+            }
 
         }
 
@@ -87,19 +94,23 @@ public class TimerService : BackgroundService, IDisposable
         SnnbCommPack scp = new SnnbCommPack();
         scp.SpectralNetGroup = specNetGroup;
         scp.Error = false;
-        scp.ErrorText = "";
+        scp.ErrorText = "None";
+        Stopwatch _stopwatch = new Stopwatch();
 
         try
         {
+            _stopwatch.Start();
             client = new RestClient(hSystemParam.PreIpAddress + specNetGroup.IpAddress);
-            response = await client.ExecuteGetAsync(new RestRequest(hSystemParam.RestQuery) { Timeout = specNetGroup.Timeout });
-
+            //response = client.Get(new RestRequest(hSystemParam.RestQuery) { Timeout = 300 });
+            response = await client.ExecuteGetAsync(new RestRequest(hSystemParam.RestQuery) { Timeout = 3000 });
+            _stopwatch.Stop();
+            scp.ResponseTime = (int)_stopwatch.ElapsedMilliseconds;
             if (response is null) throw new Exception($"Response is NULL: {specNetGroup.UnitId} ");
 
-            if (!response.IsSuccessful) throw new Exception($"Response is not successful: {specNetGroup.UnitId}");
+            if (!response.IsSuccessful) throw new Exception($"Response is not successful - {specNetGroup.UnitId}:{response.ResponseStatus}");
 
             if (response.Content is null) throw new Exception($"Content is NULL: {specNetGroup.UnitId}");
-
+            
             RestMain restMain = JsonConvert.DeserializeObject<RestMain>(response.Content);
             scp.RestMain = restMain;
 

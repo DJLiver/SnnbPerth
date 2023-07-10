@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using SnnbDB.Models;
 using SnnbDB.Rest;
 
 namespace SnnbDB.Models;
@@ -23,6 +22,7 @@ public class SnnbCommPack
             return SpectralNetGroup.UnitId;
         }
     }
+    public int ResponseTime { get; set; }
 
     public static void CleanDB()
     {
@@ -55,21 +55,22 @@ public class SnnbCommPack
         new MSpectralNetGroup().SaveRestToDB(this);
         if (!Error)
         {
-            new MAvailableStream().SaveRestToDB(this);
-            new MControlNic().SaveRestToDB(this);
-            new MDataNic().SaveRestToDB(this);
-            new MDependency().SaveRestToDB(this);
-            new MModule().SaveRestToDB(this);
-            new MMulticastGroupSubscription().SaveRestToDB(this);
-            new MRfOutputStream().SaveRestToDB(this);
-            new MRfInputStream().SaveRestToDB(this);
-            new MRoute().SaveRestToDB(this);
-            new MInputRfSpectrum().SaveRestToDB(this);
-            new MInputRfPort1Spectrum().SaveRestToDB(this);
-            new MInputRfPort2Spectrum().SaveRestToDB(this);
-            new MOutputRfSpectrum().SaveRestToDB(this);
-            new MOutputRfPort1Spectrum().SaveRestToDB(this);
-            new MOutputRfPort2Spectrum().SaveRestToDB(this);
+            Parallel.Invoke(
+            () => { new MAvailableStream().SaveRestToDB(this); },
+                () => { new MControlNic().SaveRestToDB(this); },
+                () => { new MDataNic().SaveRestToDB(this); },
+                () => { new MDependency().SaveRestToDB(this); },
+                () => { new MModule().SaveRestToDB(this); },
+                () => { new MMulticastGroupSubscription().SaveRestToDB(this); },
+                () => { new MRfOutputStream().SaveRestToDB(this); },
+                () => { new MRfInputStream().SaveRestToDB(this); },
+                () => { new MRoute().SaveRestToDB(this); },
+                () => { new MInputRfSpectrum().SaveRestToDB(this); },
+                () => { new MInputRfPort1Spectrum().SaveRestToDB(this); },
+                () => { new MInputRfPort2Spectrum().SaveRestToDB(this); },
+                () => { new MOutputRfSpectrum().SaveRestToDB(this); },
+                () => { new MOutputRfPort1Spectrum().SaveRestToDB(this); },
+                () => { new MOutputRfPort2Spectrum().SaveRestToDB(this); });
 
         }
     }

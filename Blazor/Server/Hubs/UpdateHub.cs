@@ -16,7 +16,7 @@ public class UpdateHub : Hub
         //A comment for GIT
     }
 
-    public void SendMessage(rtStatus rtStatus)
+    public void SendMessage(RtStatus rtStatus)
     {
         this.Clients.All.SendAsync("RT Status", rtStatus);
     }
