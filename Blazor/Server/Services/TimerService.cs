@@ -64,11 +64,6 @@ public class TimerService : BackgroundService, IDisposable
 
     }
 
-    private Task SendStatus()
-    {
-        return Task.CompletedTask;
-    }
-
     private async Task GetRestData(CancellationToken stoppingToken)
     {
         SnnbFoContext sc = new SnnbFoContext();
