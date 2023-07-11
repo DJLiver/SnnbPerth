@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 
 using RestSharp;
 
+using SnnbDB.Models;
+
 using SpectralNetCollector.Common;
 
 
@@ -11,18 +13,18 @@ namespace SnnbFailover.Server.Services;
 
 class CollectTimer : iStartStop
 {
-    public Target target { get; set; }
+    public HSpectralNetGroup target { get; set; }
     private Timer pollTimer;
     private bool MeasurementInProgress = false;
     private bool MeasurementInProgressFirstMessage = true;
-    internal Action<object, SNdata> SNDataEvent;
-    internal Action<object, ErrorData> ErrorEvent;
+    //internal Action<object, SNdata> SNDataEvent;
+    //internal Action<object, ErrorData> ErrorEvent;
 
     #region Start/Stop
     public void Start()
     {
         pollTimer = new Timer(new TimerCallback(PollUnitNow));
-        pollTimer.Change(0, target.Period);
+        pollTimer.Change(0, /*target.Period*/2000);
     }
     public void Stop()
     {
@@ -57,35 +59,35 @@ class CollectTimer : iStartStop
         {
             MeasurementInProgress = false;
 //               OnError( ex.Message);
-            OnSNData(new SNdata() { DateStamp = DateTime.UtcNow, Data = null, Name = target.Name });
+            //OnSNData(new SNdata() { DateStamp = DateTime.UtcNow, Data = null, Name = target.Name });
             return;
         }
 
         try
         {
-            SNModule sNModule = JsonConvert.DeserializeObject<SNModule>(content);
-            OnSNData(new SNdata() { DateStamp = DateTime.UtcNow, Data = sNModule, Name = target.Name });
+            //SNModule sNModule = JsonConvert.DeserializeObject<SNModule>(content);
+            //OnSNData(new SNdata() { DateStamp = DateTime.UtcNow, Data = sNModule, Name = target.Name });
 
         }
         catch (Exception ex)
         {
-            OnError(ex.Message);
+          //  OnError(ex.Message);
         }
         MeasurementInProgress = false;
     }
     private string GetResponse()
     {
-        IRestResponse response = null;
+        RestResponse response = null;
         try
         {
             RestClient client = new RestClient(target.IpAddress);
-            RestRequest request = new RestRequest(target.Query, DataFormat.Json);
+            RestRequest request = new RestRequest("tttt");
             response = client.Get(request);
             if (response.IsSuccessful)
             {
                 return response.Content;
             }
-            throw new Exception("No response from " + target.Name);
+            throw new Exception("No response from " + target.UnitName);
 
         }
         catch (Exception)
@@ -97,34 +99,34 @@ class CollectTimer : iStartStop
     private async Task<string> GetResponseAsync()
     {
         RestClient client = new RestClient(target.IpAddress);
-        RestRequest request = new RestRequest(target.Query, DataFormat.Json);
+        RestRequest request = new RestRequest("tttt");
         var response = await client.ExecuteAsync(request);
         if (response.IsSuccessful)
         {
             return response.Content;
         }
         else
-            throw new Exception("No response from " + target.Name);
+            throw new Exception("No response from " + target.UnitName);
      }
 
 
     #endregion
 
     #region Actions
-    protected void OnSNData(SNdata e)
-    {
-        SNDataEvent?.Invoke(this, e);
-    }
-    protected void OnError( string message)
-    {
-        var e = new ErrorData()
-        {
-            DateTime = DateTime.UtcNow,
-            Source = Utilities.NameOfCallingClass(),
-            Message = message,
-        };
-        ErrorEvent?.Invoke(this, e);
-    }
+    //protected void OnSNData(SNdata e)
+    //{
+    //    SNDataEvent?.Invoke(this, e);
+    //}
+    //protected void OnError( string message)
+    //{
+    //    var e = new ErrorData()
+    //    {
+    //        DateTime = DateTime.UtcNow,
+    //        Source = Utilities.NameOfCallingClass(),
+    //        Message = message,
+    //    };
+    //    ErrorEvent?.Invoke(this, e);
+    //}
 
     #endregion
 }
