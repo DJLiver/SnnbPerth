@@ -1,12 +1,8 @@
 ﻿using Common;
 
-using Newtonsoft.Json;
-
 using RestSharp;
 
 using SnnbDB.Models;
-
-using SpectralNetCollector.Common;
 
 
 namespace SnnbFailover.Server.Services;
@@ -14,10 +10,11 @@ namespace SnnbFailover.Server.Services;
 class CollectTimer : iStartStop
 {
     public HSpectralNetGroup target { get; set; }
+
     private Timer pollTimer;
     private bool MeasurementInProgress = false;
     private bool MeasurementInProgressFirstMessage = true;
-    //internal Action<object, SNdata> SNDataEvent;
+    internal Action<object, SnnbCommPack> SNDataEvent;
     //internal Action<object, ErrorData> ErrorEvent;
 
     #region Start/Stop
