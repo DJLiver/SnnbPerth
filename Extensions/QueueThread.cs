@@ -12,12 +12,20 @@ namespace Common
         private Queue<T> queue = new Queue<T>();
         private ManualResetEvent signalReady { get; set; }
 
-        #region Initialisation
+        #region Public
         public QueueThread()
         {
             signalReady = new ManualResetEvent(true);
         }
-        internal void Start()
+        public void Next()
+        {
+            signalReady.Set();
+        }
+
+        #endregion
+
+        #region Initialisation
+        public void Start()
         {
             signalStopRequest.Reset();
             threadProcessQueue = new Thread(Run);
@@ -26,7 +34,7 @@ namespace Common
             signalReady.Set();
         }
 
-        internal void Stop()
+        public void Stop()
         {
             ProcessQueue();
             if (threadProcessQueue != null)
@@ -40,10 +48,6 @@ namespace Common
             }
         }
 
-        internal void Next()
-        {
-            signalReady.Set();
-        }
 
         #endregion
 

@@ -5,7 +5,7 @@ using SnnbDB.ModelExt;
 using SnnbDB.Models;
 using SnnbDB.Rest;
 using SnnbFailover.Server.Hubs;
-
+using SnnbDB.DataProcessing;
 using System.Diagnostics;
 using System.Linq.Dynamic.Core;
 
@@ -16,21 +16,35 @@ public class TimerService : BackgroundService, IDisposable
 {
 
     private readonly ILogger<TimerService> _logger;
-
     private PeriodicTimer _periodicTimer;
-
     private readonly IHubContext<UpdateHub> _updateHub;
-
-
+    private CollectManager cm = null;
+    private DatabaseQueue dbq = null;   
     public TimerService(ILogger<TimerService> logger, IHubContext<UpdateHub> updateHub)
     {
         _logger = logger;
         _updateHub = updateHub;
     }
 
+    public override Task StopAsync(CancellationToken cancellationToken)
+    {
+        if (cm != null)
+            cm.Stop(); 
+        if (dbq != null)
+            dbq.Stop(); 
+
+        return base.StopAsync(cancellationToken);
+    }
+
     public override Task StartAsync(CancellationToken cancellationToken)
     {
         SnnbCommPack.CleanDB();
+
+        cm = new CollectManager();
+        cm.Start();
+        dbq = new DatabaseQueue();
+        dbq.Start();
+        cm.SNDataEvent += dbq.Add;
 
         _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(5000));
 
@@ -46,11 +60,10 @@ public class TimerService : BackgroundService, IDisposable
         }
         while (await _periodicTimer.WaitForNextTickAsync(stoppingToken) && !stoppingToken.IsCancellationRequested)
         {
-
+            //TODO  Do the client update here
             if (!_reEntry)
             {
                 _reEntry = true;
-                await GetRestData(stoppingToken);
 
                 RtStatus rt = new();
                 rt.Fill();
@@ -64,63 +77,6 @@ public class TimerService : BackgroundService, IDisposable
 
     }
 
-    private async Task GetRestData(CancellationToken stoppingToken)
-    {
-        SnnbFoContext sc = new SnnbFoContext();
-        List<HSpectralNetGroup> t = sc.HSpectralNetGroups.ToList();
-        HSystemParam hSystemParam = sc.HSystemParams.First();
-
-        var TaskList = new List<Task>();
-
-        foreach (HSpectralNetGroup specNetGroup in t)
-        {
-            if (specNetGroup.Enabled)
-            {
-                TaskList.Add(GetSNDataAndStoreInDB(specNetGroup,hSystemParam));
-            }
-        }
-        Task.WaitAll(TaskList.ToArray());
-    }
-
-    private async Task GetSNDataAndStoreInDB(HSpectralNetGroup specNetGroup, HSystemParam hSystemParam)
-    {
-        RestClient client;
-        RestResponse response = null!;
-        SnnbCommPack scp = new SnnbCommPack();
-        scp.SpectralNetGroup = specNetGroup;
-        scp.Error = false;
-        scp.ErrorText = "None";
-        Stopwatch _stopwatch = new Stopwatch();
-
-        try
-        {
-            _stopwatch.Start();
-            client = new RestClient(hSystemParam.PreIpAddress + specNetGroup.IpAddress);
-            //response = client.Get(new RestRequest(hSystemParam.RestQuery) { Timeout = 300 });
-            response = await client.ExecuteGetAsync(new RestRequest(hSystemParam.RestQuery) { Timeout = 3000 });
-            _stopwatch.Stop();
-            scp.ResponseTime = (int)_stopwatch.ElapsedMilliseconds;
-            if (response is null) throw new Exception($"Response is NULL: {specNetGroup.UnitId} ");
-
-            if (!response.IsSuccessful) throw new Exception($"Response is not successful - {specNetGroup.UnitId}:{response.ResponseStatus}");
-
-            if (response.Content is null) throw new Exception($"Content is NULL: {specNetGroup.UnitId}");
-            
-            RestMain restMain = JsonConvert.DeserializeObject<RestMain>(response.Content);
-            scp.RestMain = restMain;
-
-
-        }
-        catch (Exception ex)
-        {
-            scp.Error = true;
-            scp.ErrorText = ex.Message;
-        }
-        finally
-        {
-            scp.PopulateDB();
-        }
-    }
 
     //private async Task Collect(CancellationToken stoppingToken)
     //{

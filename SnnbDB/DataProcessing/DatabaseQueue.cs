@@ -4,21 +4,23 @@ using SnnbDB.Models;
 
 namespace SnnbDB.DataProcessing;
 
-class MonitorQueue : QueueThread<SnnbCommPack>
+public class DatabaseQueue : QueueThread<SnnbCommPack>
 {
-    List<HSpectralNetGroup> targets = null;
+    private List<HSpectralNetGroup> targets = null;
    // Dictionary<string, MonitorData> databank;
 
 
-    public MonitorQueue(List<HSpectralNetGroup> targets)
+    public DatabaseQueue()
     {
-        this.targets = targets;
     }
 
     #region IStartStop Members
 
     public new void Start()
     {
+        SnnbFoContext sc = new SnnbFoContext();
+        targets = sc.HSpectralNetGroups.ToList();
+        base.Start();
         // Create dictionary entry for each unit
         //databank = new Dictionary<string, MonitorData>(targets.Count);
 
@@ -33,7 +35,7 @@ class MonitorQueue : QueueThread<SnnbCommPack>
 
     public new void Stop()
     {
-        //base.Stop();
+        base.Stop();
     }
     #endregion
 
@@ -41,6 +43,6 @@ class MonitorQueue : QueueThread<SnnbCommPack>
     {
         //MonitorData monitorData = databank[t.Name];
         //monitorData.ProcessNewData(t);
-        //base.Next();
+        base.Next();
     }
 }

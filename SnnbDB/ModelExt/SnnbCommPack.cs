@@ -11,6 +11,7 @@ using SnnbDB.Rest;
 namespace SnnbDB.Models;
 public class SnnbCommPack
 {
+    public DateTime DateStamp { get; set; } = DateTime.Now;
     public bool Error { get; set; } = false;
     public string ErrorText { get; set; } = string.Empty;
     public HSpectralNetGroup SpectralNetGroup { get; set; }
