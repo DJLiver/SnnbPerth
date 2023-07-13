@@ -43,6 +43,7 @@ public class DatabaseQueue : QueueThread<SnnbCommPack>
     {
         //MonitorData monitorData = databank[t.Name];
         //monitorData.ProcessNewData(t);
-        base.Next();
+        t.PopulateDB();
+        Next();
     }
 }

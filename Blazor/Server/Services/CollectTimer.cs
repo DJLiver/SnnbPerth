@@ -95,7 +95,8 @@ class CollectTimer : iStartStop
         }
         finally
         {
-            scp.PopulateDB();
+            OnSNData(scp);
+            //scp.PopulateDB();
         }
     }
 

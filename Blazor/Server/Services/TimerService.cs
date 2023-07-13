@@ -41,10 +41,12 @@ public class TimerService : BackgroundService, IDisposable
         SnnbCommPack.CleanDB();
 
         cm = new CollectManager();
-        cm.Start();
         dbq = new DatabaseQueue();
-        dbq.Start();
+
         cm.SNDataEvent += dbq.Add;
+
+        dbq.Start();
+        cm.Start();
 
         _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(5000));
 

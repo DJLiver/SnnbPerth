@@ -22,14 +22,15 @@ public class RtStatus
     public List<MAvailableStream> AvailableStreams { get; set; }
 
 
-    public List<RtMonitor> GetRtMonitor()
+    public List<RtMonitorTable> GetRtMonitor()
     {
-        List<RtMonitor> rtMonitors = new List<RtMonitor>();
+        List<RtMonitorTable> rtMonitors = new List<RtMonitorTable>();
 
         foreach (MSpectralNetGroup sng in SpecNetGroups)
         {
-            rtMonitors.Add(new RtMonitor()
+            rtMonitors.Add(new RtMonitorTable()
             {
+                DateTimeStamp = sng.DateStamp.ToString("G"),
                 UnitId = sng.UnitId,
                 UnitName = sng.UnitName,
                 RemoteUnit = sng.RemoteUnit,
@@ -41,7 +42,7 @@ public class RtStatus
 
         }
 
-        foreach (RtMonitor rm in rtMonitors)
+        foreach (RtMonitorTable rm in rtMonitors)
         {
             if(rm.CommsOk == "True")
             {
@@ -79,7 +80,7 @@ public class RtStatus
                 rm.OnePpsPresent = "NA";
             }
         }
-        rtMonitors.Sort(delegate (RtMonitor x, RtMonitor y)
+        rtMonitors.Sort(delegate (RtMonitorTable x, RtMonitorTable y)
         {
             if (x.DisplayOrder > y.DisplayOrder)
                 return 1;

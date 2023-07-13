@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SnnbDB.ModelExt;
-public class RtMonitor
+public class RtMonitorTable
 {
+    public string DateTimeStamp { get; set; }
     public int UnitId { get; set; }
     public string UnitName { get; set; }
     public string RemoteUnit { get; set; }

@@ -56,7 +56,7 @@ public partial class Monitor
     //{
 
     //}
-    private IEnumerable<RtMonitor> MonitorTable { get; set;}
+    private IEnumerable<RtMonitorTable> MonitorTable { get; set;}
     private async void recd(RtStatus rtStatus)
     {
         DataTimeStamp= rtStatus.DateTime.ToString("ddMMMyyyy HH:MM:ss");
@@ -68,7 +68,7 @@ public partial class Monitor
 
     #region DataGrid
 
-    void CellRender(DataGridCellRenderEventArgs<RtMonitor> args)
+    void CellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
         if (args.Column.Property == "RfOutputEnable")
         {
@@ -85,7 +85,7 @@ public partial class Monitor
         }
     }
 
-    void HeaderFooterCellRender(DataGridCellRenderEventArgs<RtMonitor> args)
+    void HeaderFooterCellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
         if (args.Column.Property == "MeasuredDelay")
         {
@@ -114,7 +114,7 @@ public partial class Monitor
     //{
     //    args.Attributes.Add("style", "background-color: darkslategray ");
     //}
-    void SortCallback(DataGridCellRenderEventArgs<RtMonitor> args)
+    void SortCallback(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
 
     }
