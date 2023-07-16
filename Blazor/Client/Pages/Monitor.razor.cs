@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
 
 using Radzen;
+using Radzen.Blazor;
 
 using SnnbDB.ModelExt;
 
@@ -11,8 +12,9 @@ namespace Failover.Client.Pages;
 public partial class Monitor
 {
     private string DataTimeStamp = DateTime.Now.ToString("ddMMMyyyy HH:MM:ss");
-    
-    
+    private bool allowCompositeDataCells = true;
+    RadzenDataGrid<RtMonitorTable> grid;
+
     #region Injects
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
@@ -59,7 +61,7 @@ public partial class Monitor
     private IEnumerable<RtMonitorTable> MonitorTable { get; set;}
     private async void recd(RtStatus rtStatus)
     {
-        DataTimeStamp= rtStatus.DateTime.ToString("ddMMMyyyy HH:MM:ss");
+        DataTimeStamp= rtStatus.DateTime.ToString("ddMMMyyyy HH:mm:ss");
         MonitorTable = rtStatus.GetRtMonitor();
         await InvokeAsync(() => StateHasChanged());
     }
