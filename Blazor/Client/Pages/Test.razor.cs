@@ -32,16 +32,9 @@ namespace Failover.Client.Pages
         [Inject]
         protected NotificationService NotificationService { get; set; }
 
-        
-        private Canvas2DContext _context;
-        protected BECanvasComponent _canvasReference;
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            this._context = await this._canvasReference.CreateCanvas2DAsync();
-            await this._context.SetFillStyleAsync("red");
-            await this._context.FillRectAsync(10, 100, 100, 100);
-            await this._context.SetFontAsync("38px Calibri");
-            await this._context.StrokeTextAsync("Hello Blazor!!!", 5, 100);
-        }
+        //string linecolour = "blue";
+
+        string TenMeg = "blue";
+
     }
 }
