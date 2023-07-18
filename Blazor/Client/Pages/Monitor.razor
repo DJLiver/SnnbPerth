@@ -7,91 +7,55 @@
         <RadzenText Text="Monitor" TextStyle="TextStyle.H3" TagName="TagName.H1" Style="width: 1010px; height: 62px" />
     </RadzenColumn>
 </RadzenRow>
-<RadzenRow>
-    <RadzenColumn Size="3" Style="width: 182px; text-align: right">
-        <RadzenText Text="Data Timestamp:" TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="text-align: right; width: 239px; height: 38px" />
+
+<RadzenCard class="m-4" style="display: flex; align-items: center; gap: 0.5rem">
+    <RadzenColumn>
+        <RadzenRow>
+            <RadzenCheckBox @bind-Value=@allowCompositeDataCells Name="CheckBox1" TValue="bool" Change=@(args => grid.Reload())/>
+            <RadzenLabel Text="Allow composite data cells" Component="CheckBox1" />
+        </RadzenRow>
+        <RadzenRow >
+            <RadzenCheckBox @bind-Value=@allowCompositeDataCells Name="CheckBox1" TValue="bool" Change=@(args => grid.Reload())/>
+            <RadzenLabel Text="Allow composite data cells" Component="CheckBox1" />
+        </RadzenRow>
     </RadzenColumn>
-    <RadzenColumn Size="7"Style="width: 182px; text-align: left">
-        <RadzenText Text="@DataTimeStamp"  TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" />
-    </RadzenColumn>
+</RadzenCard>
+
+<RadzenCard class="m-4" Style="width: 817px; height: 60px">
+    <RadzenRow >
+            <RadzenText Text="Data Timestamp:" TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 163px; height: 27px" />
+            <RadzenText Text="@DataTimeStamp"  TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 188px; height: 22px" />
     </RadzenRow>
 
-<RadzenDataGrid TItem="RtMonitorTable" Style="float: none; margin: 24px" Data="@MonitorTable" CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" AllowCompositeDataCells="true" AllowGrouping="false" AllowFilterDateInput="false" ColumnWidth="80px">
+</RadzenCard>
+
+
+<RadzenDataGrid TItem="RtMonitorTable" Style="float: none; margin: 24px; width: 1200px" Data="@MonitorTable" 
+CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ShowColumnTitleAsTooltip="false" ShowCellDataAsTooltip="false" >
        <Columns >
-            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Unit"  Width="120px">
-                <Columns>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Property="UnitName" Title="Name"  Frozen = "true"></RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time"  Frozen = "true" ></RadzenDataGridColumn>
-                </Columns>
-            </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Associations" Width="100px">
-                <Columns>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Title="Remote" Property="RemoteUnit" ></RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Title="Peer" Property="PeerUnit" ></RadzenDataGridColumn>
-                </Columns>
-            </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Communication" TextAlign="Radzen.TextAlign.Center" Width="120px">
-               <Columns>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Property="CommsOk" Title="Ok?" Width="30px"></RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Title="Message" Property="CommMessage"></RadzenDataGridColumn>
-                </Columns>
-            </RadzenDataGridColumn>   
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time"  Frozen = "true" Width="160px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="UnitName" Title="Name"  Frozen = "true" Width="120px"></RadzenDataGridColumn>
+            
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="RemoteUnit" Title="Remote" Width="120px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Peer" Property="PeerUnit" Width="120px" ></RadzenDataGridColumn>
 
-            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Criteria" TextAlign="Radzen.TextAlign.Center" Width="180px" >
-                <Columns>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Property="MeasuredDelay" Title="Delay" Width="30px"></RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Title="Net rate" Property="MeasuredNetworkRate" Width="30px"></RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Title="10MHz" Property="TenMhzLocked" Width="30px"></RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Property="OnePpsPresent" Title="1PPS" Width="30px"></RadzenDataGridColumn>
-                </Columns>
-            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="CommsOk" Title="Communication" Width="60px"> </RadzenDataGridColumn>   
+            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Message" Property="CommMessage" Width="120px"></RadzenDataGridColumn>
+           
 
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="OnePpsPresent" Title="1PPS" Width="60px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="TenMhzLocked" Title="10MHz" Width="60px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="MeasuredDelay" Title="Delay" Width="80px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable"  Property="MeasuredNetworkRate" Title="Stream" Width="100px"></RadzenDataGridColumn>
+        
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="StreamEnable" Title="IP stream Enb" Width="60px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable"  Property="RfOutputEnable"  Title="RFout Enb"Width="60px"></RadzenDataGridColumn>
+            
 
-            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Control" TextAlign="Radzen.TextAlign.Center" Width="180px">
-                <Columns>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Property="StreamEnable" Title="IP stream" ></RadzenDataGridColumn>
-                    <RadzenDataGridColumn TItem="RtMonitorTable" Property="RfOutputEnable" Title="RFout"></RadzenDataGridColumn>
-                </Columns>
-            </RadzenDataGridColumn>
     
         </Columns>
 </RadzenDataGrid>
 
-<RadzenCard class="m-4" style="display: flex; align-items: center; gap: 0.5rem">
-    <RadzenCheckBox @bind-Value=@allowCompositeDataCells Name="CheckBox1" TValue="bool" Change=@(args => grid.Reload())/>
-    <RadzenLabel Text="Allow composite data cells" Component="CheckBox1" />
-</RadzenCard>
-<RadzenDataGrid @ref="grid" AllowGrouping=false AllowCompositeDataCells="@allowCompositeDataCells" AllowSorting="true" AllowFiltering="true" FilterPopupRenderMode="PopupRenderMode.OnDemand"  FilterMode="FilterMode.Advanced" PageSize="5" AllowPaging="true"  
-    Data="@MonitorTable" TItem="RtMonitorTable" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" Style="height:420px" class="m-4" HideGroupedColumn="false" >
-    <Columns>
-        <RadzenDataGridColumn TItem="RtMonitorTable" Property="EmployeeID" Filterable="false" Title="ID" Frozen="true" Width="80px" TextAlign="TextAlign.Center" />
-        <RadzenDataGridColumn TItem="RtMonitorTable" Title="Photo" Frozen="true" Sortable="false" Filterable="false" Width="80px" TextAlign="TextAlign.Center" >
-            <Template Context="data">
-                <RadzenImage Path="" class="rz-gravatar" />
-            </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="RtMonitorTable" Title="Title" Property="TitleOfCourtesy" Filterable=@allowCompositeDataCells Sortable=@allowCompositeDataCells>
-            <Columns>
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="FirstName" Title="FirstName" Width="140px" Filterable=@allowCompositeDataCells Sortable=@allowCompositeDataCells>
-                        <Columns>
-                        <RadzenDataGridColumn TItem="RtMonitorTable" Property="Title" Title="Job Title" Width="200px" />
-                        <RadzenDataGridColumn TItem="RtMonitorTable" Property="BirthDate" Title="Birth Date" FormatString="{0:d}" Width="140px" />
-                        <RadzenDataGridColumn TItem="RtMonitorTable" Property="HireDate" Title="Hire Date" FormatString="{0:d}" Width="140px" />
-                        </Columns>
-                </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="LastName" Title="LastName" Width="140px" Filterable=@allowCompositeDataCells Sortable=@allowCompositeDataCells>
-                    <Columns>
-                        <RadzenDataGridColumn TItem="RtMonitorTable" Property="Address" Title="Address" Width="200px" />
-                    </Columns>
-                </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="City" Title="City" Width="140px" />
-            </Columns>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="RtMonitorTable" Property="Region" Title="Region" Width="140px" />
-        <RadzenDataGridColumn TItem="RtMonitorTable" Property="PostalCode" Title="Postal Code" Width="140px" />
-        <RadzenDataGridColumn TItem="RtMonitorTable" Property="Country" Title="Country" Width="140px" />
-        <RadzenDataGridColumn TItem="RtMonitorTable" Property="HomePhone" Title="Home Phone" Width="140px" />
-        <RadzenDataGridColumn TItem="RtMonitorTable" Property="Extension" Title="Extension" Width="140px" />
-        <RadzenDataGridColumn TItem="RtMonitorTable" Property="Notes" Title="Notes" Width="300px" />
-    </Columns>
-</RadzenDataGrid>
+
+<RadzenTooltip> </RadzenTooltip>
+

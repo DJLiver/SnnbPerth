@@ -11,9 +11,11 @@ namespace Failover.Client.Pages;
 
 public partial class Monitor
 {
-    private string DataTimeStamp = DateTime.Now.ToString("ddMMMyyyy HH:MM:ss");
+    private string DataTimeStamp = DateTime.Now.ToString("ddMMMyyyy HH:mm:ss");
     private bool allowCompositeDataCells = true;
     RadzenDataGrid<RtMonitorTable> grid;
+    //private List<MTT> MTTs { get; set;}
+    private HubConnection hubConnection = null;
 
     #region Injects
     [Inject]
@@ -36,12 +38,12 @@ public partial class Monitor
 
     #endregion
 
-    #region Hub
+    #region Initial
 
-    private HubConnection hubConnection = null;
     protected override async Task OnInitializedAsync()
     {
-        try
+       // MTTs.Add(new MTT() { Column = "Unit", Name = "Unit" });
+         try
         {
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(NavigationManager.ToAbsoluteUri("/UpdateHub"))
@@ -122,5 +124,12 @@ public partial class Monitor
     }
 
     #endregion
+
+}
+
+internal class MTT
+{
+    public string Column { get; set; }
+    public string Name { get; set; }
 
 }

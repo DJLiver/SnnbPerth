@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using RestSharp;
 using SnnbDB.ModelExt;

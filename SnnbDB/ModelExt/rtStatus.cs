@@ -30,7 +30,7 @@ public class RtStatus
         {
             rtMonitors.Add(new RtMonitorTable()
             {
-                DateTimeStamp = sng.DateStamp.ToString("G"),
+                DateTimeStamp = sng.DateStamp.ToString("ddMMMyy HH:mm:ss"),
                 UnitId = sng.UnitId,
                 UnitName = sng.UnitName,
                 RemoteUnit = sng.RemoteUnit,
