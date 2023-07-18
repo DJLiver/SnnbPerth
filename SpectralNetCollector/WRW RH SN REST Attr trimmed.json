@@ -1,0 +1,1011 @@
+{
+  "active": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": true
+  },
+  "address": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": ""
+  },
+  "availableStreams": {
+    "factory": "Attribute",
+    "factoryType": "spectralNet_availableStream[]",
+    "array": [
+      {
+        "factory": "Attribute",
+        "factoryType": "spectralNet_availableStream",
+        "structure": {
+          "sourceIpAddress": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "192.168.60.2"
+          },
+          "sourcePort": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "50000"
+          },
+          "streamId": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          "centerFrequency": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 1200000000.0
+          },
+          "bandwidth": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 5000000.0
+          },
+          "sampleRate": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 5625000.0
+          },
+          "gain": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 10.0
+          },
+          "sampleWidth": {
+            "factory": "Attribute",
+            "factoryType": "uint8",
+            "value": 10
+          },
+          "pfecEnabled": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": false
+          },
+          "irigLocked": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": false
+          },
+          "onePpsPresent": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": true
+          },
+          "tenMhzLocked": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": true
+          }
+        }
+      }
+    ]
+  },
+  "compositeStatus": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "good"
+  },
+  "compositeStatusMsg": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": ""
+  },
+  "contextPacketState": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "Normal"
+  },
+  "controlNic": {
+    "factory": "Attribute",
+    "factoryType": "IPv4Config",
+    "structure": {
+      "addresses": {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "manual"
+      },
+      "address": {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "192.168.120.4"
+      },
+      "netmask": {
+        "factory": "Attribute",
+        "factoryType": "int32",
+        "value": 24
+      }
+    }
+  },
+  "currentGain": {
+    "factory": "Attribute",
+    "factoryType": "uint",
+    "value": 39
+  },
+  "dataNic": {
+    "factory": "Attribute",
+    "factoryType": "IPv4Config",
+    "structure": {
+      "addresses": {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "manual"
+      },
+      "address": {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "192.168.60.4"
+      },
+      "netmask": {
+        "factory": "Attribute",
+        "factoryType": "int32",
+        "value": 24
+      }
+    }
+  },
+  "dependencies": {
+    "factory": "Attribute",
+    "factoryType": "string[]",
+    "array": [
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "rfToNet0"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "netToRf0"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "ad936xController"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "rfTuner"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "irig"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "ntp"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "saturnModule"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "scheduledSquelch"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "sampleCapture"
+      },
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": "saturnBoard"
+      }
+    ]
+  },
+  "discardedPackets": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 98
+  },
+  "enableMulticastGroupSubscriptions": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  // Range
+  "fanSpeed": {
+    "factory": "Attribute",
+    "factoryType": "uint16",
+    "value": 5280
+  },
+  // Config
+  "gainMode": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "Manual"
+  },
+  "gateway": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "192.168.120.10"
+  },
+  // Status
+  "healthStatus": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "good"
+  },
+  // Status
+  "healthStatusMsg": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": ""
+  },
+  "inputRfAdcSaturation": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -10.763101577758789
+  },
+  "inputRfAdcSaturationPercent": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 92.7831802368164
+  },
+  "inputRfBandwidth": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "54.0"
+  },
+  "inputRfCenterFrequency": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 1421.050048828125
+  },
+  "inputRfPort1AdcSaturation": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -10.763101577758789
+  },
+  // Ignore
+  "inputRfPort1AdcSaturationPercent": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 92.7831802368164
+  },
+  "inputRfPort1MinimumGain": {
+    "factory": "Attribute",
+    "factoryType": "int32",
+    "value": 71
+  },
+  "inputRfPort1Power": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -34.33012390136719
+  },
+  "inputRfPort1Spectrum": {
+    "factory": "Attribute",
+    "factoryType": "binary",
+    "data": {
+      "factory": "BinaryBlock",
+      "factoryType": "BinaryBlock",
+      "data": "",
+      "bitLength": 16384
+    }
+  },
+  "inputRfPort2AdcSaturation": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -10.629526138305664
+  },
+  "inputRfPort2AdcSaturationPercent": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 92.98556518554688
+  },
+  "inputRfPort2MinimumGain": {
+    "factory": "Attribute",
+    "factoryType": "int32",
+    "value": 73
+  },
+  "inputRfPort2Power": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 4.803449630737305
+  },
+  "inputRfPort2Spectrum": {
+    "factory": "Attribute",
+    "factoryType": "binary",
+    "data": {
+      "factory": "BinaryBlock",
+      "factoryType": "BinaryBlock",
+      "data": "",
+      "bitLength": 16384
+    }
+  },
+  "inputRfPortSelect": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "rfIn1"
+  },
+  "inputRfPower": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -34.33012390136719
+  },
+  "inputRfSampleRate": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 60000000
+  },
+  "inputRfSpectrum": {
+    "factory": "Attribute",
+    "factoryType": "binary",
+    "data": {
+      "factory": "BinaryBlock",
+      "factoryType": "BinaryBlock",
+      "data": "",
+      "bitLength": 16384
+    }
+  },
+  "invertRfOutputSpectrum": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  "irigDcLocked": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  "irigLocked": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  "label": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "spectralNet"
+  },
+  "logLevel": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "information"
+  },
+  "manualGain": {
+    "factory": "Attribute",
+    "factoryType": "int32",
+    "value": 39
+  },
+  "minimumGain": {
+    "factory": "Attribute",
+    "factoryType": "int32",
+    "value": 71
+  },
+  "moduleState": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "Operational"
+  },
+  "moduleType": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "SpectralNet Module"
+  },
+  "multicastGroupSubscriptions": {
+    "factory": "Attribute",
+    "factoryType": "string[]",
+    "array": [
+      {
+        "factory": "Attribute",
+        "factoryType": "string",
+        "value": ""
+      }
+    ]
+  },
+  "ntpStatus": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "Not Locked"
+  },
+  "onePpsPresent": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": true
+  },
+  "outputAttenuation": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 0.0
+  },
+  "outputRfCenterFrequency": {
+    "factory": "Attribute",
+    "factoryType": "double",
+    "value": 1200.0
+  },
+  "outputRfDacSaturation": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -60.0
+  },
+  "outputRfDacSaturationPercent": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 18.18181800842285
+  },
+  "outputRfPort1DacSaturation": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -60.0
+  },
+  "outputRfPort1DacSaturationPercent": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 18.18181800842285
+  },
+  "outputRfPort1Power": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -50.24100112915039
+  },
+  "outputRfPort1Spectrum": {
+    "factory": "Attribute",
+    "factoryType": "binary",
+    "data": {
+      "factory": "BinaryBlock",
+      "factoryType": "BinaryBlock",
+      "data": "",
+      "bitLength": 16384
+    }
+  },
+  "outputRfPort2DacSaturation": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -60.0
+  },
+  "outputRfPort2DacSaturationPercent": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 18.18181800842285
+  },
+  "outputRfPort2Power": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -50.24100112915039
+  },
+  // Ignore
+  "outputRfPort2Spectrum": {
+    "factory": "Attribute",
+    "factoryType": "binary",
+    "data": {
+      "factory": "BinaryBlock",
+      "factoryType": "BinaryBlock",
+      "data": "",
+      "bitLength": 16384
+    }
+  },
+
+  // Config
+  "outputRfPortSelect": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "rfOut1"
+  },
+  // Status
+  "outputRfPower": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": -50.24100112915039
+  },
+  // Ignore
+  "outputRfSpectrum": {
+    "factory": "Attribute",
+    "factoryType": "binary",
+    "data": {
+      "factory": "BinaryBlock",
+      "factoryType": "BinaryBlock",
+      "data": "",
+      "bitLength": 16384
+    }
+  },
+  // Config
+  "overrideOutputFrequency": {
+    "factory": "Attribute",
+    "factoryType": "float",
+    "value": 1200.0
+  },
+  // Config
+  "overrideOutputFrequencyEnable": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  "pollInterval": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 1000
+  },
+  "posixNanoseconds": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 577616640
+  },
+  "posixSeconds": {
+    "factory": "Attribute",
+    "factoryType": "uint32",
+    "value": 1578202168
+  },
+  // Status
+  "rebootRequired": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  // Config
+  "replyWaitTime": {
+    "factory": "Attribute",
+    "factoryType": "time_duration",
+    "value": "00:01:00"
+  },
+  // Config
+  "requiredReadPrivilege": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": ""
+  },
+  // Config
+  "requiredWritePrivilege": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": ""
+  },
+  // Array
+  "rfInputStream": {
+    "factory": "Attribute",
+    "factoryType": "spectralNet_rfInputStream[]",
+    "array": [
+      {
+        "factory": "Attribute",
+        "factoryType": "spectralNet_rfInputStream",
+        "structure": {
+          // Config
+          "name": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "rfToNet0"
+          },
+          // Status
+          "bitRate": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 946250474
+          },
+          // Config
+          "dataSampleWidth": {
+            "factory": "Attribute",
+            "factoryType": "uint8",
+            "value": 9
+          },
+          // Config
+          "destinationHost": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "192.168.60.2"
+          },
+          // Config
+          "destinationPort": {
+            "factory": "Attribute",
+            "factoryType": "uint16",
+            "value": 50000
+          },
+          // Config
+          "frequencyOffset": {
+            "factory": "Attribute",
+            "factoryType": "int64",
+            "value": 0
+          },
+          // Config
+          "maximumPacketSize": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 1500
+          },
+          // Status
+          "measuredNetworkRate": {
+            "factory": "Attribute",
+            "factoryType": "uint64",
+            "value": 946250000
+          },
+          // Status
+          "measuredPacketRate": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 78125
+          },
+          // Status
+          "minimumProcessingDelay": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 24799.993600003203
+          },
+          // Status
+          "packetOverhead": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 4.887714663143994
+          },
+          // Config
+          "pfecEnable": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": false
+          },
+          // Status
+          "routeSearch": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "Found"
+          },
+          // Config
+          "sourcePort": {
+            "factory": "Attribute",
+            "factoryType": "uint16",
+            "value": 50000
+          },
+          // Config
+          "streamBandwidth": {
+            "factory": "Attribute",
+            "factoryType": "uint64",
+            "value": 45000000
+          },
+          // Config
+          "streamEnable": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": true
+          },
+          // Config
+          "streamGain": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 0.0
+          },
+          // Config
+          "streamId": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Status
+          "streamSampleRate": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 50000025
+          }
+        }
+      }
+    ]
+  },
+  // Config
+  "rfOutputEnable": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  // Config
+  "rfOutputSource": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "Packets"
+  },
+  // Array
+  "rfOutputStream": {
+    "factory": "Attribute",
+    "factoryType": "spectralNet_rfOutputStream[]",
+    "array": [
+      {
+        "factory": "Attribute",
+        "factoryType": "spectralNet_rfOutputStream",
+        "structure": {
+          // Config
+          "name": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "netToRf0"
+          },
+          // Status
+          "currentBuffer": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 9216000.0
+          },
+          // Config
+          "dataSampleWidth": {
+            "factory": "Attribute",
+            "factoryType": "uint8",
+            "value": 10
+          },
+          // Config
+          "dataSource": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "Network"
+          },
+          // Status
+          "desiredBuffer": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 10000000
+          },
+          // Config
+          "desiredDelay": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 10000000
+          },
+          // Config
+          "destinationPort": {
+            "factory": "Attribute",
+            "factoryType": "uint16",
+            "value": 50000
+          },
+          // Count
+          "droppedPackets": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Config
+          "frequencyOffset": {
+            "factory": "Attribute",
+            "factoryType": "int64",
+            "value": 0
+          },
+          // Count
+          "gapCount": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 1
+          },
+          //Range
+          "measuredDelay": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 10000000
+          },
+          // Status
+          "measuredNetworkRate": {
+            "factory": "Attribute",
+            "factoryType": "uint64",
+            "value": 118273680
+          },
+          // Status
+          "measuredPacketRate": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 9765
+          },
+          // Config
+          "netStreamGain": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 10.0
+          },
+          // Status
+          "networkDelay": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 722559.9999999993
+          },
+          // Status
+          "packetOverhead": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 4.887714663143994
+          },
+          // Config
+          "pfecDecoderStatus": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "bypass"
+          },
+          // Count
+          "pfecMissingSets": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Count
+          "pfecRepairedPackets": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Count
+          "pfecTotalPackets": {
+            "factory": "Attribute",
+            "factoryType": "uint64",
+            "value": 0
+          },
+          // Count
+          "pfecUnrepairablePackets": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Config
+          "preserveLatency": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": false
+          },
+          // Count
+          "preserveLatencyLatePackets": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Config
+          "preserveLatencyMaxBurstLoss": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 1000
+          },
+          // Count
+          "preserveLatencyMissingPackets": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Count
+          "preserveLatencyOutOfOrderPackets": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Config
+          "preserveLatencyReleaseMargin": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 1000
+          },
+          // Config
+          "releaseMode": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "Programmed Delay"
+          },
+          // Config
+          "sourceHost": {
+            "factory": "Attribute",
+            "factoryType": "string",
+            "value": "192.168.60.2"
+          },
+          // Config
+          "sourcePort": {
+            "factory": "Attribute",
+            "factoryType": "uint16",
+            "value": 50000
+          },
+          // Config
+          "streamBandwidth": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 5000000.0
+          },
+          // Config
+          "streamEnable": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": true
+          },
+          // Config
+          "streamId": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 0
+          },
+          // Status
+          "streamSampleRate": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 5625000.0
+          },
+          // Count
+          "underflowCount": {
+            "factory": "Attribute",
+            "factoryType": "uint32",
+            "value": 139
+          },
+          // Status
+          "upstreamIrigLocked": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": false
+          },
+          // Status
+          "upstreamOnePpsLocked": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": true
+          },
+          // Config
+          "upstreamPathGain": {
+            "factory": "Attribute",
+            "factoryType": "double",
+            "value": 10.0
+          },
+          // Status
+          "upstreamTenMhzLocked": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": true
+          },
+          // Config
+          "useLocalReference": {
+            "factory": "Attribute",
+            "factoryType": "bool",
+            "value": true
+          }
+        }
+      }
+    ]
+  },
+  "routes": {
+    "factory": "Attribute",
+    "factoryType": "networkRoute[]",
+    "array": [
+    ]
+  },
+  // Status
+  "securitySource": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "No Certificate"
+  },
+  // Status
+  "serialNumber": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "RT-201106219"
+  },
+  // Ignore
+  "shortDescription": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "A one stop shop for control and status of a single SpectralNet node"
+  },
+  // Config
+  "simulate": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  // Config
+  "squelchEnabled": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": false
+  },
+  // Range
+  "systemTemperature": {
+    "factory": "Attribute",
+    "factoryType": "int32",
+    "value": 42
+  },
+  //Status
+  "systemTimeSource": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "IRIG"
+  },
+  //Status
+  "tenMhzLocked": {
+    "factory": "Attribute",
+    "factoryType": "bool",
+    "value": true
+  },
+  //Status
+  "version": {
+    "factory": "Attribute",
+    "factoryType": "string",
+    "value": "1.7.4"
+  }
+}

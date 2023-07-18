@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>dotnet-CollectorService-375c1adc-9e62-4ef3-9b62-a387c93f66cc</UserSecretsId>
+		<OutputType>exe</OutputType>
+		<PublishSingleFile Condition="'$(Configuration)' == 'Release'">true</PublishSingleFile>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<PlatformTarget>x64</PlatformTarget>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.1" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<ServerGarbageCollection>true</ServerGarbageCollection>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SnnbDB\SnnbDB.csproj" />
+	</ItemGroup>
+</Project>

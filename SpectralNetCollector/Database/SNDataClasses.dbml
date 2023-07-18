@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SNNB" Class="SNDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SNNB-PC02;Initial Catalog=SNNB;Persist Security Info=True;User ID=Collector" SettingsObjectName="SpectralNetCollector.Properties.Settings" SettingsPropertyName="SNNBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.MetricMonitor" Member="MetricMonitors">
+    <Type Name="MetricMonitor">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Target" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MaxInputRfPort1AdcSaturation" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MaxInputRfPort1AdcSaturationPercent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MaxInputRfPort1Power" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MaxOutputRfPort1AdcSaturation" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MaxOutputRfPort1AdcSaturationPercent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MaxOutputRfPort1Power" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MinInputRfPort1AdcSaturation" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MinInputRfPort1AdcSaturationPercent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MinInputRfPort1Power" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MinOutputRfPort1AdcSaturation" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MinOutputRfPort1AdcSaturationPercent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MinOutputRfPort1Power" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Target" Member="Targets">
+    <Type Name="Target">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IpAddress" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Query" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Period" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RemoteUnit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PeerUnit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Direction" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DisplayOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Site" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MetricEvents" Member="MetricEvents">
+    <Type Name="MetricEvent">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Target" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Attribute" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MetricConfig" Member="MetricConfigs">
+    <Type Name="MetricConfig">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Target" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Attribute" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RangeConfig" Member="RangeConfigs">
+    <Type Name="RangeConfig">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Unit" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Attr" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Lower" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Upper" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="InRange" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FormatConfig" Member="FormatConfigs">
+    <Type Name="FormatConfig">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Attr" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Normal" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Format" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Scale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Units" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MetricAlarm" Member="MetricAlarms">
+    <Type Name="MetricAlarm">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Target" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Attribute" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DatabaseMaint" Member="DatabaseMaints">
+    <Type Name="DatabaseMaint">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="dBTable" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DaysToKeep" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MetricCounts" Member="MetricCounts">
+    <Type Name="MetricCount">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Target" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Com_discardedPackets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_droppedPackets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_gapCount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_pfecMissingSets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_pfecRepairedPackets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_pfecTotalPackets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_pfecUnrepairablePackets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_preserveLatencyLatePackets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_preserveLatencyMaxBurstLoss" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_preserveLatencyMissingPackets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_preserveLatencyOutOfOrderPackets" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="RfOut_underflowCount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MetricSite1Summary" Member="MetricSite1Summaries">
+    <Type Name="MetricSite1Summary">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExtDateStamp" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="ExtSourceUnit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExtDestUnit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExtDirection" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExtDisplayOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExtCommError" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComCompositeStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComCompositeStatusMsg" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="ComContextPacketState" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ComcurrentGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComdiscardedPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComenableMulticastGroupSubscriptions" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComfanSpeed" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComgainMode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Comgateway" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComhealthStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComhealthStatusMsg" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="CominputRfAdcSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfAdcSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfBandwidth" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CominputRfCenterFrequency" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort1AdcSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort1AdcSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort1MinimumGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort1Power" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort2AdcSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort2AdcSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort2MinimumGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort2Power" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPortSelect" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CominputRfPower" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfSampleRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominvertRfOutputSpectrum" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComirigDcLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComirigLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Comlabel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComlogLevel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CommanualGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComminimumGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CommoduleState" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CommoduleType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComntpStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComonePpsPresent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComoutputAttenuation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfCenterFrequency" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfDacSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfDacSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort1DacSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort1DacSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort1Power" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort2DacSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort2DacSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort2Power" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPortSelect" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComoutputRfPower" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoverrideOutputFrequency" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoverrideOutputFrequencyEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CompollInterval" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComposixNanoseconds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComposixSeconds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComrebootRequired" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComReplyWaitTime" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComRequiredReadPrivilege" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComRequiredWritePrivilege" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComRfOutputEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComRfOutputSource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComSecuritySource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComSerialNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComShortDescription" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ComSimulate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComSquelchEnabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComSystemTemperature" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComSystemTimeSource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComTenMhzLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComVersion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFinname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFinbitRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFindataSampleWidth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFindestinationHost" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFindestinationPort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFinfrequencyOffset" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinmaximumPacketSize" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinmeasuredNetworkRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinmeasuredPacketRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinminimumProcessingDelay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinpacketOverhead" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinpfecEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFinrouteSearch" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFinsourcePort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFinstreamBandwidth" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinstreamEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFinstreamGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinstreamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFinstreamSampleRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutcurrentBuffer" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutdataSampleWidth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutdataSource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutdesiredBuffer" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutdesiredDelay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutdestinationPort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutdroppedPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutfrequencyOffset" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutgapCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutmeasuredDelay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutmeasuredNetworkRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutmeasuredPacketRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutnetStreamGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutnetworkDelay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutpacketOverhead" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutpfecDecoderStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutpfecMissingSets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpfecRepairedPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpfecTotalPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpfecUnrepairablePackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatency" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyLatePackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyMaxBurstLoss" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyMissingPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyOutOfOrderPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyReleaseMargin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutreleaseMode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutsourceHost" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutsourcePort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutstreamBandwidth" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutstreamEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutstreamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutstreamSampleRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutunderflowCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutupstreamIrigLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutupstreamOnePpsLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutupstreamPathGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutupstreamTenMhzLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutuseLocalReference" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MetricSite2Summary" Member="MetricSite2Summaries">
+    <Type Name="MetricSite2Summary">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExtDateStamp" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="ExtSourceUnit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExtDestUnit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExtDirection" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExtDisplayOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExtCommError" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComCompositeStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComCompositeStatusMsg" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="ComContextPacketState" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ComcurrentGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComdiscardedPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComenableMulticastGroupSubscriptions" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComfanSpeed" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComgainMode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Comgateway" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComhealthStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComhealthStatusMsg" Type="System.String" DbType="NVarChar(512)" CanBeNull="true" />
+      <Column Name="CominputRfAdcSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfAdcSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfBandwidth" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CominputRfCenterFrequency" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort1AdcSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort1AdcSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort1MinimumGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort1Power" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort2AdcSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort2AdcSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort2MinimumGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPort2Power" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfPortSelect" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CominputRfPower" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominputRfSampleRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CominvertRfOutputSpectrum" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComirigDcLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComirigLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Comlabel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComlogLevel" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CommanualGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComminimumGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CommoduleState" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CommoduleType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComntpStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComonePpsPresent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComoutputAttenuation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfCenterFrequency" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfDacSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfDacSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort1DacSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort1DacSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort1Power" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort2DacSaturation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort2DacSaturationPercent" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPort2Power" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoutputRfPortSelect" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComoutputRfPower" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoverrideOutputFrequency" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ComoverrideOutputFrequencyEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CompollInterval" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComposixNanoseconds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComposixSeconds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComrebootRequired" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComReplyWaitTime" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComRequiredReadPrivilege" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComRequiredWritePrivilege" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComRfOutputEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComRfOutputSource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComSecuritySource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComSerialNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComShortDescription" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ComSimulate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComSquelchEnabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComSystemTemperature" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComSystemTimeSource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComTenMhzLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ComVersion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFinname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFinbitRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFindataSampleWidth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFindestinationHost" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFindestinationPort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFinfrequencyOffset" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinmaximumPacketSize" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinmeasuredNetworkRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinmeasuredPacketRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinminimumProcessingDelay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinpacketOverhead" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinpfecEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFinrouteSearch" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFinsourcePort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFinstreamBandwidth" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinstreamEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFinstreamGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFinstreamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFinstreamSampleRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutcurrentBuffer" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutdataSampleWidth" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutdataSource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutdesiredBuffer" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutdesiredDelay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutdestinationPort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutdroppedPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutfrequencyOffset" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutgapCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutmeasuredDelay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutmeasuredNetworkRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutmeasuredPacketRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutnetStreamGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutnetworkDelay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutpacketOverhead" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutpfecDecoderStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutpfecMissingSets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpfecRepairedPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpfecTotalPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpfecUnrepairablePackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatency" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyLatePackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyMaxBurstLoss" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyMissingPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyOutOfOrderPackets" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutpreserveLatencyReleaseMargin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutreleaseMode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutsourceHost" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RFoutsourcePort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutstreamBandwidth" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutstreamEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutstreamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutstreamSampleRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutunderflowCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RFoutupstreamIrigLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutupstreamOnePpsLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutupstreamPathGain" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RFoutupstreamTenMhzLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RFoutuseLocalReference" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
