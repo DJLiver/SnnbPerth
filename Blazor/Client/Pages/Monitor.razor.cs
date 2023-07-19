@@ -60,11 +60,11 @@ public partial class Monitor
     //{
 
     //}
-     #endregion 
+    #endregion
 
 
-    #region Initial
-    
+    #region RecData
+
     private IEnumerable<RtMonitorTable> MonitorTable { get; set;}
   
     private async void RecData(RtStatus rtStatus)
