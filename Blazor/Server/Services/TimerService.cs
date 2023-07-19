@@ -18,8 +18,6 @@ public class TimerService : BackgroundService, IDisposable
     private readonly ILogger<TimerService> _logger;
     private PeriodicTimer _periodicTimer;
     private readonly IHubContext<UpdateHub> _updateHub;
-    private CollectManager cm = null;
-    private DatabaseQueue dbq = null;   
     public TimerService(ILogger<TimerService> logger, IHubContext<UpdateHub> updateHub)
     {
         _logger = logger;
@@ -28,25 +26,12 @@ public class TimerService : BackgroundService, IDisposable
 
     public override Task StopAsync(CancellationToken cancellationToken)
     {
-        if (cm != null)
-            cm.Stop(); 
-        if (dbq != null)
-            dbq.Stop(); 
 
         return base.StopAsync(cancellationToken);
     }
 
     public override Task StartAsync(CancellationToken cancellationToken)
     {
-        SnnbCommPack.CleanDB();
-
-        cm = new CollectManager();
-        dbq = new DatabaseQueue();
-
-        cm.SNDataEvent += dbq.Add;
-
-        dbq.Start();
-        cm.Start();
 
         _periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(5000));
 

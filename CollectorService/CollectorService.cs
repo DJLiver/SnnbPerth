@@ -1,4 +1,7 @@
+using SnnbDB.DataProcessing;
 using SnnbDB.Models;
+
+using SnnbFailover.Server.Services;
 
 namespace CollectorService;
 
@@ -7,6 +10,9 @@ public sealed class Service : BackgroundService
     private readonly ILogger<Service> _logger;
     private List<HSpectralNetGroup> targets;
     private HSystemParam hSystemParam;
+    private CollectManager cm = null;
+    private DatabaseQueue dbq = null;
+    //private ErrorQueue eq = null;
 
     public Service(ILogger<Service> logger)
     {
@@ -17,6 +23,17 @@ public sealed class Service : BackgroundService
     {
         try
         {
+            SnnbCommPack.CleanDB();
+
+            cm = new CollectManager();
+            dbq = new DatabaseQueue();
+
+            cm.SNDataEvent += dbq.Add;
+            //cm.ErrorEvent += dbq.Add;
+
+            dbq.Start();
+            cm.Start();
+
             SnnbFoContext sc = new SnnbFoContext();
             targets = sc.HSpectralNetGroups.ToList();
             hSystemParam = sc.HSystemParams.First();
@@ -32,6 +49,10 @@ public sealed class Service : BackgroundService
 
     public override async Task StopAsync(CancellationToken cancellationToken)
     {
+        if (cm != null)
+            cm.Stop();
+        if (dbq != null)
+            dbq.Stop();
         await base.StopAsync(cancellationToken);
     }
 
@@ -39,10 +60,9 @@ public sealed class Service : BackgroundService
     {
         try
         {
-
-
             while (!stoppingToken.IsCancellationRequested)
             {
+
                 await Task.Delay(TimeSpan.FromMilliseconds(hSystemParam.PollPeriod), stoppingToken);
             }
         }

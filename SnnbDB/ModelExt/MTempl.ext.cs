@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using Common.Extensions;
 
-using ExceptionLog;
 
 using SnnbDB.Rest;
 

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Common.Extensions;
-
-using ExceptionLog;
+﻿using Common.Extensions;
 
 using SnnbDB.Rest;
 
@@ -52,7 +44,7 @@ public partial class MDataNic
         }
         catch (Exception ex)
         {
-            ExLog.Log(ex);
+            HLog.AddEntry(ex);
             return;
         }    
     }

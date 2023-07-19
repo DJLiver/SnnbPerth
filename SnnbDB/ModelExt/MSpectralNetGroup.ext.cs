@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using ExceptionLog;
-
-namespace SnnbDB.Models;
+﻿namespace SnnbDB.Models;
 
 public partial class MSpectralNetGroup
 {
@@ -69,7 +64,7 @@ public void SaveRestToDB(SnnbCommPack snnbCommPack)
         }
         catch (Exception ex)
         {
-            ExLog.Log(ex);
+            HLog.AddEntry(ex);
             return;
         }
     }

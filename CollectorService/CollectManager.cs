@@ -7,7 +7,7 @@ namespace SnnbFailover.Server.Services;
 class CollectManager : iStartStop
 {
     internal Action<object, SnnbCommPack> SNDataEvent;
-    //internal Action<object, ErrorData> ErrorEvent;
+    //internal Action<object, HLog> ErrorEvent;
     private readonly List<CollectTimer> collectTimers = new List<CollectTimer>();
     private List<HSpectralNetGroup> targets;
     private HSystemParam hSystemParam;

@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Common.Extensions;
-
-using ExceptionLog;
-
-using SnnbDB.Rest;
-
-namespace SnnbDB.Models;
+﻿namespace SnnbDB.Models;
 public partial class MOutputRfSpectrum
 {
     #region Ctor
@@ -34,7 +22,7 @@ public partial class MOutputRfSpectrum
         }
         catch (Exception ex)
         {
-            ExLog.Log(ex);
+            HLog.AddEntry(ex);
             return;
         }
     }

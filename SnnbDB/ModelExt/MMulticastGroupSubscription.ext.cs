@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Common.Extensions;
-
-using ExceptionLog;
-
-using SnnbDB.Rest;
+﻿using SnnbDB.Rest;
 
 namespace SnnbDB.Models;
 public partial class MMulticastGroupSubscription
@@ -39,7 +29,7 @@ public partial class MMulticastGroupSubscription
         }
         catch (Exception ex)
         {
-            ExLog.Log(ex);
+            HLog.AddEntry(ex);
             return;
         }
     }
