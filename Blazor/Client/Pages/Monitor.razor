@@ -33,11 +33,11 @@
 <RadzenDataGrid TItem="RtMonitorTable" Style="float: none; margin: 24px; width: 1200px" Data="@MonitorTable" 
 CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ShowColumnTitleAsTooltip="false" ShowCellDataAsTooltip="false" >
        <Columns >
-            <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time"  Frozen = "true" Width="160px"></RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="RtMonitorTable" Property="UnitName" Title="Name"  Frozen = "true" Width="120px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time"  Frozen = "true" Width="150px" FormatString="dd/MM/yy HH:mm:ss"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="UnitName" Title="Name"  Frozen = "true" Width="110px"></RadzenDataGridColumn>
             
-            <RadzenDataGridColumn TItem="RtMonitorTable" Property="RemoteUnit" Title="Remote" Width="120px"></RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Peer" Property="PeerUnit" Width="120px" ></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="RemoteUnit" Title="Remote" Width="110px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Title="Peer" Property="PeerUnit" Width="110px" ></RadzenDataGridColumn>
 
             <RadzenDataGridColumn TItem="RtMonitorTable" Property="CommsOk" Title="Communication" Width="60px"> </RadzenDataGridColumn>   
             <RadzenDataGridColumn TItem="RtMonitorTable" Title="Message" Property="CommMessage" Width="120px"></RadzenDataGridColumn>
@@ -45,7 +45,7 @@ CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ShowColumnTi
 
             <RadzenDataGridColumn TItem="RtMonitorTable" Property="OnePpsPresent" Title="1PPS" Width="60px"></RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="RtMonitorTable" Property="TenMhzLocked" Title="10MHz" Width="60px"></RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="RtMonitorTable" Property="MeasuredDelay" Title="Delay" Width="80px"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="MeasuredDelay" Title="Delay" Width="100px"></RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="RtMonitorTable"  Property="MeasuredNetworkRate" Title="Stream" Width="100px"></RadzenDataGridColumn>
         
             <RadzenDataGridColumn TItem="RtMonitorTable" Property="StreamEnable" Title="IP stream Enb" Width="60px"></RadzenDataGridColumn>

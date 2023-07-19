@@ -92,11 +92,8 @@ public class RtStatus
 
         return rtMonitors;
     }
-    //public int SortBy(int name1, int name2)
-    //{
 
-    //    return name1.CompareTo(name2);
-    //}
+
 
     public void Fill()
     {

@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ExceptionLog\ExceptionLog.csproj" />
     <ProjectReference Include="..\..\Extensions\Extensions.csproj" />
     <ProjectReference Include="..\..\SnnbDB\SnnbDB.csproj" />
     <ProjectReference Include="..\Client\Failover.Client.csproj" />

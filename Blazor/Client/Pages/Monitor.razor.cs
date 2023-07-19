@@ -48,7 +48,7 @@ public partial class Monitor
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(NavigationManager.ToAbsoluteUri("/UpdateHub"))
                 .Build();
-            hubConnection.On<RtStatus>("RT Status", recd);
+            hubConnection.On<RtStatus>("RT Status", RecData);
             await hubConnection.StartAsync();
 
         }
@@ -60,8 +60,14 @@ public partial class Monitor
     //{
 
     //}
+     #endregion 
+
+
+    #region Initial
+    
     private IEnumerable<RtMonitorTable> MonitorTable { get; set;}
-    private async void recd(RtStatus rtStatus)
+  
+    private async void RecData(RtStatus rtStatus)
     {
         DataTimeStamp= rtStatus.DateTime.ToString("ddMMMyyyy HH:mm:ss");
         MonitorTable = rtStatus.GetRtMonitor();
@@ -74,19 +80,36 @@ public partial class Monitor
 
     void CellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
+            
+        if (args.Column.Property == "CommsOk")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.CommsOk == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+        }
+        if (args.Column.Property == "OnePpsPresent")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.OnePpsPresent == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+        }
+        if (args.Column.Property == "TenMhzLocked")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.TenMhzLocked == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+        }
+        if (args.Column.Property == "MeasuredDelay")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredDelay == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+        }
+        if (args.Column.Property == "MeasuredNetworkRate")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredNetworkRate == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+        }
+        if (args.Column.Property == "StreamEnable")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.StreamEnable == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+        }
         if (args.Column.Property == "RfOutputEnable")
         {
             args.Attributes.Add("style", $"background-color: {(args.Data.RfOutputEnable == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
         }
-
-        if (args.Column.Property == "CommsOk")
-        {
-            //if (args.Data.ExtCommError != false)
-            //{   
-            //    args.Attributes.Add("style", "background-color: var(--rz-warning-light)");
-            //}
-            args.Attributes.Add("style", $"background-color: {(args.Data.CommsOk == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
-        }
+ 
     }
 
     void HeaderFooterCellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
