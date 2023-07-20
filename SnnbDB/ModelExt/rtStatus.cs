@@ -12,7 +12,7 @@ using SnnbDB.Rest;
 namespace SnnbDB.ModelExt;
 public class RtStatus
 {
-    public DateTime DateTime { get; set; } = DateTime.Now;
+    public DateTime DateTimeStamp { get; set; } = DateTime.Now;
     public List<MSpectralNetGroup> SpecNetGroups { get; set; }
     public List<MModule> Modules { get; set; }
     public List<MInputRfSpectrum> InputRfSpectrums { get; set; }
@@ -28,57 +28,30 @@ public class RtStatus
 
         foreach (MSpectralNetGroup sng in SpecNetGroups)
         {
-            rtMonitors.Add(new RtMonitorTable()
-            {
-                DateTimeStamp = sng.DateStamp.ToString("ddMMMyy HH:mm:ss"),
-                UnitId = sng.UnitId,
-                UnitName = sng.UnitName,
-                RemoteUnit = sng.RemoteUnit,
-                PeerUnit = sng.PeerUnit,
-                CommMessage = sng.ErrorText,
-                CommsOk = (!sng.Error).ToString(),
-                DisplayOrder = sng.DisplayOrder
-            });
+            var r = new RtMonitorTable();
 
+            r.UnitId = sng.UnitId;
+            r.UnitName = sng.UnitName;
+            r.RemoteUnit = sng.RemoteUnit;
+            r.PeerUnit = sng.PeerUnit;
+            r.CommMessage = sng.ErrorText;
+            r.CommsOk = (!sng.Error).ToString();
+            r.CommsOkAlert = sng.Error;
+            r.DisplayOrder = sng.DisplayOrder;
+           
+            r.DateTimeStamp = sng.DateStamp.ToString("ddMMMyy HH:mm:ss");
+            double TimeDiff = (sng.DateStamp - DateTimeStamp).TotalSeconds;
+            r.DateTimeStampAlert = (Math.Abs(TimeDiff  )> 10.0);
+            
+ 
+
+
+            rtMonitors.Add(r);
         }
 
         foreach (RtMonitorTable rm in rtMonitors)
         {
-            if(rm.CommsOk == "True")
-            {
-                decimal v = (from s in RfOutputStreams
-                                    where s.UnitId == rm.UnitId
-                                    select s.MeasuredDelay).Single();
-                rm.MeasuredDelay = (v/1000000).ToString("N2") + "ms";
-
-                var v2 = (from s in RfOutputStreams
-                                    where s.UnitId == rm.UnitId
-                                    select s.MeasuredNetworkRate).Single();
-                rm.MeasuredNetworkRate = (v2/1000000).ToString("N0") + "Mbps";
-
-                rm.StreamEnable = (from s in RfInputStreams
-                                   where s.UnitId == rm.UnitId
-                                   select s.StreamEnable).Single().ToString();
-
-                rm.RfOutputEnable = (from s in Modules
-                                   where s.UnitId == rm.UnitId
-                                   select s.RfOutputEnable).Single().ToString();
-                rm.TenMhzLocked = (from s in Modules
-                                   where s.UnitId == rm.UnitId
-                                   select s.TenMhzLocked).Single().ToString();
-                rm.OnePpsPresent = (from s in Modules
-                                   where s.UnitId == rm.UnitId
-                                   select s.OnePpsPresent).Single().ToString();
-            }
-            else
-            {
-                rm.MeasuredDelay = "NA";
-                rm.MeasuredNetworkRate = "NA";
-                rm.StreamEnable = "NA";
-                rm.RfOutputEnable = "NA";
-                rm.TenMhzLocked = "NA";
-                rm.OnePpsPresent = "NA";
-            }
+            FormatData(rm);
         }
         rtMonitors.Sort(delegate (RtMonitorTable x, RtMonitorTable y)
         {
@@ -93,7 +66,64 @@ public class RtStatus
         return rtMonitors;
     }
 
+    private void FormatData(RtMonitorTable rm)
+    {
+        if (rm.CommsOkAlert)
+        {
+            rm.MeasuredDelay = "NA";
+            rm.MeasuredDelayAlert = true;
+            rm.MeasuredNetworkRate = "NA";
+            rm.MeasuredNetworkRateAlert = true;
+            rm.StreamEnable = "NA";
+            rm.StreamEnableAlert = true;
+            rm.RfOutputEnable = "NA";
+            rm.RfOutputEnableAlert = true;
+            rm.TenMhzLocked = "NA";
+            rm.TenMhzLockedAlert = true;
+            rm.OnePpsPresent = "NA";
+            rm.OnePpsPresentAlert = true;
+        }
+        else
+        {
+            decimal v = (from s in RfOutputStreams
+                         where s.UnitId == rm.UnitId
+                         select s.MeasuredDelay).Single();
 
+            rm.MeasuredDelay = (v / 1000000).ToString((v > 100000000) ? "N0" : "N2") + "ms";
+
+            rm.MeasuredDelayAlert = (v > 2100000)? true : false;
+
+            v = (from s in RfOutputStreams
+                      where s.UnitId == rm.UnitId
+                      select s.MeasuredNetworkRate).Single();
+            rm.MeasuredNetworkRate = (v / 1000000).ToString("N0") + "Mbps";
+            rm.MeasuredNetworkRateAlert = (v > 555000000)? true : false;
+
+            bool b = (from s in RfInputStreams
+                      where s.UnitId == rm.UnitId
+                      select s.StreamEnable).Single();
+            rm.StreamEnable = b.ToString();
+            rm.StreamEnableAlert = !b;
+
+            b = (from s in Modules
+                 where s.UnitId == rm.UnitId
+                 select s.RfOutputEnable).Single();
+            rm.RfOutputEnable = b.ToString();
+            rm.RfOutputEnableAlert = !b; 
+
+            b = (from s in Modules
+                 where s.UnitId == rm.UnitId
+                 select s.TenMhzLocked).Single();
+            rm.TenMhzLocked = b.ToString();
+            rm.TenMhzLockedAlert = !b;
+
+            b = (from s in Modules
+                 where s.UnitId == rm.UnitId
+                 select s.OnePpsPresent).Single();
+            rm.OnePpsPresent = b.ToString();
+            rm.OnePpsPresentAlert = !b;
+        }
+    }
 
     public void Fill()
     {

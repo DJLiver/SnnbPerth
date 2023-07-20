@@ -8,22 +8,10 @@
     </RadzenColumn>
 </RadzenRow>
 
-<RadzenCard class="m-4" style="display: flex; align-items: center; gap: 0.5rem">
-    <RadzenColumn>
-        <RadzenRow>
-            <RadzenCheckBox @bind-Value=@allowCompositeDataCells Name="CheckBox1" TValue="bool" Change=@(args => grid.Reload())/>
-            <RadzenLabel Text="Allow composite data cells" Component="CheckBox1" />
-        </RadzenRow>
-        <RadzenRow >
-            <RadzenCheckBox @bind-Value=@allowCompositeDataCells Name="CheckBox1" TValue="bool" Change=@(args => grid.Reload())/>
-            <RadzenLabel Text="Allow composite data cells" Component="CheckBox1" />
-        </RadzenRow>
-    </RadzenColumn>
-</RadzenCard>
 
-<RadzenCard class="m-4" Style="width: 817px; height: 60px">
+<RadzenCard class="m-4" Style="width: 456px; height: 60px">
     <RadzenRow >
-            <RadzenText Text="Data Timestamp:" TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 163px; height: 27px" />
+            <RadzenText Text="Server Time:" TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 129px; height: 27px" />
             <RadzenText Text="@DataTimeStamp"  TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 188px; height: 22px" />
     </RadzenRow>
 
@@ -33,7 +21,7 @@
 <RadzenDataGrid TItem="RtMonitorTable" Style="float: none; margin: 24px; width: 1200px" Data="@MonitorTable" 
 CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ShowColumnTitleAsTooltip="false" ShowCellDataAsTooltip="false" >
        <Columns >
-            <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time"  Frozen = "true" Width="150px" FormatString="dd/MM/yy HH:mm:ss"></RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time"  Frozen = "true" Width="150px"></RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="RtMonitorTable" Property="UnitName" Title="Name"  Frozen = "true" Width="110px"></RadzenDataGridColumn>
             
             <RadzenDataGridColumn TItem="RtMonitorTable" Property="RemoteUnit" Title="Remote" Width="110px"></RadzenDataGridColumn>

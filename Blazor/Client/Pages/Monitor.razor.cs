@@ -12,7 +12,6 @@ namespace Failover.Client.Pages;
 public partial class Monitor
 {
     private string DataTimeStamp = DateTime.Now.ToString("ddMMMyyyy HH:mm:ss");
-    private bool allowCompositeDataCells = true;
     RadzenDataGrid<RtMonitorTable> grid;
     //private List<MTT> MTTs { get; set;}
     private HubConnection hubConnection = null;
@@ -69,7 +68,7 @@ public partial class Monitor
   
     private async void RecData(RtStatus rtStatus)
     {
-        DataTimeStamp= rtStatus.DateTime.ToString("ddMMMyyyy HH:mm:ss");
+        DataTimeStamp= rtStatus.DateTimeStamp.ToString("ddMMMyyyy HH:mm:ss");
         MonitorTable = rtStatus.GetRtMonitor();
         await InvokeAsync(() => StateHasChanged());
     }
@@ -80,34 +79,57 @@ public partial class Monitor
 
     void CellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
+        if (args.Column.Property == "DateTimeStamp")
+        {
+            args.Attributes.Add("style", $"background-color: {(args.Data.DateTimeStampAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
+        }
             
         if (args.Column.Property == "CommsOk")
         {
-            args.Attributes.Add("style", $"background-color: {(args.Data.CommsOk == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+            args.Attributes.Add("style", $"background-color: {(args.Data.CommsOkAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
         }
+        
         if (args.Column.Property == "OnePpsPresent")
         {
-            args.Attributes.Add("style", $"background-color: {(args.Data.OnePpsPresent == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+            if(args.Data.CommsOkAlert)
+                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+            else
+                args.Attributes.Add("style", $"background-color: {(args.Data.OnePpsPresentAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");       
         }
         if (args.Column.Property == "TenMhzLocked")
         {
-            args.Attributes.Add("style", $"background-color: {(args.Data.TenMhzLocked == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+            if(args.Data.CommsOkAlert)
+                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+            else
+                args.Attributes.Add("style", $"background-color: {(args.Data.TenMhzLockedAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
         }
         if (args.Column.Property == "MeasuredDelay")
         {
-            args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredDelay == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+            if(args.Data.CommsOkAlert)
+                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+            else
+                args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredDelayAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
         }
         if (args.Column.Property == "MeasuredNetworkRate")
         {
-            args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredNetworkRate == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+            if(args.Data.CommsOkAlert)
+                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+            else
+                args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredNetworkRateAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
         }
         if (args.Column.Property == "StreamEnable")
         {
-            args.Attributes.Add("style", $"background-color: {(args.Data.StreamEnable == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+            if(args.Data.CommsOkAlert)
+                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+            else
+                args.Attributes.Add("style", $"background-color: {(args.Data.StreamEnableAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
         }
         if (args.Column.Property == "RfOutputEnable")
         {
-            args.Attributes.Add("style", $"background-color: {(args.Data.RfOutputEnable == "True" ? "var(--rz-success)" : "var(--rz-danger)")};");
+            if(args.Data.CommsOkAlert)
+                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+            else
+                args.Attributes.Add("style", $"background-color: {(args.Data.RfOutputEnableAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
         }
  
     }
