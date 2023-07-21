@@ -12,7 +12,7 @@ namespace Failover.Client.Pages;
 public partial class Monitor
 {
     private string DataTimeStamp = DateTime.Now.ToString("ddMMMyyyy HH:mm:ss");
-    RadzenDataGrid<RtMonitorTable> grid;
+    //RadzenDataGrid<RtMonitorTable> grid1;
     //private List<MTT> MTTs { get; set;}
     private HubConnection hubConnection = null;
 
@@ -55,21 +55,19 @@ public partial class Monitor
         {
         }    
     }
-    //private IEnumerable<RtMonitor> GetRtMonitor()
-    //{
-
-    //}
     #endregion
 
 
     #region RecData
 
-    private IEnumerable<RtMonitorTable> MonitorTable { get; set;}
+    private IEnumerable<RtMonitorTable> MonitorTablePrimary { get; set;}
+    private IEnumerable<RtMonitorTable> MonitorTableSecondary { get; set;}
   
     private async void RecData(RtStatus rtStatus)
     {
         DataTimeStamp= rtStatus.DateTimeStamp.ToString("ddMMMyyyy HH:mm:ss");
-        MonitorTable = rtStatus.GetRtMonitor();
+        MonitorTablePrimary = rtStatus.GetRtMonitor("Primary");
+        MonitorTableSecondary = rtStatus.GetRtMonitor("Secondary");
         await InvokeAsync(() => StateHasChanged());
     }
 

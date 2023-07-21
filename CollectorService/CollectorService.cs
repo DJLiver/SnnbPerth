@@ -8,8 +8,8 @@ namespace CollectorService;
 public sealed class Service : BackgroundService
 {
     private readonly ILogger<Service> _logger;
-    private List<HSpectralNetGroup> targets;
-    private HSystemParam hSystemParam;
+    private List<HSpectralNetGroup> _spectralNetGroups;
+    private HSystemParam _hSystemParam;
     private CollectManager cm = null;
     private DatabaseQueue dbq = null;
     //private ErrorQueue eq = null;
@@ -24,8 +24,12 @@ public sealed class Service : BackgroundService
         try
         {
             SnnbCommPack.CleanDB();
+            SnnbFoContext sc = new SnnbFoContext();
+            _spectralNetGroups = sc.HSpectralNetGroups.Where(m => m.Enabled).ToList();
+            _hSystemParam = sc.HSystemParams.First();
 
-            cm = new CollectManager();
+            cm = new CollectManager(_spectralNetGroups, _hSystemParam);
+            
             dbq = new DatabaseQueue();
 
             cm.SNDataEvent += dbq.Add;
@@ -34,9 +38,6 @@ public sealed class Service : BackgroundService
             dbq.Start();
             cm.Start();
 
-            SnnbFoContext sc = new SnnbFoContext();
-            targets = sc.HSpectralNetGroups.ToList();
-            hSystemParam = sc.HSystemParams.First();
         }
         catch (Exception)
         {
@@ -63,7 +64,7 @@ public sealed class Service : BackgroundService
             while (!stoppingToken.IsCancellationRequested)
             {
 
-                await Task.Delay(TimeSpan.FromMilliseconds(hSystemParam.PollPeriod), stoppingToken);
+                await Task.Delay(TimeSpan.FromMilliseconds(_hSystemParam.PollPeriod), stoppingToken);
             }
         }
         catch (TaskCanceledException)

@@ -22,31 +22,32 @@ public class RtStatus
     public List<MAvailableStream> AvailableStreams { get; set; }
 
 
-    public List<RtMonitorTable> GetRtMonitor()
+    public List<RtMonitorTable> GetRtMonitor(string NetworkPath)
     {
         List<RtMonitorTable> rtMonitors = new List<RtMonitorTable>();
 
         foreach (MSpectralNetGroup sng in SpecNetGroups)
         {
-            var r = new RtMonitorTable();
+            if (sng.NetworkPath == NetworkPath)
+            {
+                var r = new RtMonitorTable();
 
-            r.UnitId = sng.UnitId;
-            r.UnitName = sng.UnitName;
-            r.RemoteUnit = sng.RemoteUnit;
-            r.PeerUnit = sng.PeerUnit;
-            r.CommMessage = sng.ErrorText;
-            r.CommsOk = (!sng.Error).ToString();
-            r.CommsOkAlert = sng.Error;
-            r.DisplayOrder = sng.DisplayOrder;
-           
-            r.DateTimeStamp = sng.DateStamp.ToString("ddMMMyy HH:mm:ss");
-            double TimeDiff = (sng.DateStamp - DateTimeStamp).TotalSeconds;
-            r.DateTimeStampAlert = (Math.Abs(TimeDiff  )> 10.0);
-            
- 
+                r.UnitId = sng.UnitId;
+                r.UnitName = sng.UnitName;
+                r.RemoteUnit = sng.RemoteUnit;
+                r.PeerUnit = sng.PeerUnit;
+                r.CommMessage = sng.ErrorText;
+                r.CommsOk = (!sng.Error).ToString();
+                r.CommsOkAlert = sng.Error;
+                r.DisplayOrder = sng.DisplayOrder;
 
+                r.DateTimeStamp = sng.DateStamp.ToString("ddMMMyy HH:mm:ss");
+                double TimeDiff = (sng.DateStamp - DateTimeStamp).TotalSeconds;
+                r.DateTimeStampAlert = (Math.Abs(TimeDiff) > 10.0);
 
-            rtMonitors.Add(r);
+                rtMonitors.Add(r);
+
+            }        
         }
 
         foreach (RtMonitorTable rm in rtMonitors)

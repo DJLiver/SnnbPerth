@@ -114,11 +114,13 @@ public partial class SnnbFoContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ChassisName).HasMaxLength(128);
-            entity.Property(e => e.Direction).HasMaxLength(128);
+            entity.Property(e => e.ClusterId).HasColumnName("ClusterID");
+            entity.Property(e => e.ClusterName).HasMaxLength(128);
             entity.Property(e => e.GroupId).HasColumnName("GroupID");
             entity.Property(e => e.GroupName).HasMaxLength(128);
             entity.Property(e => e.IpAddress).HasMaxLength(128);
             entity.Property(e => e.Location).HasMaxLength(128);
+            entity.Property(e => e.NetworkPath).HasMaxLength(128);
             entity.Property(e => e.PeerUnit).HasMaxLength(128);
             entity.Property(e => e.RemoteUnit).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);
@@ -593,12 +595,14 @@ public partial class SnnbFoContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ChassisName).HasMaxLength(128);
-            entity.Property(e => e.Direction).HasMaxLength(128);
+            entity.Property(e => e.ClusterId).HasColumnName("ClusterID");
+            entity.Property(e => e.ClusterName).HasMaxLength(128);
             entity.Property(e => e.ErrorText).HasMaxLength(512);
             entity.Property(e => e.GroupId).HasColumnName("GroupID");
             entity.Property(e => e.GroupName).HasMaxLength(128);
             entity.Property(e => e.IpAddress).HasMaxLength(128);
             entity.Property(e => e.Location).HasMaxLength(128);
+            entity.Property(e => e.NetworkPath).HasMaxLength(128);
             entity.Property(e => e.PeerUnit).HasMaxLength(128);
             entity.Property(e => e.RemoteUnit).HasMaxLength(128);
             entity.Property(e => e.Site).HasMaxLength(128);

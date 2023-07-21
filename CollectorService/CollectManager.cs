@@ -9,25 +9,27 @@ class CollectManager : iStartStop
     internal Action<object, SnnbCommPack> SNDataEvent;
     //internal Action<object, HLog> ErrorEvent;
     private readonly List<CollectTimer> collectTimers = new List<CollectTimer>();
-    private List<HSpectralNetGroup> targets;
     private HSystemParam hSystemParam;
+    private List<HSpectralNetGroup> spectralNetGroups;
+
     public CollectManager()
     {
-        //this.targets = targets;
+    }
+
+    public CollectManager(List<HSpectralNetGroup> spectralNetGroups, HSystemParam hSystemParam)
+    {
+        this.spectralNetGroups = spectralNetGroups;
+        this.hSystemParam = hSystemParam;
     }
 
     public void Start()
     {
-        SnnbFoContext sc = new SnnbFoContext();
-        targets = sc.HSpectralNetGroups.ToList();
-        hSystemParam = sc.HSystemParams.First();
 
-
-        foreach (var unit in targets)
+        foreach (var unit in spectralNetGroups)
         {
             CollectTimer collectTimer = new CollectTimer
             {
-                target = unit,
+                spectralNetGroup = unit,
                 hSystemParam = hSystemParam
             };
             collectTimer.SNDataEvent += SNDataEvent;

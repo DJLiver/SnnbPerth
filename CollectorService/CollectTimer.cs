@@ -13,7 +13,7 @@ namespace SnnbFailover.Server.Services;
 
 class CollectTimer : iStartStop
 {
-    public HSpectralNetGroup target { get; set; }
+    public HSpectralNetGroup spectralNetGroup { get; set; }
     public HSystemParam hSystemParam { get; set; }
 
 
@@ -22,10 +22,21 @@ class CollectTimer : iStartStop
     private bool MeasurementInProgressFirstMessage = true;
     internal Action<object, SnnbCommPack> SNDataEvent;
     //internal Action<object, HLog> ErrorEvent;
+    RestClient client = null;
+    RestRequest request = null;
 
     #region Start/Stop
     public void Start()
     {
+        //var options = new RestClientOptions(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress)
+        //{
+        //    ThrowOnAnyError = true,
+        //    MaxTimeout = 500, 
+        //};
+        client = new RestClient(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress) /*{Timeout = hSystemParam.Timeout }*/;
+        //client = new RestClient(options);
+
+        request = new RestRequest(hSystemParam.RestQuery);
         pollTimer = new Timer(new TimerCallback(PollUnitNow));
         pollTimer.Change(0, hSystemParam.PollPeriod);
     }
@@ -37,7 +48,6 @@ class CollectTimer : iStartStop
     }
 
     #endregion
-
 
     #region Actions
     protected void OnSNData(SnnbCommPack e)
@@ -52,10 +62,11 @@ class CollectTimer : iStartStop
     #endregion
 
     #region Poll unit
+
     private void PollUnitNow(object? state)
     {
         SnnbCommPack scp = new SnnbCommPack();
-        scp.SpectralNetGroup = target;
+        scp.SpectralNetGroup = spectralNetGroup;
         scp.Error = false;
         scp.ErrorText = "No error";
 
@@ -71,11 +82,15 @@ class CollectTimer : iStartStop
         }
         MeasurementInProgress = true;
         MeasurementInProgressFirstMessage = true;
+            Stopwatch sw = new Stopwatch();
 
         string content = String.Empty;
         try
         {
+            sw.Start();
             content = GetResponse();
+            sw.Stop();
+
             RestMain restMain = JsonConvert.DeserializeObject<RestMain>(content);
             scp.RestMain = restMain;
         }
@@ -84,28 +99,35 @@ class CollectTimer : iStartStop
         {
             scp.Error = true;
             scp.ErrorText = ex.Message;
+            sw.Stop();
   //          HLog.AddEntry(ex);
         }
         finally
         {
+            scp.ResponseTime = (int)sw.Elapsed.TotalMilliseconds;
             OnSNData(scp);
             MeasurementInProgress = false;
         }
     }
     private string GetResponse()
     {
-        IRestResponse response = null;
+        //HttpClient httpClient = new HttpClient();
+        //httpClient.
+
+        RestResponse response = null;
         try
         {
-            RestClient client = new RestClient(hSystemParam.PreIpAddress + target.IpAddress) { Timeout = hSystemParam.Timeout };
-            
-            RestRequest request = new RestRequest( hSystemParam.RestQuery);
+            //var options = new RestClientOptions(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress)
+            //{
+            //    ThrowOnAnyError = true,
+            //    MaxTimeout = 500
+            //};
             response = client.Get(request);
             if (response.IsSuccessful)
             {
                 return response.Content;
             }
-            throw new Exception("No response from " + target.UnitName);
+            throw new Exception("No response from " + spectralNetGroup.UnitName);
 
         }
         catch (Exception)

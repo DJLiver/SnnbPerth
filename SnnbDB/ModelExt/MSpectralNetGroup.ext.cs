@@ -6,7 +6,9 @@ public partial class MSpectralNetGroup
     {
         try
         {
-            DateStamp = DateTime.Now;
+            DateStamp = DateTime.Now; 
+            ClusterId = snnbCommPack.SpectralNetGroup.ClusterId;
+            ClusterName = snnbCommPack.SpectralNetGroup.ClusterName;
             GroupId = snnbCommPack.SpectralNetGroup.GroupId;
             GroupName = snnbCommPack.SpectralNetGroup.GroupName;
             Site = snnbCommPack.SpectralNetGroup.Site;
@@ -17,7 +19,7 @@ public partial class MSpectralNetGroup
             ChassisName = snnbCommPack.SpectralNetGroup.ChassisName;
             Location = snnbCommPack.SpectralNetGroup.Location;
             IpAddress = snnbCommPack.SpectralNetGroup.IpAddress;
-            Direction = snnbCommPack.SpectralNetGroup.Direction;
+            NetworkPath = snnbCommPack.SpectralNetGroup.NetworkPath;
             DisplayOrder = snnbCommPack.SpectralNetGroup.DisplayOrder;
             Error = snnbCommPack.Error;
             ErrorText = snnbCommPack.ErrorText;

@@ -7,6 +7,10 @@ public partial class HSpectralNetGroup
 {
     public int Id { get; set; }
 
+    public int ClusterId { get; set; }
+
+    public string ClusterName { get; set; } = null!;
+
     public int GroupId { get; set; }
 
     public string GroupName { get; set; } = null!;
@@ -27,7 +31,7 @@ public partial class HSpectralNetGroup
 
     public string IpAddress { get; set; } = null!;
 
-    public string Direction { get; set; } = null!;
+    public string NetworkPath { get; set; } = null!;
 
     public int DisplayOrder { get; set; }
 
