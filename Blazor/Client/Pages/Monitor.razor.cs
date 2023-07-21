@@ -15,6 +15,8 @@ public partial class Monitor
     //RadzenDataGrid<RtMonitorTable> grid1;
     //private List<MTT> MTTs { get; set;}
     private HubConnection hubConnection = null;
+    private string PrimaryStatus = "bg-dark";
+    private string SecondaryStatus = "bg-dark";
 
     #region Injects
     [Inject]
@@ -68,8 +70,29 @@ public partial class Monitor
         DataTimeStamp= rtStatus.DateTimeStamp.ToString("ddMMMyyyy HH:mm:ss");
         MonitorTablePrimary = rtStatus.GetRtMonitor("Primary");
         MonitorTableSecondary = rtStatus.GetRtMonitor("Secondary");
+        PrimaryStatus = GetSummaryStatus(MonitorTablePrimary);
+        SecondaryStatus = GetSummaryStatus(MonitorTableSecondary);
+
         await InvokeAsync(() => StateHasChanged());
     }
+
+    private string GetSummaryStatus(IEnumerable<RtMonitorTable> m)
+    {
+        string ret = "bg-dark";
+        if (m.Any(x => x.CommsOkAlert || x.OnePpsPresentAlert || x.MeasuredDelayAlert || x.DateTimeStampAlert || x.MeasuredNetworkRateAlert || x.RfOutputEnableAlert || x.StreamEnableAlert || x.TenMhzLockedAlert))
+        {
+            ret = "bg-danger";
+        }
+        else
+        {
+            ret = "bg-success";
+        }
+        return ret;
+    }
+
+    //private string GetSummaryStatus(string v)
+    //{
+    //}
 
     #endregion
 

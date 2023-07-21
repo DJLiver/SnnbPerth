@@ -24,6 +24,8 @@ public sealed class Service : BackgroundService
         try
         {
             SnnbCommPack.CleanDB();
+
+
             SnnbFoContext sc = new SnnbFoContext();
             _spectralNetGroups = sc.HSpectralNetGroups.Where(m => m.Enabled).ToList();
             _hSystemParam = sc.HSystemParams.First();

@@ -4,53 +4,77 @@
 <RadzenColumn Size="12">
     <RadzenText Text="Control" TextStyle="TextStyle.H3" TagName="TagName.H1" />
 </RadzenColumn>
-<RadzenRow>
-    <RadzenColumn>
-        <RadzenRow>
-            <RadzenCard Style="width: 366px; height: 192px">
-                <RadzenFieldset Style="height: 158px">
-                    <HeaderTemplate>
-                        Control
-                    </HeaderTemplate>
-                    <ChildContent>
-                        <RadzenColumn>
-                            <RadzenRow>
-                                <RadzenSwitch Style="width: 47px; height: 24px; margin: 10px"></RadzenSwitch>
-                                <RadzenText Text="Auto" Style="width: 35px; height: 35px; margin-top: 10px" />
-                            </RadzenRow>
-                            <RadzenRow Style="vertical-align: middle">
-                                <RadzenSwitch Style="width: 47px; height: 24px; margin: 10px"></RadzenSwitch>
-                                <RadzenText Text="Switch all" Style="width: 106px; height: 26px; margin-top: 10px" />
-                            </RadzenRow>
 
-                        </RadzenColumn>
-                    </ChildContent>
-                </RadzenFieldset>
-            </RadzenCard>
-        </RadzenRow>
+<RadzenRow Gap="0.5rem" RowGap="0.5rem" Style="width: 1010px; height: 400px">
+    <RadzenColumn Size="6" class="rz-p-5" Style="height: 629px; width: 404px">
+        <RadzenCard Style="width: 460px; height: 590px">
+            <RadzenFieldset Style="height: 158px">
+                <HeaderTemplate>
+                    Switch Logic
+                </HeaderTemplate>
+                <ChildContent>
+                    <RadzenColumn>
+                        <RadzenRow>
+                            <RadzenSwitch Style="width: 47px; height: 24px; margin: 10px"></RadzenSwitch>
+                            <RadzenText Text="Auto" Style="width: 35px; height: 35px; margin-top: 10px" />
+                            <RadzenNumeric TValue="int" Style="width: 79px; margin-left: 20px" Value="3"></RadzenNumeric>
+                            <RadzenText Text="sec before switch" Style="width: 135px; height: 35px; margin-top: 10px" />
+                        </RadzenRow>
+                        <RadzenRow Style="vertical-align: middle">
+                            <RadzenSwitch Style="width: 47px; height: 24px; margin: 10px"></RadzenSwitch>
+                            <RadzenText Text="Switch all" Style="width: 106px; height: 26px; margin-top: 10px" />
+                        </RadzenRow>
 
-        <RadzenRow>
-            <RadzenCard Style="width: 366px; height: 192px; margin-top: 10px">
-                <RadzenFieldset Style="height: 158px">
-                    <HeaderTemplate>
-                        Controlxxx
-                    </HeaderTemplate>
-                    <ChildContent>
-                        <RadzenColumn>
-                            <RadzenRow>
-                                <RadzenSwitch Style="width: 47px; height: 24px; margin: 10px"></RadzenSwitch>
-                                <RadzenText Text="Auto" Style="width: 35px; height: 35px; margin-top: 10px" />
-                            </RadzenRow>
-                            <RadzenRow Style="vertical-align: middle">
-                                <RadzenSwitch Style="width: 47px; height: 24px; margin: 10px"></RadzenSwitch>
-                                <RadzenText Text="Switch all" Style="width: 106px; height: 26px; margin-top: 10px" />
-                            </RadzenRow>
+                    </RadzenColumn>
+                </ChildContent>
+            </RadzenFieldset>
+            <RadzenFieldset Style="height: 329px; margin-top: 10px; width: 355px">
+                <HeaderTemplate>
+                    Control
+                </HeaderTemplate>
+                <ChildContent>
+                    <RadzenColumn>
+                        <RadzenRow Style="vertical-align: middle">
 
-                        </RadzenColumn>
-                    </ChildContent>
-                </RadzenFieldset>
-            </RadzenCard>
-        </RadzenRow>
+                            <RadzenText Text="Select all" Style="width: 145px; height: 26px; margin-top: 10px" />
+                            <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@groupAll"></RadzenCheckBox>
+                        </RadzenRow>
+                        <RadzenRow Style="vertical-align: middle">
+
+                            <RadzenText Text="AUC-WRW LH1" Style="width: 145px; height: 26px; margin-top: 10px" />
+                            <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@group1"></RadzenCheckBox>
+                        </RadzenRow>
+                        <RadzenRow Style="vertical-align: middle">
+
+                            <RadzenText Text="AUC-WRW LH2" Style="width: 145px; height: 26px; margin-top: 10px" />
+                            <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@group2"></RadzenCheckBox>
+                        </RadzenRow>
+                        <RadzenRow Style="vertical-align: middle">
+
+                            <RadzenText Text="AUC-WRW RH1" Style="width: 145px; height: 26px; margin-top: 10px" />
+                            <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@group3"></RadzenCheckBox>
+                        </RadzenRow>
+                        <RadzenRow Style="vertical-align: middle">
+
+                            <RadzenText Text="AUC-WRW RH2" Style="width: 145px; height: 26px; margin-top: 10px" />
+                            <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@group4"></RadzenCheckBox>
+                        </RadzenRow>
+                        <RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Switch to A"></RadzenButton>
+                        <RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Switch to A"></RadzenButton>
+                        <RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Clear Stat"></RadzenButton>
+                        <RadzenButton Style="width: 122px; height: 30px" Text="Save config"></RadzenButton>
+                    </RadzenColumn>
+                </ChildContent>
+            </RadzenFieldset>
+
+        </RadzenCard>
+    </RadzenColumn>
+    <RadzenColumn class="rz-p-5">
+        <RadzenCard Style="height: 591px; width: 459px">
+            <RadzenFieldset Text="Events" Style="height: 505px">
+                <RadzenDataList TItem="dynamic" Style="height: 452px"></RadzenDataList>
+            </RadzenFieldset>
+        </RadzenCard>
 
     </RadzenColumn>
 </RadzenRow>

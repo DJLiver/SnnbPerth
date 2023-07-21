@@ -6,80 +6,19 @@
         <RadzenText Text="Experimental" TextStyle="TextStyle.H3" TagName="TagName.H1" />
     </RadzenColumn>
 </RadzenRow>
-<RadzenCard class="m-4" style="display: flex; align-items: center; gap: 0.5rem">
-    <RadzenColumn>
-        <RadzenRow>
-@*            <RadzenCheckBox @bind-Value=@allowCompositeDataCells Name="CheckBox1" TValue="bool" Change=@(args => grid.Reload())/>
-*@            <RadzenLabel Text="Allow composite data cells" Component="CheckBox1" />
-        </RadzenRow>
-        <RadzenRow >
-@*            <RadzenCheckBox @bind-Value=@allowCompositeDataCells Name="CheckBox1" TValue="bool" Change=@(args => grid.Reload())/>
-*@            <RadzenLabel Text="Allow composite data cells" Component="CheckBox1" />
-        </RadzenRow>
-    </RadzenColumn>
-</RadzenCard>
+<RadzenPanel Collapsed="false" AllowCollapse="true" Class="rz-my-10 rz-mx-auto">
+    <HeaderTemplate>
+        <RadzenText TextStyle="Radzen.Blazor.TextStyle.H5" Class="rz-display-flex rz-align-items-center rz-m-0" Style="margin-left: 20px">
+            <RadzenIcon Icon="dvr" class="rz-mr-1" />
+            Primary network path
+        </RadzenText>
+    </HeaderTemplate>
 
-<RadzenRow  Gap="0.5rem" RowGap="0.5rem" Style="width: 1010px; height: 400px">
-    <RadzenColumn Size="6" class="rz-p-5" Style="height: 629px; width: 404px">
-        <RadzenCard Style="width: 316px; height: 192px; margin: 10px">
-                <RadzenFieldset Style="height: 158px">
-                    <HeaderTemplate>
-                        Control
-                    </HeaderTemplate>
-                    <ChildContent>
-                        <RadzenColumn>
-                            <RadzenRow>
-                                <RadzenSwitch Style="width: 47px; height: 24px; margin: 10px"></RadzenSwitch>
-                                <RadzenText Text="Auto" Style="width: 35px; height: 35px; margin-top: 10px" />
-                            </RadzenRow>
-                            <RadzenRow Style="vertical-align: middle">
-                                <RadzenSwitch Style="width: 47px; height: 24px; margin: 10px"></RadzenSwitch>
-                                <RadzenText Text="Switch all" Style="width: 106px; height: 26px; margin-top: 10px" />
-                            </RadzenRow>
+    <SummaryTemplate>
+        <RadzenLabel Text="Summary" />
+    </SummaryTemplate>
+    <ChildContent>
+        <RadzenLabel Text="Child content" />
+    </ChildContent>
+</RadzenPanel>
 
-                        </RadzenColumn>
-                    </ChildContent>
-                </RadzenFieldset>
-            </RadzenCard>
-            <RadzenCard Style="width: 319px; height: 370px; margin: 10px">
-                <RadzenFieldset Style="height: 329px">
-                    <HeaderTemplate>
-                        Control
-                    </HeaderTemplate>
-                    <ChildContent>
-                        <RadzenColumn>
-                            <RadzenRow Style="vertical-align: middle">
-                                
-                                <RadzenText Text="AUC-WRW LH1" Style="width: 145px; height: 26px; margin-top: 10px" />
-                                <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@allowCompositeDataCells"></RadzenCheckBox>
-                            </RadzenRow>
-<RadzenRow Style="vertical-align: middle">
-                                
-                                <RadzenText Text="AUC-WRW LH2" Style="width: 145px; height: 26px; margin-top: 10px" />
-                                <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@allowCompositeDataCells"></RadzenCheckBox>
-                            </RadzenRow>
-<RadzenRow Style="vertical-align: middle">
-                                
-                                <RadzenText Text="AUC-WRW RH1" Style="width: 145px; height: 26px; margin-top: 10px" />
-                                <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@allowCompositeDataCells"></RadzenCheckBox>
-                            </RadzenRow>
-<RadzenRow Style="vertical-align: middle">
-                                
-                                <RadzenText Text="AUC-WRW RH2" Style="width: 145px; height: 26px; margin-top: 10px" />
-                                <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@allowCompositeDataCells"></RadzenCheckBox>
-                            </RadzenRow>
-                <RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Switch to A"></RadzenButton>
-<RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Switch to A"></RadzenButton>
-<RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Switch to A"></RadzenButton>
-<RadzenButton Style="width: 122px; height: 30px" Text="Switch to B"></RadzenButton>
-                        </RadzenColumn>
-                    </ChildContent>
-                </RadzenFieldset>
-
-            </RadzenCard>
-    </RadzenColumn>
-    <RadzenColumn Size="6" class="rz-background-color-info-lighter rz-color-on-info-lighter rz-p-5" >
-        Size="6"
-    </RadzenColumn>
- </RadzenRow>
-                                                                                                   

@@ -30,7 +30,16 @@ namespace Failover.Client.Pages
         [Inject]
         protected NotificationService NotificationService { get; set; }
 
+        private bool groupAll;
+        //{
+        //    get { return groupAll; }
+        //    set { groupAll = value; group1 = value; group2 = value; group3 = value; group4 = value; }
+        //}
+        private bool group1;
+        private bool group2;
+        private bool group3;
+        private bool group4;
 
-        
+
     }
 }

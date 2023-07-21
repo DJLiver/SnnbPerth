@@ -28,15 +28,17 @@ class CollectTimer : iStartStop
     #region Start/Stop
     public void Start()
     {
-        //var options = new RestClientOptions(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress)
-        //{
-        //    ThrowOnAnyError = true,
-        //    MaxTimeout = 500, 
-        //};
-        client = new RestClient(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress) /*{Timeout = hSystemParam.Timeout }*/;
+        var options = new RestClientOptions(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress)
+        {
+            BaseUrl = new Uri( hSystemParam.PreIpAddress + spectralNetGroup.IpAddress),
+            ThrowOnAnyError = true,
+            MaxTimeout = 500, 
+        };
+        client = new RestClient(options) /*{Timeout = hSystemParam.Timeout }*/;
         //client = new RestClient(options);
 
-        request = new RestRequest(hSystemParam.RestQuery);
+        request = new RestRequest(hSystemParam.RestQuery) { Timeout = 500 };
+
         pollTimer = new Timer(new TimerCallback(PollUnitNow));
         pollTimer.Change(0, hSystemParam.PollPeriod);
     }
@@ -111,17 +113,10 @@ class CollectTimer : iStartStop
     }
     private string GetResponse()
     {
-        //HttpClient httpClient = new HttpClient();
-        //httpClient.
 
         RestResponse response = null;
         try
         {
-            //var options = new RestClientOptions(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress)
-            //{
-            //    ThrowOnAnyError = true,
-            //    MaxTimeout = 500
-            //};
             response = client.Get(request);
             if (response.IsSuccessful)
             {
