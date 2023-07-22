@@ -22,8 +22,8 @@ class CollectTimer : iStartStop
     private bool MeasurementInProgressFirstMessage = true;
     internal Action<object, SnnbCommPack> SNDataEvent;
     //internal Action<object, HLog> ErrorEvent;
-    RestClient client = null;
-    RestRequest request = null;
+    private RestClient client;
+    private RestRequest request;
 
     #region Start/Stop
     public void Start()
@@ -34,10 +34,9 @@ class CollectTimer : iStartStop
             ThrowOnAnyError = true,
             MaxTimeout = 500, 
         };
-        client = new RestClient(options) /*{Timeout = hSystemParam.Timeout }*/;
-        //client = new RestClient(options);
+        client = new RestClient(options);
 
-        request = new RestRequest(hSystemParam.RestQuery) { Timeout = 500 };
+        request = new RestRequest(hSystemParam.RestQuery) { Timeout = 500,  };
 
         pollTimer = new Timer(new TimerCallback(PollUnitNow));
         pollTimer.Change(0, hSystemParam.PollPeriod);
@@ -90,7 +89,7 @@ class CollectTimer : iStartStop
         try
         {
             sw.Start();
-            content = GetResponse();
+            content = GetResponseAsync().Result;
             sw.Stop();
 
             RestMain restMain = JsonConvert.DeserializeObject<RestMain>(content);
@@ -111,13 +110,13 @@ class CollectTimer : iStartStop
             MeasurementInProgress = false;
         }
     }
-    private string GetResponse()
+    private async Task<string> GetResponseAsync()
     {
 
         RestResponse response = null;
         try
         {
-            response = client.Get(request);
+            response = await client.GetAsync(request);
             if (response.IsSuccessful)
             {
                 return response.Content;

@@ -24,7 +24,6 @@ class CollectManager : iStartStop
 
     public void Start()
     {
-
         foreach (var unit in spectralNetGroups)
         {
             CollectTimer collectTimer = new CollectTimer
