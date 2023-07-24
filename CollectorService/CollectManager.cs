@@ -1,5 +1,7 @@
 ﻿using Common;
 
+using Flurl.Http.Configuration;
+
 using SnnbDB.Models;
 
 namespace SnnbFailover.Server.Services;
@@ -11,26 +13,23 @@ class CollectManager : iStartStop
     private readonly List<CollectTimer> collectTimers = new List<CollectTimer>();
     private HSystemParam hSystemParam;
     private List<HSpectralNetGroup> spectralNetGroups;
-
+    private IFlurlClientFactory _flurlClientFac;
     public CollectManager()
     {
     }
 
-    public CollectManager(List<HSpectralNetGroup> spectralNetGroups, HSystemParam hSystemParam)
+    public CollectManager(List<HSpectralNetGroup> spectralNetGroups, HSystemParam hSystemParam, IFlurlClientFactory flurlClientFac)
     {
         this.spectralNetGroups = spectralNetGroups;
         this.hSystemParam = hSystemParam;
+        _flurlClientFac = flurlClientFac;   
     }
 
     public void Start()
     {
         foreach (var unit in spectralNetGroups)
         {
-            CollectTimer collectTimer = new CollectTimer
-            {
-                spectralNetGroup = unit,
-                hSystemParam = hSystemParam
-            };
+            CollectTimer collectTimer = new CollectTimer(unit, hSystemParam, _flurlClientFac);
             collectTimer.SNDataEvent += SNDataEvent;
             //collectTimer.ErrorEvent += ErrorEvent;
             collectTimers.Add(collectTimer);

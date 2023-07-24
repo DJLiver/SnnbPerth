@@ -1,5 +1,9 @@
 ﻿using Common;
 
+using Flurl;
+using Flurl.Http;
+using Flurl.Http.Configuration;
+
 using Newtonsoft.Json;
 
 using RestSharp;
@@ -13,8 +17,8 @@ namespace SnnbFailover.Server.Services;
 
 class CollectTimer : iStartStop
 {
-    public HSpectralNetGroup spectralNetGroup { get; set; }
-    public HSystemParam hSystemParam { get; set; }
+    //public HSpectralNetGroup spectralNetGroup { get; set; }
+    //public HSystemParam hSystemParam { get; set; }
 
 
     private Timer pollTimer;
@@ -25,18 +29,32 @@ class CollectTimer : iStartStop
     private RestClient client;
     private RestRequest request;
 
+
+    private HSpectralNetGroup spectralNetGroup;
+    private HSystemParam hSystemParam;
+    private IFlurlClientFactory flurlClientFac;
+    private IFlurlClient flurlClient;
+
+    public CollectTimer(HSpectralNetGroup spectralNetGroup, HSystemParam hSystemParam, IFlurlClientFactory flurlClientFac)
+    {
+        this.spectralNetGroup = spectralNetGroup;
+        this.hSystemParam = hSystemParam;
+        this.flurlClientFac = flurlClientFac;
+    }
+
     #region Start/Stop
     public void Start()
     {
-        var options = new RestClientOptions(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress)
-        {
-            BaseUrl = new Uri( hSystemParam.PreIpAddress + spectralNetGroup.IpAddress),
-            ThrowOnAnyError = true,
-            MaxTimeout = 500, 
-        };
-        client = new RestClient(options);
+        //var options = new RestClientOptions(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress)
+        //{
+        //    BaseUrl = new Uri( hSystemParam.PreIpAddress + spectralNetGroup.IpAddress),
+        //    ThrowOnAnyError = true,
+        //    MaxTimeout = 500, 
+        //};
+        //client = new RestClient(options);
+        flurlClient = flurlClientFac.Get(hSystemParam.PreIpAddress + spectralNetGroup.IpAddress);
 
-        request = new RestRequest(hSystemParam.RestQuery) { Timeout = 500,  };
+        //request = new RestRequest(hSystemParam.RestQuery) { Timeout = 500,  };
 
         pollTimer = new Timer(new TimerCallback(PollUnitNow));
         pollTimer.Change(0, hSystemParam.PollPeriod);
@@ -64,7 +82,8 @@ class CollectTimer : iStartStop
 
     #region Poll unit
 
-    private void PollUnitNow(object? state)
+    Stopwatch sw = new Stopwatch();
+    private async void PollUnitNow(object? state)
     {
         SnnbCommPack scp = new SnnbCommPack();
         scp.SpectralNetGroup = spectralNetGroup;
@@ -83,16 +102,22 @@ class CollectTimer : iStartStop
         }
         MeasurementInProgress = true;
         MeasurementInProgressFirstMessage = true;
-            Stopwatch sw = new Stopwatch();
 
         string content = String.Empty;
         try
         {
-            sw.Start();
-            content = GetResponseAsync().Result;
+            sw.Restart();
+            //var result = await (hSystemParam.PreIpAddress + spectralNetGroup.IpAddress+hSystemParam.RestQuery).GetAsync();
+
+            //var restMain = await (hSystemParam.PreIpAddress + spectralNetGroup.IpAddress + hSystemParam.RestQuery)
+            //    .WithTimeout(1)
+            //    .GetJsonAsync<RestMain>();
+            var restMain = await flurlClient.WithTimeout(2).Request(hSystemParam.RestQuery).GetJsonAsync<RestMain>();
+
+            //content = GetResponseAsync().Result;
             sw.Stop();
 
-            RestMain restMain = JsonConvert.DeserializeObject<RestMain>(content);
+            //RestMain restMain = JsonConvert.DeserializeObject<RestMain>(content);
             scp.RestMain = restMain;
         }
 
