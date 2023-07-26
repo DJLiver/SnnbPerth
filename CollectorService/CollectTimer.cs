@@ -26,8 +26,8 @@ class CollectTimer : iStartStop
     private bool MeasurementInProgressFirstMessage = true;
     internal Action<object, SnnbCommPack> SNDataEvent;
     //internal Action<object, HLog> ErrorEvent;
-    private RestClient client;
-    private RestRequest request;
+    //private RestClient client;
+    //private RestRequest request;
 
 
     private HSpectralNetGroup spectralNetGroup;
@@ -112,7 +112,7 @@ class CollectTimer : iStartStop
             //var restMain = await (hSystemParam.PreIpAddress + spectralNetGroup.IpAddress + hSystemParam.RestQuery)
             //    .WithTimeout(1)
             //    .GetJsonAsync<RestMain>();
-            var restMain = await flurlClient.WithTimeout(2).Request(hSystemParam.RestQuery).GetJsonAsync<RestMain>();
+            var restMain = await flurlClient.WithTimeout(1).Request(hSystemParam.RestQuery).GetJsonAsync<RestMain>();
 
             //content = GetResponseAsync().Result;
             sw.Stop();
@@ -135,25 +135,25 @@ class CollectTimer : iStartStop
             MeasurementInProgress = false;
         }
     }
-    private async Task<string> GetResponseAsync()
-    {
+    //private async Task<string> GetResponseAsync()
+    //{
 
-        RestResponse response = null;
-        try
-        {
-            response = await client.GetAsync(request);
-            if (response.IsSuccessful)
-            {
-                return response.Content;
-            }
-            throw new Exception("No response from " + spectralNetGroup.UnitName);
+    //    RestResponse response = null;
+    //    try
+    //    {
+    //        response = await client.GetAsync(request);
+    //        if (response.IsSuccessful)
+    //        {
+    //            return response.Content;
+    //        }
+    //        throw new Exception("No response from " + spectralNetGroup.UnitName);
 
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
+    //    }
+    //    catch (Exception)
+    //    {
+    //        throw;
+    //    }
+    //}
     #endregion
 
 //    #region Get SNData And store In DB

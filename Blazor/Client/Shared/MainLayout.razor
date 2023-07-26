@@ -17,7 +17,9 @@
                 <RadzenSidebarToggle Click="@SidebarToggleClick"></RadzenSidebarToggle>
             </RadzenColumn>
             <RadzenColumn Size="7">
-                <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End"></RadzenStack>
+                <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+                    <RadzenLabel Text="Auto switch" Style="margin-right: 20px; width: 106px; border-radius: 6px; text-align: center; height: 26px; border: 2px solid #8d2108" />
+                </RadzenStack>
             </RadzenColumn>
         </RadzenRow>
     </RadzenHeader>
@@ -30,14 +32,12 @@
     </RadzenBody>
     <RadzenSidebar Expanded="@sidebarExpanded" style="z-index: 2; width: 256px; height: 641px">
         <RadzenStack AlignItems="Radzen.AlignItems.Center" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding); border-bottom: var(--rz-panel-menu-item-border);">
-            <RadzenImage Path="images/logo.png"  style="width: 48px; height: 48px;"></RadzenImage>
-            <RadzenText Text="Failover" TextStyle="Radzen.Blazor.TextStyle.Subtitle1" class="rz-mb-0" style="color: var(--rz-sidebar-color);" />
+            <RadzenImage Path="images\download.jpeg"  style="width: 113px; height: 54px"></RadzenImage>
+            <RadzenText Text="SpectralNet Failover" TextStyle="Radzen.Blazor.TextStyle.Subtitle1" class="rz-mb-0" style="color: var(--rz-sidebar-color); height: 46px; width: 171px" />
         </RadzenStack>
         <RadzenPanelMenu>
-            <RadzenPanelMenuItem Text="Home" Path="" />
-            <RadzenPanelMenuItem Text="Monitor" Path="monitor" />
-            <RadzenPanelMenuItem Text="Test" Path="test" />
-            <RadzenPanelMenuItem Text="Control" Path="control" />
+            <RadzenPanelMenuItem Text="Monitor" Icon="preview" Path="/" />
+            <RadzenPanelMenuItem Text="Control" Path="control" Icon="settings" />
             <RadzenPanelMenuItem Text="Experimental" Path="experimental" />
         </RadzenPanelMenu>
         <RadzenStack AlignItems="Radzen.AlignItems.Center" Gap="0" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding);">
