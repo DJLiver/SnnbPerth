@@ -28,9 +28,9 @@ public partial class Monitor
     private string CommsSuccessStyle = "height: 22px; border-left: 4px solid #1a7819; width: 52px; text-align: left; padding-top: 3px; padding-left: 3px";
     private string CommsAlertStyle = "height: 22px; border-left: 4px solid #8d2108; width: 52px; text-align: left; padding-top: 3px; padding-left: 3px";
     private string[] StatusStyles = {
-        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 2px solid #278e26",
-        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 2px solid #8d2108",
-        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 2px solid #989594"
+        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #278e26",
+        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #8d2108",
+        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #989594"
     };
     private int StatusStylesIndex = 2;
     private string[] PathStyles = {
@@ -163,65 +163,66 @@ private string CommsText = "NAAA";
 
     void CellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
-            //args.Attributes.Add("style", $"background-color: {(args.Data.CommsOkAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
-//       if (args.Column.Property == "DateTimeStamp")
-//        {
-//            args.Attributes.Add("style", $"background-color: {(args.Data.DateTimeStampAlert ? DangerColor : "var(--rz-success)" )};");
-//        }
-            
-        if (args.Column.Property == "CommsOk")
-        {
-            CommsAlertStyle = args.Data.CommsOkAlert ? CommsSuccessStyle : CommsDangerStyle;
+        //args.Attributes.Add("style", $"background-color: {(args.Data.CommsOkAlert ? "var(--rz-danger)" : "var(--rz-success)" )};");
+        //if (args.Column.Property == "DateTimeStamp")
+        //{
+        //    //args.Column.Template.
+        //    //args.Attributes.Add("style", $"background-color: {(args.Data.DateTimeStampAlert ? DangerColor : "var(--rz-success)")};");
+        //}
 
-            //args.Attributes.Add("style", $"background-color: {(args.Data.CommsOkAlert ? DangerColor : "var(--rz-success)" )};");
-        }
+        //if (args.Column.Property == "CommsOk")
+        //{
+        //    CommsAlertStyle = args.Data.CommsOkAlert ? CommsSuccessStyle : CommsDangerStyle;
+
+        //    //args.Attributes.Add("style", $"background-color: {(args.Data.CommsOkAlert ? DangerColor : "var(--rz-success)" )};");
+        //}
         
-        if (args.Column.Property == "OnePpsPresent")
-        {
-            if(args.Data.CommsOkAlert)
-                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
-            else
-            {
-                args.Attributes.Remove("style");    
-                args.Attributes.Add("style", $"background-color: {(args.Data.OnePpsPresentAlert ? DangerColor : "var(--rz-success)" )};");       
+        //if (args.Column.Property == "OnePpsPresent")
+        //{
+        //    if(args.Data.CommsOkAlert)
+        //        args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+        //    else
+        //    {
+        //        args.Attributes.Remove("style");    
+        //        args.Attributes.Add("style", $"background-color: {(args.Data.OnePpsPresentAlert ? DangerColor : "var(--rz-success)" )};");       
 
-            }
-        }
-        if (args.Column.Property == "TenMhzLocked")
-        {
-            if(args.Data.CommsOkAlert)
-                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
-            else
-                args.Attributes.Add("style", $"background-color: {(args.Data.TenMhzLockedAlert ? DangerColor : "var(--rz-success)" )};");
-        }
-        if (args.Column.Property == "MeasuredDelay")
-        {
-            if(args.Data.CommsOkAlert)
-                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
-            else
-                args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredDelayAlert ? DangerColor : "var(--rz-success)" )};");
-        }
-        if (args.Column.Property == "MeasuredNetworkRate")
-        {
-            if(args.Data.CommsOkAlert)
-                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
-            else
-                args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredNetworkRateAlert ? DangerColor : "var(--rz-success)" )};");
-        }
-        if (args.Column.Property == "StreamEnable")
-        {
-            if(args.Data.CommsOkAlert)
-                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
-            else
-                args.Attributes.Add("style", $"background-color: {(args.Data.StreamEnableAlert ? DangerColor : "var(--rz-success)" )};");
-        }
-        if (args.Column.Property == "RfOutputEnable")
-        {
-            if(args.Data.CommsOkAlert)
-                args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
-            else
-                args.Attributes.Add("style", $"background-color: {(args.Data.RfOutputEnableAlert ? DangerColor : "var(--rz-success)" )};");
-        }
+        //    }
+        //}
+        //if (args.Column.Property == "TenMhzLocked")
+        //{
+        //    if(args.Data.CommsOkAlert)
+        //        args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+        //    else
+        //        args.Attributes.Add("style", $"background-color: {(args.Data.TenMhzLockedAlert ? DangerColor : "var(--rz-success)" )};");
+        //}
+        //if (args.Column.Property == "MeasuredDelay")
+        //{
+        //    if(args.Data.CommsOkAlert)
+        //        args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+        //    else
+        //        args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredDelayAlert ? DangerColor : "var(--rz-success)" )};");
+        //}
+        //if (args.Column.Property == "MeasuredNetworkRate")
+        //{
+        //    if(args.Data.CommsOkAlert)
+        //        args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+        //    else
+        //        args.Attributes.Add("style", $"background-color: {(args.Data.MeasuredNetworkRateAlert ? DangerColor : "var(--rz-success)" )};");
+        //}
+        //if (args.Column.Property == "StreamEnable")
+        //{
+        //    if(args.Data.CommsOkAlert)
+        //        args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+        //    else
+        //        args.Attributes.Add("style", $"background-color: {(args.Data.StreamEnableAlert ? DangerColor : "var(--rz-success)" )};");
+        //}
+        //if (args.Column.Property == "RfOutputEnable")
+        //{
+        //    if(args.Data.CommsOkAlert)
+        //        args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
+        //    else
+        //        args.Attributes.Add("style", $"background-color: {(args.Data.RfOutputEnableAlert ? DangerColor : "var(--rz-success)" )};");
+        //}
  
     }
 
