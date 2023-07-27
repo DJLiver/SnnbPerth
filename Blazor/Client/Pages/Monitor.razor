@@ -25,8 +25,8 @@
             </RadzenColumn>
             <RadzenColumn Size="7">
                 <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Style="width: 657px">
-                    <RadzenText Text="Status" TextStyle="Radzen.Blazor.TextStyle.H6" Style=@StatusStyles[@StatusStylesIndex] TextAlign="Radzen.TextAlign.Center" />
-                    <RadzenText TextStyle="Radzen.Blazor.TextStyle.H6" Style=@PathStyles[@PathStylesIndex] TextAlign="Radzen.TextAlign.Center" Text="@PrimaryPathTxt" />
+                    <RadzenText Text="Status" TextStyle="Radzen.Blazor.TextStyle.H6" Style=@StatusStyles[@PrimaryStatusStylesIndex] TextAlign="Radzen.TextAlign.Center" />
+                    <RadzenText TextStyle="Radzen.Blazor.TextStyle.H6" Style=@PathStyles[@PrimaryPathStylesIndex] TextAlign="Radzen.TextAlign.Center" Text="@PrimaryPathTxt" />
                 </RadzenStack>
             </RadzenColumn>
         </RadzenRow>
@@ -209,43 +209,191 @@
     </ChildContent>
 </RadzenPanel>
 
-<RadzenPanel Collapsed="true" AllowCollapse="true" Class=" rz-mx-auto" Style="width: 1231px; float: left; padding-bottom: 10px; padding-top: 10px">
+<RadzenPanel Collapsed="true" AllowCollapse="true" Class=" rz-mx-auto" Style="float: left; padding-top: 10px; padding-bottom: 10px; margin-bottom: 10px; margin-top: 10px; width: 1350px">
     <HeaderTemplate>
-        <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0" Style="width: 1000px; height: 57px; vertical-align: top">
+        <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0" Style="width: 1000px; height: 57px">
             <RadzenColumn Size="5" Style="width: 260px; height: 30px; display: flex">
                 <RadzenIcon Icon="dvr" class="rz-mr-1" />
-                <RadzenText Text="Secondary network path" TextStyle="Radzen.Blazor.TextStyle.H5" Class="rz-display-flex rz-align-items-center rz-m-0" Style="width: 259px; height: 22px; padding: 10px"></RadzenText>
+                <RadzenText Text="Secondary network path" TextStyle="Radzen.Blazor.TextStyle.H5" Class="rz-display-flex rz-align-items-center rz-m-0" Style="width: 284px; height: 22px; padding: 10px"></RadzenText>
             </RadzenColumn>
             <RadzenColumn Size="7">
-                <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
-                    <RadzenText Text="Status" TextStyle="Radzen.Blazor.TextStyle.H6" Style="width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px" TextAlign="Radzen.TextAlign.Center" class=@SecondaryStatus />
-                    <RadzenText TextStyle="Radzen.Blazor.TextStyle.H6" Style="width: 170px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; margin-left: 20px" TextAlign="Radzen.TextAlign.Center" class=@SecondaryPath Text="@SecondaryPathTxt" />
+                <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Style="width: 657px">
+                    <RadzenText Text="Status" TextStyle="Radzen.Blazor.TextStyle.H6" Style=@StatusStyles[@SecondaryStatusStylesIndex] TextAlign="Radzen.TextAlign.Center" />
+                    <RadzenText TextStyle="Radzen.Blazor.TextStyle.H6" Style=@PathStyles[@SecondaryPathStylesIndex] TextAlign="Radzen.TextAlign.Center" Text="@SecondaryPathTxt" />
                 </RadzenStack>
             </RadzenColumn>
         </RadzenRow>
     </HeaderTemplate>
 
     <ChildContent>
-        <RadzenDataGrid TItem="RtMonitorTable" Style="float: none; width: 1200px" Data="@MonitorTableSecondary"
-                        CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ShowColumnTitleAsTooltip="false" ShowCellDataAsTooltip="false">
+        <RadzenDataGrid TItem="RtMonitorTable" Style="float: none; width: 1300px; margin-top: 10px" Data="@MonitorTableSecondary"
+                        CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ShowColumnTitleAsTooltip="true" ShowCellDataAsTooltip="true">
             <Columns>
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time" Frozen="true" Width="150px"></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time" Frozen="true" Width="200px">
+                    <Template Context="data">
+
+                        @if (data.DateTimeStampAlert)
+                        {
+                            <RadzenText Text=@data.DateTimeStamp Style="width: 150px; border-left: 4px solid #8d2108; padding-left: 4px"></RadzenText>
+                        }
+                        else
+                        {
+                            <RadzenText Text=@data.DateTimeStamp Style="width: 150px; border-left: 4px solid #1e801d; padding-left: 4px"></RadzenText>
+
+                        }
+
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="RtMonitorTable" Property="UnitName" Title="Name" Frozen="true" Width="110px"></RadzenDataGridColumn>
 
                 <RadzenDataGridColumn TItem="RtMonitorTable" Property="RemoteUnit" Title="Remote" Width="110px"></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="RtMonitorTable" Title="Peer" Property="PeerUnit" Width="110px"></RadzenDataGridColumn>
 
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="CommsOk" Title="Communication" Width="60px"> </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="RtMonitorTable" Property="CommsOk" Title="Communication" Width="80px">
+                    <Template Context="data">
+                        @if (data.CommsOkAlert)
+                        {
+                            <RadzenText Text=@data.CommsOk Style="width: 80px; border-left: 4px solid #8d2108; padding-left: 4px"></RadzenText>
+                        }
+                        else
+                        {
+                            <RadzenText Text=@data.CommsOk Style="width: 80px; border-left: 4px solid #1e801d; padding-left: 4px"></RadzenText>
+
+                        }
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="RtMonitorTable" Title="Message" Property="CommMessage" Width="120px"></RadzenDataGridColumn>
 
 
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="OnePpsPresent" Title="1PPS" Width="60px"></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="TenMhzLocked" Title="10MHz" Width="60px"></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="MeasuredDelay" Title="Delay" Width="100px"></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="MeasuredNetworkRate" Title="Stream" Width="100px"></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="RtMonitorTable" Property="OnePpsPresent" Title="1PPS" Width="75px">
+                    <Template Context="data">
+                        @if (data.CommsOkAlert)
+                        {
+                            <RadzenText Text="NA" Style="width: 80px;  padding-left: 4px; background-color: #989594"></RadzenText>
+                        }
+                        else
+                        {
+                            if (data.OnePpsPresentAlert)
+                            {
+                                <RadzenText Text=@data.OnePpsPresent Style="width: 80px; border-left: 4px solid #8d2108; padding-left: 4px"></RadzenText>
 
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="StreamEnable" Title="IP stream Enb" Width="60px"></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="RtMonitorTable" Property="RfOutputEnable" Title="RFout Enb" Width="60px"></RadzenDataGridColumn>
+                            }
+                            else
+                            {
+                                <RadzenText Text=@data.OnePpsPresent Style="width: 80px; border-left: 4px solid #1e801d; padding-left: 4px"></RadzenText>
+
+                            }
+
+                        }
+                    </Template>
+
+                </RadzenDataGridColumn>
+
+                <RadzenDataGridColumn TItem="RtMonitorTable" Property="TenMhzLocked" Title="10MHz" Width="75px">
+                    <Template Context="data">
+                        @if (data.CommsOkAlert)
+                        {
+                            <RadzenText Text="NA" Style="width: 80px;  padding-left: 4px; background-color: #989594"></RadzenText>
+                        }
+                        else
+                        {
+                            @if (data.TenMhzLockedAlert)
+                            {
+                                <RadzenText Text=@data.TenMhzLocked Style="width: 80px; border-left: 4px solid #8d2108; padding-left: 4px"></RadzenText>
+                            }
+                            else
+                            {
+                                <RadzenText Text=@data.TenMhzLocked Style="width: 80px; border-left: 4px solid #1e801d; padding-left: 4px"></RadzenText>
+
+                            }
+                        }
+                    </Template>
+
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="RtMonitorTable" Property="MeasuredDelay" Title="Delay" Width="120px">
+                    <Template Context="data">
+                        @if (data.CommsOkAlert)
+                        {
+                            <RadzenText Text="NA" Style="width: 100px;  padding-left: 4px; background-color: #989594"></RadzenText>
+                        }
+                        else
+                        {
+                            @if (data.MeasuredDelayAlert)
+                            {
+                                <RadzenText Text=@data.MeasuredDelay Style="width: 100px; border-left: 4px solid #8d2108; padding-left: 4px"></RadzenText>
+                            }
+                            else
+                            {
+                                <RadzenText Text=@data.MeasuredDelay Style="width: 100px; border-left: 4px solid #1e801d; padding-left: 4px"></RadzenText>
+
+                            }
+                        }
+                    </Template>
+
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="RtMonitorTable" Property="MeasuredNetworkRate" Title="Stream" Width="120px">
+                    <Template Context="data">
+                        @if (data.CommsOkAlert)
+                        {
+                            <RadzenText Text="NA" Style="width: 110px;  padding-left: 4px; background-color: #989594"></RadzenText>
+                        }
+                        else
+                        {
+                            @if (data.MeasuredNetworkRateAlert)
+                            {
+                                <RadzenText Text=@data.MeasuredNetworkRate Style="width: 110px; border-left: 4px solid #8d2108; padding-left: 4px"></RadzenText>
+                            }
+                            else
+                            {
+                                <RadzenText Text=@data.MeasuredNetworkRate Style="width: 110px; border-left: 4px solid #1e801d; padding-left: 4px"></RadzenText>
+
+                            }
+                        }
+                    </Template>
+
+                </RadzenDataGridColumn>
+
+                <RadzenDataGridColumn TItem="RtMonitorTable" Property="StreamEnable" Title="IP stream Enb" Width="80px">
+                    <Template Context="data">
+                        @if (data.CommsOkAlert)
+                        {
+                            <RadzenText Text="NA" Style="width: 80px;  padding-left: 4px; background-color: #989594"></RadzenText>
+                        }
+                        else
+                        {
+                            @if (data.StreamEnableAlert)
+                            {
+                                <RadzenText Text=@data.StreamEnable Style="width: 80px; border-left: 4px solid #8d2108; padding-left: 4px"></RadzenText>
+                            }
+                            else
+                            {
+                                <RadzenText Text=@data.StreamEnable Style="width: 80px; border-left: 4px solid #1e801d; padding-left: 4px"></RadzenText>
+
+                            }
+                        }
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="RtMonitorTable" Property="RfOutputEnable" Title="RFout Enb" Width="80px">
+                    <Template Context="data">
+                        @if (data.CommsOkAlert)
+                        {
+                            <RadzenText Text="NA" Style="width: 80px;  padding-left: 4px; background-color: #989594"></RadzenText>
+                        }
+                        else
+                        {
+                            @if (data.RfOutputEnableAlert)
+                            {
+                                <RadzenText Text=@data.RfOutputEnable Style="width: 80px; border-left: 4px solid #8d2108; padding-left: 4px"></RadzenText>
+                            }
+                            else
+                            {
+                                <RadzenText Text=@data.RfOutputEnable Style="width: 80px; border-left: 4px solid #1e801d; padding-left: 4px"></RadzenText>
+
+                            }
+                        }
+                    </Template>
+
+                </RadzenDataGridColumn>
 
 
 

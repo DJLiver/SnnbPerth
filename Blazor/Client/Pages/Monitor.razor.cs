@@ -32,14 +32,16 @@ public partial class Monitor
         "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #8d2108",
         "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #989594"
     };
-    private int StatusStylesIndex = 2;
+    private int PrimaryStatusStylesIndex = 2;
+    private int SecondaryStatusStylesIndex = 2;
     private string[] PathStyles = {
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #278e26",
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #8d2108",
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #989594",
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #f0aa4a"
     };
-    private int PathStylesIndex = 2;
+    private int PrimaryPathStylesIndex = 2;
+    private int SecondaryPathStylesIndex = 2;
     enum Level
     {
         Good,
@@ -101,15 +103,17 @@ private string CommsText = "NAAA";
         DataTimeStamp= rtStatus.DateTimeStamp.ToString("ddMMMyyyy HH:mm:ss");
         MonitorTablePrimary = rtStatus.GetRtMonitor("Primary");
         MonitorTableSecondary = rtStatus.GetRtMonitor("Secondary");
-        StatusStylesIndex = GetSummaryStatus(MonitorTablePrimary);
+        PrimaryStatusStylesIndex = GetSummaryStatus(MonitorTablePrimary);
+        SecondaryStatusStylesIndex = GetSummaryStatus(MonitorTableSecondary);
         //SecondaryStatus = GetSummaryStatus(MonitorTableSecondary);
         (int index, string txt) v1 = GetPathStatus(MonitorTablePrimary);
-       // (int index, string txt) v2 = GetPathStatus(MonitorTableSecondary);
+        (int index, string txt) v2 = GetPathStatus(MonitorTableSecondary);
 
-        PathStylesIndex = v1.index;
+        PrimaryPathStylesIndex = v1.index;
+        SecondaryPathStylesIndex = v2.index;
        //SecondaryPath = v2.bg;
         PrimaryPathTxt = v1.txt;
-      //  SecondaryPathTxt = v2.txt;
+        SecondaryPathTxt = v2.txt;
 
 
         await InvokeAsync(() => StateHasChanged());
