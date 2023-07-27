@@ -27,6 +27,27 @@ public partial class Monitor
     private string CommsDangerStyle = "height: 22px; border-left: 4px solid #8d2108; width: 52px; text-align: left; padding-top: 3px; padding-left: 3px";
     private string CommsSuccessStyle = "height: 22px; border-left: 4px solid #1a7819; width: 52px; text-align: left; padding-top: 3px; padding-left: 3px";
     private string CommsAlertStyle = "height: 22px; border-left: 4px solid #8d2108; width: 52px; text-align: left; padding-top: 3px; padding-left: 3px";
+    private string[] StatusStyles = {
+        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 2px solid #278e26",
+        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 2px solid #8d2108",
+        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 2px solid #989594"
+    };
+    private int StatusStylesIndex = 2;
+    private string[] PathStyles = {
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #278e26",
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #8d2108",
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #989594",
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #f0aa4a"
+    };
+    private int PathStylesIndex = 2;
+    enum Level
+    {
+        Good,
+        Bad,
+        Unknown,
+        Caution
+    }
+private string CommsText = "NAAA";
 
     #region Injects
     [Inject]
@@ -80,55 +101,55 @@ public partial class Monitor
         DataTimeStamp= rtStatus.DateTimeStamp.ToString("ddMMMyyyy HH:mm:ss");
         MonitorTablePrimary = rtStatus.GetRtMonitor("Primary");
         MonitorTableSecondary = rtStatus.GetRtMonitor("Secondary");
-        PrimaryStatus = GetSummaryStatus(MonitorTablePrimary);
-        SecondaryStatus = GetSummaryStatus(MonitorTableSecondary);
-        var v1 = GetPathStatus(MonitorTablePrimary);
-        var v2 = GetPathStatus(MonitorTableSecondary);
+        StatusStylesIndex = GetSummaryStatus(MonitorTablePrimary);
+        //SecondaryStatus = GetSummaryStatus(MonitorTableSecondary);
+        (int index, string txt) v1 = GetPathStatus(MonitorTablePrimary);
+       // (int index, string txt) v2 = GetPathStatus(MonitorTableSecondary);
 
-        PrimaryPath = v1.bg;
-        SecondaryPath = v2.bg;
+        PathStylesIndex = v1.index;
+       //SecondaryPath = v2.bg;
         PrimaryPathTxt = v1.txt;
-        SecondaryPathTxt = v2.txt;
+      //  SecondaryPathTxt = v2.txt;
 
 
         await InvokeAsync(() => StateHasChanged());
     }
 
-    private string GetSummaryStatus(IEnumerable<RtMonitorTable> m)
+    private int GetSummaryStatus(IEnumerable<RtMonitorTable> m)
     {
-        string ret = "bg-dark";
+        int ret = 2;
         if (m.Any(x => x.CommsOkAlert || x.OnePpsPresentAlert || x.MeasuredDelayAlert || x.DateTimeStampAlert || x.MeasuredNetworkRateAlert  || x.TenMhzLockedAlert))
         {
-            ret = "bg-danger";
+            ret = (int)Level.Bad;
         }
         else
         {
-            ret = "bg-success";
+            ret = (int)Level.Good;
         }
         return ret;
     }
     
-    private (string bg, string txt) GetPathStatus(IEnumerable<RtMonitorTable> m)
+    private (int index, string txt) GetPathStatus(IEnumerable<RtMonitorTable> m)
     {
-        string bg = "bg-dark";
+        int index = 2;
         string txt = "None on this path";
         if (m.All(x => x.RfOutputEnableAlert || x.StreamEnableAlert))
         {
-            bg = "bg-danger";
+            index = (int)Level.Bad;
             txt = "None on this path";
         }
         else if (m.Any(x => x.RfOutputEnableAlert || x.StreamEnableAlert))
         {
-            bg = "bg-warning"; //--rz-warning
+            index = (int)Level.Caution; //--rz-warning
             txt = "Some on this path";
         }
         else
         {
-            bg = "bg-success";
+            index = (int)Level.Good;
             txt = "All on this path";
         }
 
-        return (bg,txt);
+        return (index,txt);
     }
 
 
@@ -151,6 +172,7 @@ public partial class Monitor
         if (args.Column.Property == "CommsOk")
         {
             CommsAlertStyle = args.Data.CommsOkAlert ? CommsSuccessStyle : CommsDangerStyle;
+
             //args.Attributes.Add("style", $"background-color: {(args.Data.CommsOkAlert ? DangerColor : "var(--rz-success)" )};");
         }
         
@@ -159,7 +181,11 @@ public partial class Monitor
             if(args.Data.CommsOkAlert)
                 args.Attributes.Add("style", $"background-color: {"var(--rz-secondary-dark)"};");
             else
+            {
+                args.Attributes.Remove("style");    
                 args.Attributes.Add("style", $"background-color: {(args.Data.OnePpsPresentAlert ? DangerColor : "var(--rz-success)" )};");       
+
+            }
         }
         if (args.Column.Property == "TenMhzLocked")
         {

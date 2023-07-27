@@ -25,8 +25,8 @@
             </RadzenColumn>
             <RadzenColumn Size="7">
                 <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
-                    <RadzenText Text="Status" TextStyle="Radzen.Blazor.TextStyle.H6" Style="width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 2px solid #278e26" TextAlign="Radzen.TextAlign.Center" class=@PrimaryStatus bg-black />
-                    <RadzenText TextStyle="Radzen.Blazor.TextStyle.H6" Style="width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 2px solid #8d2108" TextAlign="Radzen.TextAlign.Center" class=@PrimaryPath Text="@PrimaryPathTxt" bg-black />
+                    <RadzenText Text="Status" TextStyle="Radzen.Blazor.TextStyle.H6" Style=@StatusStyles[@StatusStylesIndex] TextAlign="Radzen.TextAlign.Center" />
+                    <RadzenText TextStyle="Radzen.Blazor.TextStyle.H6" Style=@PathStyles[@PathStylesIndex] TextAlign="Radzen.TextAlign.Center" Text="@PrimaryPathTxt" />
                 </RadzenStack>
             </RadzenColumn>
         </RadzenRow>
@@ -37,10 +37,10 @@
                         CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" ShowColumnTitleAsTooltip="false" ShowCellDataAsTooltip="false">
             <Columns>
                 <RadzenDataGridColumn TItem="RtMonitorTable" Property="DateTimeStamp" Title="Time" Frozen="true" Width="200px">
-                    <Template Context = "RtMonitorTable" >
-                        <RadzenStack Style="vertical-align: bottom; height: 32px; padding: 3px; width: 196px" AlignItems="Radzen.AlignItems.Start" Wrap="Radzen.FlexWrap.NoWrap" Orientation="Radzen.Orientation.Horizontal" JustifyContent="Radzen.JustifyContent.Left">
-                            <RadzenLabel Text="AA" Style=@SuccessStyle/>
-                            <RadzenText Text=@RtMonitorTable.DateTimeStamp Style="width: 150px"/>
+                    <Template Context = "data">
+                        <RadzenStack Style="vertical-align: bottom; height: 32px; padding: 3px; width: 196px" Wrap="Radzen.FlexWrap.NoWrap" Orientation="Radzen.Orientation.Horizontal" JustifyContent="Radzen.JustifyContent.Left">
+                            <RadzenLabel Text="AA" style="background-color: #8d2108; width: 20px; color: #8d2108" />
+                            <RadzenText Context = "data2" Text= data2.DateTimeStamp Style="width: 150px"/>
                         </RadzenStack>
                     </Template>
                 </RadzenDataGridColumn>
@@ -50,11 +50,21 @@
                 <RadzenDataGridColumn TItem="RtMonitorTable" Title="Peer" Property="PeerUnit" Width="110px"></RadzenDataGridColumn>
 
                 <RadzenDataGridColumn TItem="RtMonitorTable" Property="CommsOk" Title="Communication" Width="70px">
-                    <Template  Context = "RtMonitorTable" >
-                        <RadzenStack Style="width: 44px; height: 26px">
-                            <RadzenLabel Text=@RtMonitorTable.CommsOkAlert.ToString() Style=@CommsAlertStyle />
+ @*                    <Template  Context = "data" >
+                           @if (data.CommsOkAlert )
+                            {
+                                CommsText = "True";
+                            }
+                            else
+                            {
+                            @CommsText = "False";
+                              
+                            }
+                            <RadzenStack Style="width: 44px; height: 26px">
+                            <RadzenLabel Text=@CommsText />
+
                         </RadzenStack>
-                    </Template>
+                    </Template>*@
                  </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="RtMonitorTable" Title="Message" Property="CommMessage" Width="120px"></RadzenDataGridColumn>
 
