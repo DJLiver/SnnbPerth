@@ -8,7 +8,7 @@ namespace Failover.Client.Shared;
 
 public partial class NetworkPathDG
 {
-    [Parameter]
+    //[Parameter]
     public IEnumerable<RtMonitorTable> MonitorTable { get; set; }
 
     [Parameter]
@@ -39,9 +39,8 @@ public partial class NetworkPathDG
         Unknown,
         Caution
     }
-    private string PathStyle = "bg-dark";
 
-    public void SetMonitorTable(IEnumerable<RtMonitorTable> MonitorTable)
+    public async void SetMonitorTable(IEnumerable<RtMonitorTable> MonitorTable)
     {
         this.MonitorTable = MonitorTable;
         if (MonitorTable != null)
@@ -52,6 +51,7 @@ public partial class NetworkPathDG
 
             StatusStylesIndex = GetSummaryStatus(MonitorTable);
         }
+        await InvokeAsync(() => StateHasChanged());
 
     }
     private int GetSummaryStatus(IEnumerable<RtMonitorTable> m)
