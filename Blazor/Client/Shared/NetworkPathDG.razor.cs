@@ -1,26 +1,37 @@
+using Microsoft.AspNetCore.Components;
+
 using Radzen;
 
 using SnnbDB.ModelExt;
 
-namespace Failover.Client.Pages;
+namespace Failover.Client.Shared;
 
 public partial class NetworkPathDG
 {
+    [Parameter]
     public IEnumerable<RtMonitorTable> MonitorTable { get; set; }
+
+    [Parameter]
+    public string TitleText { get; set; }
+
+    public int StatusStylesIndex { get; set; } = 2;
+
+    public int PathStylesIndex { get; set; } = 2;
+
+    public string PathText { get; set; }= "Undetermined";
+
 
     private string[] StatusStyles = {
         "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #278e26",
         "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #8d2108",
         "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #989594"
     };
-    private int StatusStylesIndex = 2;
     private string[] PathStyles = {
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #278e26",
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #8d2108",
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #989594",
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #f0aa4a"
     };
-    private int PathStylesIndex = 2;
     enum Level
     {
         Good,
@@ -29,8 +40,58 @@ public partial class NetworkPathDG
         Caution
     }
     private string PathStyle = "bg-dark";
-    private string PathText = "Undetermined";
- 
+
+    public void SetMonitorTable(IEnumerable<RtMonitorTable> MonitorTable)
+    {
+        this.MonitorTable = MonitorTable;
+        if (MonitorTable != null)
+        {
+            (int index, string txt) p = GetPathStatus(MonitorTable);
+            PathStylesIndex = p.index;
+            PathText = p.txt;
+
+            StatusStylesIndex = GetSummaryStatus(MonitorTable);
+        }
+
+    }
+    private int GetSummaryStatus(IEnumerable<RtMonitorTable> m)
+    {
+        int ret = 2;
+        if (m.Any(x => x.CommsOkAlert || x.OnePpsPresentAlert || x.MeasuredDelayAlert || x.DateTimeStampAlert || x.MeasuredNetworkRateAlert || x.TenMhzLockedAlert))
+        {
+            ret = (int)Level.Bad;
+        }
+        else
+        {
+            ret = (int)Level.Good;
+        }
+        return ret;
+    }
+
+    private (int index, string txt) GetPathStatus(IEnumerable<RtMonitorTable> m)
+    {
+        int index = 2;
+        string txt = "None on this path";
+        if (m.All(x => x.RfOutputEnableAlert || x.StreamEnableAlert))
+        {
+            index = (int)Level.Bad;
+            txt = "None on this path";
+        }
+        else if (m.Any(x => x.RfOutputEnableAlert || x.StreamEnableAlert))
+        {
+            index = (int)Level.Caution; //--rz-warning
+            txt = "Some on this path";
+        }
+        else
+        {
+            index = (int)Level.Good;
+            txt = "All on this path";
+        }
+
+        return (index, txt);
+    }
+
+
     #region DataGrid
 
     void CellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
@@ -100,10 +161,10 @@ public partial class NetworkPathDG
 
     void HeaderFooterCellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
-        if (args.Column.Property == "MeasuredDelay")
-        {
-            args.Attributes.Add("style", "background-color: var(--rz-danger)");
-        }
+        //if (args.Column.Property == "MeasuredDelay")
+        //{
+        //    args.Attributes.Add("style", "background-color: var(--rz-danger)");
+        //}
     }
 
     //void CellRender(DataGridCellRenderEventArgs<Site2Status> args)
