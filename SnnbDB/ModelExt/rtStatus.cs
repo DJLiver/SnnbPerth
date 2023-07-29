@@ -22,6 +22,50 @@ public class RtStatus
     public List<MAvailableStream> AvailableStreams { get; set; }
 
 
+    public List<RtMonitorTable> GetRtMonitorByGroup(int groupId)
+    {
+        List<RtMonitorTable> rtMonitors = new List<RtMonitorTable>();
+        
+        foreach (MSpectralNetGroup sng in SpecNetGroups)
+        {
+            if (sng.GroupId== groupId)
+            {
+                var r = new RtMonitorTable();
+
+                r.UnitId = sng.UnitId;
+                r.UnitName = sng.UnitName;
+                r.RemoteUnit = sng.RemoteUnit;
+                r.PeerUnit = sng.PeerUnit;
+                r.CommMessage = sng.ErrorText;
+                r.CommsOk = (!sng.Error).ToString();
+                r.CommsOkAlert = sng.Error;
+                r.DisplayOrder = sng.DisplayOrder;
+
+                r.DateTimeStamp = sng.DateStamp.ToString("ddMMMyy HH:mm:ss");
+                double TimeDiff = (sng.DateStamp - DateTimeStamp).TotalSeconds;
+                r.DateTimeStampAlert = (Math.Abs(TimeDiff) > 10.0);
+                r.NetworkPath = sng.NetworkPath;
+                rtMonitors.Add(r);
+
+            }
+        }
+        foreach (RtMonitorTable rm in rtMonitors)
+        {
+            FormatData(rm);
+        }
+        rtMonitors.Sort(delegate (RtMonitorTable x, RtMonitorTable y)
+        {
+            if (x.DisplayOrder > y.DisplayOrder)
+                return 1;
+            else if (x.DisplayOrder < y.DisplayOrder)
+                return -1;
+            else
+                return 0;
+        });
+        return rtMonitors;
+    }
+
+
     public List<RtMonitorTable> GetRtMonitor(string NetworkPath)
     {
         List<RtMonitorTable> rtMonitors = new List<RtMonitorTable>();
@@ -47,7 +91,7 @@ public class RtStatus
 
                 rtMonitors.Add(r);
 
-            }        
+            }
         }
 
         foreach (RtMonitorTable rm in rtMonitors)
@@ -58,9 +102,9 @@ public class RtStatus
         {
             if (x.DisplayOrder > y.DisplayOrder)
                 return 1;
-            else if (x.DisplayOrder < y.DisplayOrder) 
+            else if (x.DisplayOrder < y.DisplayOrder)
                 return -1;
-            else 
+            else
                 return 0;
         });
 
@@ -92,13 +136,13 @@ public class RtStatus
 
             rm.MeasuredDelay = (v / 1000000).ToString((v > 100000000) ? "N0" : "N2") + "ms";
 
-            rm.MeasuredDelayAlert = (v > 2100000)? true : false;
+            rm.MeasuredDelayAlert = (v > 2100000) ? true : false;
 
             v = (from s in RfOutputStreams
-                      where s.UnitId == rm.UnitId
-                      select s.MeasuredNetworkRate).Single();
+                 where s.UnitId == rm.UnitId
+                 select s.MeasuredNetworkRate).Single();
             rm.MeasuredNetworkRate = (v / 1000000).ToString("N0") + "Mbps";
-            rm.MeasuredNetworkRateAlert = (v > 555000000)? true : false;
+            rm.MeasuredNetworkRateAlert = (v > 555000000) ? true : false;
 
             bool b = (from s in RfInputStreams
                       where s.UnitId == rm.UnitId
@@ -110,7 +154,7 @@ public class RtStatus
                  where s.UnitId == rm.UnitId
                  select s.RfOutputEnable).Single();
             rm.RfOutputEnable = b.ToString();
-            rm.RfOutputEnableAlert = !b; 
+            rm.RfOutputEnableAlert = !b;
 
             b = (from s in Modules
                  where s.UnitId == rm.UnitId
@@ -140,7 +184,7 @@ public class RtStatus
             RfOutputStreams = c.MRfOutputStreams.ToList();
             AvailableStreams = c.MAvailableStreams.ToList();
 
-           // c.SaveChanges();
+            // c.SaveChanges();
         }
         catch (Exception)
         {

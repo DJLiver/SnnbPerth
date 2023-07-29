@@ -1,97 +1,91 @@
-using Failover.Client.Shared;
-
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.JSInterop;
 
 using Radzen;
-using Radzen.Blazor;
 
 using SnnbDB.ModelExt;
 
-namespace Failover.Client.Pages;
+namespace Failover.Client.Shared;
 
-public partial class Monitor
+public partial class GroupDG
 {
-    private NetworkPathDG NPDGPrimary;
-//    private RadzenDataGrid<RtMonitorTable> gridPrimary;
+    [Parameter]
+    public string TitleText { get; set; }
+    public IEnumerable<RtMonitorTable> MonitorTable { get; set; }
 
-    private NetworkPathDG NPDGSecondary;
-//    private RadzenDataGrid<RtMonitorTable> gridSecondary;
+    public int StatusStylesIndex { get; set; } = 2;
 
-    //private Dictionary<int, GroupDG> GroupDGs;
-    //private Dictionary<int, string> GroupDGNames;
-    private GroupDG GroupDG201;
-    private string GroupDGName201 = "AUC-WRW LH1";
-//    private List<RadzenDataGrid<RtMonitorTable>> grids;
+    public int PathStylesIndex { get; set; } = 2;
+
+    public string PathText { get; set; }= "Undetermined";
 
 
-
-    private string DataTimeStamp = DateTime.Now.ToString("ddMMMyyyy HH:mm:ss");
-
-    private HubConnection hubConnection = null;
-
-
-    #region Injects
-    [Inject]
-    protected IJSRuntime JSRuntime { get; set; }
-
-    [Inject]
-    protected NavigationManager NavigationManager { get; set; }
-
-    [Inject]
-    protected DialogService DialogService { get; set; }
-
-    [Inject]
-    protected TooltipService TooltipService { get; set; }
-
-    [Inject]
-    protected ContextMenuService ContextMenuService { get; set; }
-
-    [Inject]
-    protected NotificationService NotificationService { get; set; }
-
-    #endregion
-
-    #region Initial
-
-    protected override async Task OnInitializedAsync()
+    private string[] StatusStyles = {
+        "width: 130px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #278e26",
+        "width: 130px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #8d2108",
+        "width: 130px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #989594"
+    };
+    private string[] PathStyles = {
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #278e26",
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #8d2108",
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #989594",
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #f0aa4a",
+        "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #12376e"
+    };
+    enum Level
     {
-        try
-        {
-            //GroupDGs.Add(201, null);
-            //GroupDGNames.Add(201, "AUC-WRW LH1");
-            hubConnection = new HubConnectionBuilder()
-                .WithUrl(NavigationManager.ToAbsoluteUri("/UpdateHub"))
-                .Build();
-            hubConnection.On<RtStatus>("RT Status", RecData);
-            await hubConnection.StartAsync();
-
-        }
-        catch (Exception ex)
-        {
-        }
+        Good,
+        Bad,
+        Unknown,
+        Caution,
+        Blue
     }
-    #endregion
 
-
-    #region RecData
-
-
-    private async void RecData(RtStatus rtStatus)
+    public async void SetMonitorTable(IEnumerable<RtMonitorTable> MonitorTable)
     {
-        DataTimeStamp = rtStatus.DateTimeStamp.ToString("ddMMMyyyy HH:mm:ss");
+        this.MonitorTable = MonitorTable;
+        if (MonitorTable != null)
+        {
+            (int index, string txt) p = GetPathStatus();
+            PathStylesIndex = p.index;
+            PathText = p.txt;
 
-        GroupDG201.SetMonitorTable(rtStatus.GetRtMonitorByGroup(201));
-
-        NPDGPrimary.SetMonitorTable(rtStatus.GetRtMonitor("Primary"));
-        NPDGSecondary.SetMonitorTable(rtStatus.GetRtMonitor("Secondary"));
-
+            StatusStylesIndex = GetFaultStatus();
+        }
         await InvokeAsync(() => StateHasChanged());
+
+    }
+    private int GetFaultStatus()
+    {
+        int ret = 2;
+        if (MonitorTable.Any(x => x.CommsOkAlert || x.OnePpsPresentAlert || x.MeasuredDelayAlert || x.DateTimeStampAlert || x.MeasuredNetworkRateAlert || x.TenMhzLockedAlert))
+        {
+            ret = (int)Level.Bad;
+        }
+        else
+        {
+            ret = (int)Level.Good;
+        }
+        return ret;
     }
 
+    private (int index, string txt) GetPathStatus()
+    {
+        int index = (int)Level.Bad;
+        string txt = "On no path";
+        if ((MonitorTable.Count(x => !x.RfOutputEnableAlert && x.NetworkPath == "Primary") == 2))
+        {
+            index = (int)Level.Blue;
+            txt = "On primary path";
+        }
+        else if ((MonitorTable.Count(x => !x.RfOutputEnableAlert && x.NetworkPath == "Secondary") == 2))
+        {
+            index = (int)Level.Blue; //--rz-warning
+            txt = "On secondary path";
+        }
 
-    #endregion
+        return (index, txt);
+    }
+
 
     #region DataGrid
 
@@ -162,10 +156,10 @@ public partial class Monitor
 
     void HeaderFooterCellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
-        if (args.Column.Property == "MeasuredDelay")
-        {
-            args.Attributes.Add("style", "background-color: var(--rz-danger)");
-        }
+        //if (args.Column.Property == "MeasuredDelay")
+        //{
+        //    args.Attributes.Add("style", "background-color: var(--rz-danger)");
+        //}
     }
 
     //void CellRender(DataGridCellRenderEventArgs<Site2Status> args)
@@ -189,8 +183,10 @@ public partial class Monitor
     //{
     //    args.Attributes.Add("style", "background-color: darkslategray ");
     //}
+    void SortCallback(DataGridCellRenderEventArgs<RtMonitorTable> args)
+    {
+
+    }
 
     #endregion
-
 }
-

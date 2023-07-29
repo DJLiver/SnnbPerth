@@ -22,9 +22,9 @@ public partial class NetworkPathDG
 
 
     private string[] StatusStyles = {
-        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #278e26",
-        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #8d2108",
-        "width: 112px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #989594"
+        "width: 130px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #278e26",
+        "width: 130px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #8d2108",
+        "width: 130px; height: 31px; border-radius: 6px; vertical-align: bottom; padding-top: 4px; margin-top: 4px; border: 3px solid #989594"
     };
     private string[] PathStyles = {
         "width: 170px; height: 31px; border-radius: 6px; padding-top: 4px; margin-top: 4px; margin-left: 20px; vertical-align: bottom; border: 3px solid #278e26",
@@ -45,19 +45,19 @@ public partial class NetworkPathDG
         this.MonitorTable = MonitorTable;
         if (MonitorTable != null)
         {
-            (int index, string txt) p = GetPathStatus(MonitorTable);
+            (int index, string txt) p = GetPathStatus();
             PathStylesIndex = p.index;
             PathText = p.txt;
 
-            StatusStylesIndex = GetSummaryStatus(MonitorTable);
+            StatusStylesIndex = GetSummaryStatus();
         }
         await InvokeAsync(() => StateHasChanged());
 
     }
-    private int GetSummaryStatus(IEnumerable<RtMonitorTable> m)
+    private int GetSummaryStatus()
     {
         int ret = 2;
-        if (m.Any(x => x.CommsOkAlert || x.OnePpsPresentAlert || x.MeasuredDelayAlert || x.DateTimeStampAlert || x.MeasuredNetworkRateAlert || x.TenMhzLockedAlert))
+        if (MonitorTable.Any(x => x.CommsOkAlert || x.OnePpsPresentAlert || x.MeasuredDelayAlert || x.DateTimeStampAlert || x.MeasuredNetworkRateAlert || x.TenMhzLockedAlert))
         {
             ret = (int)Level.Bad;
         }
@@ -68,16 +68,16 @@ public partial class NetworkPathDG
         return ret;
     }
 
-    private (int index, string txt) GetPathStatus(IEnumerable<RtMonitorTable> m)
+    private (int index, string txt) GetPathStatus()
     {
         int index = 2;
         string txt = "None on this path";
-        if (m.All(x => x.RfOutputEnableAlert || x.StreamEnableAlert))
+        if (MonitorTable.All(x => x.RfOutputEnableAlert || x.StreamEnableAlert))
         {
             index = (int)Level.Bad;
             txt = "None on this path";
         }
-        else if (m.Any(x => x.RfOutputEnableAlert || x.StreamEnableAlert))
+        else if (MonitorTable.Any(x => x.RfOutputEnableAlert || x.StreamEnableAlert))
         {
             index = (int)Level.Caution; //--rz-warning
             txt = "Some on this path";

@@ -29,5 +29,6 @@ public class RtMonitorTable
     public string RfOutputEnable { get; set; } // In Module RfOutputEnable
     public bool RfOutputEnableAlert { get; set; } // In Module RfOutputEnable
     public int DisplayOrder { get; set; }
+    public string NetworkPath { get; set; } 
 
 }
