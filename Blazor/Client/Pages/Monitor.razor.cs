@@ -22,7 +22,13 @@ public partial class Monitor
     //private Dictionary<int, GroupDG> GroupDGs;
     //private Dictionary<int, string> GroupDGNames;
     private GroupDG GroupDG201;
+    private GroupDG GroupDG202;
+    private GroupDG GroupDG203;
+    private GroupDG GroupDG204;
     private string GroupDGName201 = "AUC-WRW LH1";
+    private string GroupDGName202 = "AUC-WRW LH2";
+    private string GroupDGName203 = "AUC-WRW RH1";
+    private string GroupDGName204 = "AUC-WRW RH2";
 //    private List<RadzenDataGrid<RtMonitorTable>> grids;
 
 
@@ -83,9 +89,12 @@ public partial class Monitor
         DataTimeStamp = rtStatus.DateTimeStamp.ToString("ddMMMyyyy HH:mm:ss");
 
         GroupDG201.SetMonitorTable(rtStatus.GetRtMonitorByGroup(201));
+        GroupDG202.SetMonitorTable(rtStatus.GetRtMonitorByGroup(202));
+        GroupDG203.SetMonitorTable(rtStatus.GetRtMonitorByGroup(203));
+        GroupDG204.SetMonitorTable(rtStatus.GetRtMonitorByGroup(204));
 
-        NPDGPrimary.SetMonitorTable(rtStatus.GetRtMonitor("Primary"));
-        NPDGSecondary.SetMonitorTable(rtStatus.GetRtMonitor("Secondary"));
+        //NPDGPrimary.SetMonitorTable(rtStatus.GetRtMonitor("Primary"));
+        //NPDGSecondary.SetMonitorTable(rtStatus.GetRtMonitor("Secondary"));
 
         await InvokeAsync(() => StateHasChanged());
     }
