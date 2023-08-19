@@ -12,28 +12,29 @@
 
 <RadzenLayout style="grid-template-areas: 'rz-sidebar rz-header' 'rz-sidebar rz-body';">
     <RadzenHeader>
-        <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0">
-            <RadzenColumn Size="5">
+        <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal">
+            <RadzenStack AlignItems="AlignItems.Start" Orientation="Orientation.Horizontal" JustifyContent="Radzen.JustifyContent.Start">
                 <RadzenSidebarToggle Click="@SidebarToggleClick"></RadzenSidebarToggle>
-            </RadzenColumn>
-            <RadzenColumn Size="7">
-                <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
-                    <RadzenLabel Text="Auto switch" Style="margin-right: 20px; width: 111px; border-radius: 6px; text-align: center; height: 31px; border: 3px solid #8d2108" />
-                </RadzenStack>
-            </RadzenColumn>
-        </RadzenRow>
+                <RadzenText Text="Server Time:  " TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 136px; height: 27px; margin-top: 12px" />
+                <RadzenText @ref="dt" Text="@DataTimeStamp" TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 273px; height: 22px; margin-top: 12px" />
+            </RadzenStack>
+            <RadzenStack AlignItems="Radzen.AlignItems.Normal" Orientation="Orientation.Horizontal" Style="width: 197px" JustifyContent="Radzen.JustifyContent.End">
+                <RadzenLabel Text="Auto switch" Style="margin-right: 20px; width: 111px; border-radius: 6px; text-align: center; height: 31px; border: 3px solid #8d2108" />
+            </RadzenStack>
+        </RadzenStack>
+
     </RadzenHeader>
     <RadzenBody Expanded="@sidebarExpanded">
         <RadzenRow class="rz-mx-auto rz-px-4 rz-pt-2 rz-pt-md-4 rz-pt-lg-6 rz-pt-xl-12 rz-pb-2 rz-pb-lg-12" Style="max-width: 1440px;">
             <RadzenColumn Size="12">
-            @Body
+                @Body
             </RadzenColumn>
         </RadzenRow>
     </RadzenBody>
     <RadzenSidebar Expanded="@sidebarExpanded" style="z-index: 2; width: 256px; height: 641px">
         <RadzenStack AlignItems="Radzen.AlignItems.Center" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding); border-bottom: var(--rz-panel-menu-item-border);">
-            <RadzenImage Path="images\download.jpeg"  style="width: 113px; height: 54px"></RadzenImage>
-            <RadzenText Text="SpectralNet Failover" TextStyle="Radzen.Blazor.TextStyle.Subtitle1" class="rz-mb-0" style="color: var(--rz-sidebar-color); height: 46px; width: 171px" />
+            <RadzenImage Path="images\download.jpeg" style="width: 113px; height: 54px"></RadzenImage>
+            <RadzenText Text="SpectralNet Failover" TextStyle="Radzen.Blazor.TextStyle.Subtitle1" class="rz-mb-0" style="color: var(--rz-sidebar-color); height: 46px; width: 171px; text-align: center" />
         </RadzenStack>
         <RadzenPanelMenu>
             <RadzenPanelMenuItem Text="Monitor" Icon="preview" Path="/" />
@@ -47,11 +48,4 @@
     </RadzenSidebar>
 </RadzenLayout>
 
-@code {
-   bool sidebarExpanded = true;
 
-   void SidebarToggleClick()
-   {
-       sidebarExpanded = !sidebarExpanded;
-   }
-}

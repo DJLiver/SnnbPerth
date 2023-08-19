@@ -7,7 +7,7 @@
 
 <RadzenRow Gap="0.5rem" RowGap="0.5rem" Style="width: 1010px; height: 400px">
     <RadzenColumn Size="6" class="rz-p-5" Style="height: 629px; width: 404px">
-        <RadzenCard Style="width: 460px; height: 590px">
+        <RadzenCard Style="width: 460px; height: 590px; margin-top: 20px">
             <RadzenFieldset Style="height: 158px">
                 <HeaderTemplate>
                     Switch Logic
@@ -60,7 +60,7 @@
                             <RadzenCheckBox TValue="bool" Style="margin-top: 12px" Disabled="false" TriState="false" Name="" @bind-Value="@group4"></RadzenCheckBox>
                         </RadzenRow>
                         <RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Switch to A"></RadzenButton>
-                        <RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Switch to A"></RadzenButton>
+                        <RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Switch to B"></RadzenButton>
                         <RadzenButton Style="width: 122px; height: 30px; margin-top: 10px" Text="Clear Stat"></RadzenButton>
                         <RadzenButton Style="width: 122px; height: 30px" Text="Save config"></RadzenButton>
                     </RadzenColumn>
@@ -70,7 +70,7 @@
         </RadzenCard>
     </RadzenColumn>
     <RadzenColumn class="rz-p-5">
-        <RadzenCard Style="height: 591px; width: 459px">
+        <RadzenCard Style="height: 591px; width: 459px; margin-top: 20px">
             <RadzenFieldset Text="Events" Style="height: 505px">
                 <RadzenDataList TItem="dynamic" Style="height: 452px"></RadzenDataList>
             </RadzenFieldset>

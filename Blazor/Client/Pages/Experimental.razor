@@ -1,4 +1,5 @@
 @page "/experimental"
+@using SnnbDB.ModelHub;
 
 
 <PageTitle>Experimental</PageTitle>
@@ -7,4 +8,36 @@
         <RadzenText Text="Experimental" TextStyle="TextStyle.H3" TagName="TagName.H1" />
     </RadzenColumn>
 </RadzenRow>
+<RadzenCard Style="width: 1200px" Variant="Radzen.Variant.Filled">
+    <RadzenStack Orientation="Radzen.Orientation.Vertical">
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+            <RadzenChart Style="height: 308px; width: 554px">
+                <RadzenLineSeries TItem="DataItem" Data="@Spectrum.Charts[0].ChartData" Title="@Spectrum.Charts[0].Title" ValueProperty="Level" CategoryProperty="Freq" Hidden="false" Smooth="false" Stroke="green">
+                    <RadzenSeriesAnnotation TItem="DataItem" Text="lplplp" Data="@Spectrum.Charts[0].ChartData[511]"></RadzenSeriesAnnotation>
+                </RadzenLineSeries>
+                <RadzenLegend Position="Radzen.Blazor.LegendPosition.Bottom"></RadzenLegend>
+                <RadzenCategoryAxis Min="1338" Max="1383" FormatString="">
+                </RadzenCategoryAxis>
+                <RadzenValueAxis Min="-120" Max="0"></RadzenValueAxis>
+            </RadzenChart>
+            <RadzenChart Style="height: 308px; width: 482px">
+                <RadzenLineSeries TItem="DataItem"  Data="@Spectrum.Charts[17].ChartData" Title="@Spectrum.Charts[17].Title" ValueProperty="Level" CategoryProperty="Freq" Hidden="false">
+                </RadzenLineSeries>
+                <RadzenLegend Position="Radzen.Blazor.LegendPosition.Bottom"></RadzenLegend>
+            </RadzenChart>
+        </RadzenStack>
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal">
+            <RadzenChart Style="height: 308px; width: 554px">
+                <RadzenLineSeries Data="@Spectrum.Charts[1].ChartData" Title="@Spectrum.Charts[1].Title" ValueProperty="Level" CategoryProperty="Freq" Hidden="false">
+                </RadzenLineSeries>
+                <RadzenLegend Position="Radzen.Blazor.LegendPosition.Bottom"></RadzenLegend>
+            </RadzenChart>
+            <RadzenChart Style="height: 308px; width: 482px">
+                <RadzenLineSeries Data="@Spectrum.Charts[16].ChartData" Title="@Spectrum.Charts[16].Title" ValueProperty="Level" CategoryProperty="Freq" Hidden="false">
+                </RadzenLineSeries>
+                <RadzenLegend Position="Radzen.Blazor.LegendPosition.Bottom"></RadzenLegend>
+            </RadzenChart>
+        </RadzenStack>
+    </RadzenStack>
 
+</RadzenCard>

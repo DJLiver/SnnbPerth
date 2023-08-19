@@ -1,16 +1,9 @@
 using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
-using RestSharp;
-using SnnbDB.ModelExt;
-using SnnbDB.Models;
-using SnnbDB.Rest;
 using SnnbFailover.Server.Hubs;
-using SnnbDB.DataProcessing;
-using System.Diagnostics;
-using System.Linq.Dynamic.Core;
+using SnnbDB.ModelExt;
+using SnnbDB.ModelHub;
 
 namespace SnnbFailover.Server.Services;
-
 
 public class TimerService : BackgroundService, IDisposable
 {
@@ -52,10 +45,19 @@ public class TimerService : BackgroundService, IDisposable
             {
                 _reEntry = true;
 
-                RtStatus rt = new();
-                rt.Fill();
+                RtSnapShot rtSnapShot = new RtSnapShot();
+                rtSnapShot.Fill();
 
-                await _updateHub.Clients.All.SendAsync("RT Status", rt);
+                RtSpectrum rtSpectrum = new RtSpectrum(false);
+                rtSpectrum.FillSpectrum(rtSnapShot);
+
+                RtMainLayout rtMainLayout = RtMainLayout.GetRtLayout(rtSnapShot);
+
+                RtMonitor rtMonitor = RtMonitor.GetRtMonitor(rtSnapShot);
+
+                await _updateHub.Clients.All.SendAsync("RT Monitor", rtMonitor);
+                await _updateHub.Clients.All.SendAsync("RT MainLayout", rtMainLayout);
+                await _updateHub.Clients.All.SendAsync("RT Spectrum", rtSpectrum);
 
                 _reEntry = false;
             }
@@ -65,57 +67,4 @@ public class TimerService : BackgroundService, IDisposable
     }
 
 
-    //private async Task Collect(CancellationToken stoppingToken)
-    //{
-    //    // SnnbFoContext c = new SnnbFoContext();
-    //    SNNBStatus sNNBStatus = new SNNBStatus() { DateTime = DateTime.Now };
-
-    //    SNNBStatusContext c = new SNNBStatusContext();
-    //    try
-    //    {
-    //        sNNBStatus.Site1Status = c.Site1Statuses.ToList();
-    //        sNNBStatus.Site2Status = c.Site2Statuses.ToList();
-    //        sNNBStatus.SiteAttrLimit = c.SiteAttrLimits.ToList();
-    //    }
-    //    catch (Exception ex)
-    //    {
-
-    //      //  throw;
-    //     }
-
-    //    //List<MetricSite1Summary> s1 = c.MetricSite1Summaries.ToList();
-    //    //s1.Sort(sort_1);
-    //    //List<MetricSite2Summary> s2 = c.MetricSite2Summaries.ToList();
-    //    //s2.Sort(sort_2);
-    //    //foreach (var item in s1)
-    //    //{
-    //    //    item.RfoutmeasuredDelay = item.RfoutmeasuredDelay / 1000000;
-    //    //    item.RfoutmeasuredNetworkRate = item.RfoutmeasuredNetworkRate / 1000000;
-    //    //}
-    //    //foreach (var item in s2)
-    //    //{
-    //    //    item.RfoutmeasuredDelay = item.RfoutmeasuredDelay / 1000000;
-    //    //    item.RfoutmeasuredNetworkRate = item.RfoutmeasuredNetworkRate / 1000000;
-    //    //}
-
-    //    await _updateHub.Clients.All.SendAsync("UpdateSummary", sNNBStatus);
-
-    //}
-
-    //private int sort_1(MetricSite1Summary x, MetricSite1Summary y)
-    //{
-    //    if (x.ExtDisplayOrder > y.ExtDisplayOrder)
-    //    {
-    //        return 1;
-    //    }
-    //    return -1;
-    //}
-    //private int sort_2(MetricSite2Summary x, MetricSite2Summary y)
-    //{
-    //    if (x.ExtDisplayOrder > y.ExtDisplayOrder)
-    //    {
-    //        return 1;
-    //    }
-    //    return -1;
-    //}
 }

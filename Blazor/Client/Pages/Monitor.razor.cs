@@ -1,42 +1,19 @@
-using Failover.Client.Shared;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
-
-using Radzen;
-using Radzen.Blazor;
-
+using Failover.Client.Shared;
 using SnnbDB.ModelExt;
 
 namespace Failover.Client.Pages;
 
 public partial class Monitor
 {
-    private NetworkPathDG NPDGPrimary;
-//    private RadzenDataGrid<RtMonitorTable> gridPrimary;
-
-    private NetworkPathDG NPDGSecondary;
-//    private RadzenDataGrid<RtMonitorTable> gridSecondary;
-
-    //private Dictionary<int, GroupDG> GroupDGs;
-    //private Dictionary<int, string> GroupDGNames;
     private GroupDG GroupDG201;
     private GroupDG GroupDG202;
     private GroupDG GroupDG203;
     private GroupDG GroupDG204;
-    private string GroupDGName201 = "AUC-WRW LH1";
-    private string GroupDGName202 = "AUC-WRW LH2";
-    private string GroupDGName203 = "AUC-WRW RH1";
-    private string GroupDGName204 = "AUC-WRW RH2";
-//    private List<RadzenDataGrid<RtMonitorTable>> grids;
-
-
-
-    private string DataTimeStamp = DateTime.Now.ToString("ddMMMyyyy HH:mm:ss");
 
     private HubConnection hubConnection = null;
-
 
     #region Injects
     [Inject]
@@ -65,12 +42,10 @@ public partial class Monitor
     {
         try
         {
-            //GroupDGs.Add(201, null);
-            //GroupDGNames.Add(201, "AUC-WRW LH1");
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(NavigationManager.ToAbsoluteUri("/UpdateHub"))
                 .Build();
-            hubConnection.On<RtStatus>("RT Status", RecData);
+            hubConnection.On<RtMonitor>("RT Monitor", RecData);
             await hubConnection.StartAsync();
 
         }
@@ -80,25 +55,18 @@ public partial class Monitor
     }
     #endregion
 
-
     #region RecData
 
-
-    private async void RecData(RtStatus rtStatus)
+    private async void RecData(RtMonitor rtMonitor)
     {
-        DataTimeStamp = rtStatus.DateTimeStamp.ToString("ddMMMyyyy HH:mm:ss");
+        GroupDG201.SetMonitorTable(rtMonitor.monitorTable201);
+        GroupDG202.SetMonitorTable(rtMonitor.monitorTable202);
+        GroupDG203.SetMonitorTable(rtMonitor.monitorTable203);
+        GroupDG204.SetMonitorTable(rtMonitor.monitorTable204);
 
-        GroupDG201.SetMonitorTable(rtStatus.GetRtMonitorByGroup(201));
-        GroupDG202.SetMonitorTable(rtStatus.GetRtMonitorByGroup(202));
-        GroupDG203.SetMonitorTable(rtStatus.GetRtMonitorByGroup(203));
-        GroupDG204.SetMonitorTable(rtStatus.GetRtMonitorByGroup(204));
-
-        //NPDGPrimary.SetMonitorTable(rtStatus.GetRtMonitor("Primary"));
-        //NPDGSecondary.SetMonitorTable(rtStatus.GetRtMonitor("Secondary"));
-
-        await InvokeAsync(() => StateHasChanged());
+        //await InvokeAsync(() => StateHasChanged());
+        await InvokeAsync(StateHasChanged);
     }
-
 
     #endregion
 
@@ -171,10 +139,10 @@ public partial class Monitor
 
     void HeaderFooterCellRender(DataGridCellRenderEventArgs<RtMonitorTable> args)
     {
-        if (args.Column.Property == "MeasuredDelay")
-        {
-            args.Attributes.Add("style", "background-color: var(--rz-danger)");
-        }
+        //if (args.Column.Property == "MeasuredDelay")
+        //{
+        //    args.Attributes.Add("style", "background-color: var(--rz-danger)");
+        //}
     }
 
     //void CellRender(DataGridCellRenderEventArgs<Site2Status> args)

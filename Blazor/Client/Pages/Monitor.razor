@@ -5,17 +5,11 @@
 <PageTitle>Monitor</PageTitle>
 <RadzenRow>
     <RadzenColumn Size="12">
-        <RadzenText Text="Monitor" TextStyle="TextStyle.H3" TagName="TagName.H1" Style="width: 1010px; height: 62px" />
+        <RadzenText Text="Real time monitor" TextStyle="TextStyle.H3" TagName="TagName.H1" Style="width: 1010px; height: 62px" />
     </RadzenColumn>
 </RadzenRow>
 
 
-<RadzenCard Style="width: 456px; height: 60px">
-    <RadzenRow>
-        <RadzenText Text="Server Time:" TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 129px; height: 27px" />
-        <RadzenText Text="@DataTimeStamp" TextStyle="Radzen.Blazor.TextStyle.H5" TagName="TagName.H1" Style="width: 188px; height: 22px" />
-    </RadzenRow>
-</RadzenCard>
 
 
 
@@ -25,7 +19,7 @@
 *@
 
 
-<GroupDG @ref="GroupDG201" TitleText="@GroupDGName201"> </GroupDG>
-<GroupDG @ref="GroupDG202" TitleText="@GroupDGName202"> </GroupDG>
-<GroupDG @ref="GroupDG203" TitleText="@GroupDGName203"> </GroupDG>
-<GroupDG @ref="GroupDG204" TitleText="@GroupDGName204"> </GroupDG>
+<GroupDG @ref="GroupDG201" TitleText="AUC-WRW LH1"> </GroupDG>
+<GroupDG @ref="GroupDG202" TitleText="AUC-WRW LH2"> </GroupDG>
+<GroupDG @ref="GroupDG203" TitleText="AUC-WRW RH1"> </GroupDG>
+<GroupDG @ref="GroupDG204" TitleText="AUC-WRW RH2"> </GroupDG>
