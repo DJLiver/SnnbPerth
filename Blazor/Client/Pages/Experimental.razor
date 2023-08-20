@@ -12,16 +12,33 @@
     <RadzenStack Orientation="Radzen.Orientation.Vertical">
         <RadzenStack Orientation="Radzen.Orientation.Horizontal">
             <RadzenChart Style="height: 308px; width: 554px">
-                <RadzenLineSeries TItem="DataItem" Data="@Spectrum.Charts[0].ChartData" Title="@Spectrum.Charts[0].Title" ValueProperty="Level" CategoryProperty="Freq" Hidden="false" Smooth="false" Stroke="green">
-                    <RadzenSeriesAnnotation TItem="DataItem" Text="lplplp" Data="@Spectrum.Charts[0].ChartData[511]"></RadzenSeriesAnnotation>
-                </RadzenLineSeries>
                 <RadzenLegend Position="Radzen.Blazor.LegendPosition.Bottom"></RadzenLegend>
-                <RadzenCategoryAxis Min="1338" Max="1383" FormatString="">
+                <RadzenSeriesValueLine Value="1350" Stroke="red" StrokeWidth="2"> </RadzenSeriesValueLine>
+                <RadzenCategoryAxis Min="1338" Max="1383">
                 </RadzenCategoryAxis>
                 <RadzenValueAxis Min="-120" Max="0"></RadzenValueAxis>
+                <RadzenLineSeries TItem="DataItem" Data="@Spectrum.Charts[0].ChartData" Title="@Spectrum.Charts[0].Title" ValueProperty="Level" CategoryProperty="Freq" Hidden="false" Smooth="false" Stroke="green" StrokeWidth="1">
+                    <TooltipTemplate Context="data">
+                        <RadzenStack Orientation="Orientation.Vertical">
+                            <RadzenStack Orientation="Orientation.Horizontal">
+                                <RadzenLabel Text="Frequency:" Style="width: 102px; text-align: right; font-style: normal" />
+                                <RadzenLabel Text=@data.Freq.ToString("n2") Style="width: 109px" />
+                            </RadzenStack>
+                            <RadzenStack Orientation="Orientation.Horizontal">
+                                <RadzenLabel Text="Level:" Style="width: 102px; text-align: right" />
+                                <RadzenLabel Text=@data.Level.ToString() Style="width: 109px" />
+                            </RadzenStack>
+                        </RadzenStack>
+                    </TooltipTemplate>
+                    <ChildContent>
+                        <RadzenSeriesAnnotation TItem="DataItem" Text="CF" OffsetY="-16" Data="@Spectrum.Charts[0].ChartData[511]"></RadzenSeriesAnnotation>
+                        <RadzenSeriesValueLine Value="1350" Stroke="red" StrokeWidth="1"> </RadzenSeriesValueLine>
+
+                    </ChildContent>
+                </RadzenLineSeries>
             </RadzenChart>
             <RadzenChart Style="height: 308px; width: 482px">
-                <RadzenLineSeries TItem="DataItem"  Data="@Spectrum.Charts[17].ChartData" Title="@Spectrum.Charts[17].Title" ValueProperty="Level" CategoryProperty="Freq" Hidden="false">
+                <RadzenLineSeries TItem="DataItem" Data="@Spectrum.Charts[17].ChartData" Title="@Spectrum.Charts[17].Title" ValueProperty="Level" CategoryProperty="Freq" Hidden="false">
                 </RadzenLineSeries>
                 <RadzenLegend Position="Radzen.Blazor.LegendPosition.Bottom"></RadzenLegend>
             </RadzenChart>
